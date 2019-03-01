@@ -1,0 +1,53 @@
+/* CSS Document */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body {
+	background-color: lightgrey;
+	font-family: 'Montserrat', sans-serif;
+	height: 1200px;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  overflow: hidden;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #161616;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+.home {
+	float: left;
+}
+.logo {
+	width: 100%;
+	background-color: #161616;
+}
+.middle {
+	float: right;
+	max-width: 60%;
+}
+.left {
+	float: left;
+	max-width: 100px;
+	max-height: auto;
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Ww2_158.jpg/1200px-Ww2_158.jpg")
+}
+.right {
+	float: right;
+}
