@@ -40,7 +40,8 @@ li a:hover {
 	background-color: #161616;
 }
 .middle {
-    margin-left: 20%;
+    margin-left: 12%;
+	margin-right: 12%;
 	padding: 8%;
 	max-width: 60%;
 	background-color: darkgrey;
