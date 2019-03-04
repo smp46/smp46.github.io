@@ -18,6 +18,7 @@ ul {
 
 li {
   float: right;
+  min-width: 1%;
 }
 
 li a {
@@ -50,4 +51,13 @@ li a:hover {
 }
 .right {
 	float: right;
+}
+.nav {
+    left:0%;
+    top:0%;
+    margin: 0px;
+    padding: 0;
+    border-bottom: none;
+    width:100%;
+    background-color: #161616;
 }
