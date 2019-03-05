@@ -1,10 +1,16 @@
 /* CSS Document */
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 body {
-	background-color: lightgrey;
 	font-family: 'Montserrat', sans-serif;
 	height: 1080px;
-	background: url("/res/30929_world_war_2_normandy_world_war_2.jpg")
+	background: rgba(0,0,0,0.51)
+	
+}
+html {
+    background: url("/res/30929_world_war_2_normandy_world_war_2.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 ul {
   list-style-type: none;
@@ -45,20 +51,13 @@ li a:hover {
 	padding: 8%;
 	max-width: 60%;
 	background-color: darkgrey;
-	margin-top: -0.91%;
-}
-.left {
-	float: left;
-	max-width: 100px;
-	max-height: auto;
-	background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Ww2_158.jpg/1200px-Ww2_158.jpg")
-}
-.right {
-	float: right;
 }
 .nav {
 	position: center;
-    width:100%;
+    width: fill;
     background-color: #161616;
 	font-family: 'Montserrat', sans-serif;
+	margin-left: -1%;
+	margin-right: -1%;
+	margin-top: -1%;
 }
