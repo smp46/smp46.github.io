@@ -52,6 +52,7 @@ li a:hover {
 	padding-top: 4%;
 	max-width: 60%;
 	background-color: darkgrey;
+	height: 50%;
 }
 .nav {
     width: fill;
@@ -61,4 +62,25 @@ li a:hover {
 	margin-right: -1%;
 	margin-top: -1%;
 	padding-top: 2%;
+}
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 240px;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+.over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
