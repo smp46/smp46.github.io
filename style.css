@@ -66,18 +66,51 @@ li a:hover {
 	margin-top: -1%;
 	padding-top: 2%;
 }
-div.gallery {
-  margin: 1%;
-  border: 1px solid #ccc;
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.img__img {
+  height: 200px;
+  width: 267px;
+ 
+}
+.img__wrap {
+  position: relative;
+  height: 200px;
+  width: 267px;
   display: inline-block;
-  width: 45%;
+  
 }
 
-div.gallery:hover {
-  border: 1px solid #777;
+.img__description_layer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s, visibility .2s;
 }
 
-div.gallery img {
-  width: 100%;
-  height: auto;
+.img__wrap:hover .img__description_layer {
+  visibility: visible;
+  opacity: 1;
+}
+
+.img__description {
+  transition: .2s;
+  transform: translateY(1em);
+}
+
+.img__wrap:hover .img__description {
+  transform: translateY(0);
 }
