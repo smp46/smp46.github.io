@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 body {
 	font-family: 'Montserrat', sans-serif;
-	height: auto;	
+	height: full;	
 }
 html {
     background: url("/res/30929_world_war_2_normandy_world_war_2.jpg");
