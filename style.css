@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 body {
 	font-family: 'Montserrat', sans-serif;
-	height: full;	
+
 }
 html {
     background: url("/res/30929_world_war_2_normandy_world_war_2.jpg");
@@ -55,7 +55,7 @@ li a:hover {
 	padding-top: 4%;
 	max-width: 60%;
 	background-color: darkgrey;
-	height: 85%;
+	height: 95%;
 }
 .nav {
     width: fill;
@@ -72,14 +72,13 @@ li a:hover {
 .img__img {
   height: auto;
   width: 100%;
- 
+  display: flex;
 }
 
 .img__wrap {
   position: relative;
   height: auto;
   width: 35%;
-  display: inline-block;
   
 }
 
@@ -111,4 +110,16 @@ li a:hover {
 
 .img__wrap:hover .img__description {
   transform: translateY(0);
+}
+@media only screen and (max-width: 600px) {
+	.img__wrap {
+		display: 0;
+		padding-bottom: 2%;
+		width: 75%;
+	}	
+}
+@media only screen and (min-width: 601px) {
+	.img__wrap {
+		display: inline-block;
+	}	
 }
