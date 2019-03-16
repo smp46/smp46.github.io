@@ -57,11 +57,19 @@ li a:hover {
 	background-color: darkgrey;
 	height: 95%;
 }
-.nav {
+.nav  {
     width: fill;
     background-color: #161616;
 	font-family: 'Montserrat', sans-serif;
 	padding-top: 2%;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.sticky + .center {
+  padding-top: 60px;
 }
 * {
   margin: 0;
