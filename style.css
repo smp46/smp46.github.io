@@ -9,21 +9,20 @@ html {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+	scroll-behavior: smooth;
 }
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   top: 0;
-  overflow: hidden;
-  position: -webkit-sticky;
-  position: sticky;
+  display: inline-block;
+  width: 100%;
+
   background-color: #161616;
 }
 
 li {
-  position: -webkit-sticky;
-  position: sticky;
   float: right;
 }
 
@@ -57,11 +56,13 @@ li a:hover {
 	background-color: darkgrey;
 	height: 95%;
 }
-.nav  {
-    width: fill;
+.nav {
+    width: 100%;
     background-color: #161616;
 	font-family: 'Montserrat', sans-serif;
 	padding-top: 2%;
+	position: -webkit-sticky;
+    position: sticky;
 }
 .sticky {
   position: fixed;
@@ -135,4 +136,7 @@ li a:hover {
 		display: inline-block;
 	}
 	
+}
+p {
+	text-align: left;
 }
