@@ -6,9 +6,11 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 <script src="js.js"></script>
 <link rel="icon" href="res/war-medal-512.png">
+<script src="http://code.jquery.com/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="dist/jquery.twism.js"></script>
 </head>
 	<div class="nav">
-	<div class="logo"><img src="/res/logo.png" alt="Logo"></div>
 	<ul>
 	<li class="home"><a href="index.html">Home</a></li>
 	<li><a href="start.html">How it Started</a></li>
@@ -18,9 +20,45 @@
 	</ul>
 	</div>
 <body>
-<div class="left"></div>
-<div class="middle">
-<center>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sagittis convallis auctor. Vestibulum sodales nisi vitae ex vestibulum, a finibus magna rutrum. Donec sagittis leo mi, vehicula tincidunt massa commodo id. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed quis elementum magna, nec porta turpis. Aliquam erat volutpat. Aliquam posuere, metus ut egestas cursus, nibh quam tempor ipsum, vitae maximus dui nisi at est. In semper diam eu velit ultricies, quis dignissim libero facilisis. Suspendisse dictum leo sapien, sed finibus erat congue a. Nullam ac risus lectus. Quisque nec elementum leo. Integer finibus augue purus, quis vulputate est elementum in. Nam laoreet tortor sed arcu semper, vel ultricies ipsum convallis.</center>
+<style>
+	center {
+		height: 90%;
+		margin-left: 4%;
+		margin-right: 4%;
+	}
+	.mstats {
+		background-color: darkgrey;
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+</style>
+<div class="mstats">
+<center>
+
+<script>
+      $(document).ready(function() {
+        $('#worldmap').twism("create", 
+        {
+          map: "world",
+          border: "brown",
+          disableCountries: ['ar'],
+          individualCountrySettings: [{
+
+          }]
+        }, function() {
+          //callback function after map loads
+
+        });
+      });
+    </script>
+<div id="worldmap"></div>
+<script>
+$('#worldmap').twism();
+	</script>
+  <div class="img__description_layer">
+    <p class="img__description">Timeline of the War</p>
+  </div>
+</center>
 </div>
 </body>
 </html>
