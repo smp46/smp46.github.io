@@ -83,13 +83,16 @@ li a:hover {
   height: auto;
   width: 100%;
   display: flex;
+  border-width: 2px;
+  border-color: black;
 }
 
 .img__wrap {
   position: relative;
   height: auto;
   width: 45%;
-  
+  border: 2px;
+  border-color: black; 
 }
 
 .img__description_layer {
