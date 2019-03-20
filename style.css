@@ -152,6 +152,9 @@ li a:hover {
 		visibility: hidden;
 		display: none;
 	}
+	 #mhome {
+		margin-left: 2%;
+	}
 	
 }
 p {
