@@ -134,13 +134,17 @@ li a:hover {
   visibility: visible;
   opacity: 1;
 }
+	.mobilestats {
+		visibility: visible;
+	}
 }
 @media only screen and (min-width: 601px) {
 	.img__wrap {
 		display: inline-block;
 	}
-	.middle {
-		
+	.mobilestats {
+		visibility: hidden;
+		display: none;
 	}
 	
 }
