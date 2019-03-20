@@ -85,6 +85,7 @@ li a:hover {
   display: flex;
   border-width: 2px;
   border-color: black;
+  border-style: solid;
 }
 
 .img__wrap {
