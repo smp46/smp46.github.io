@@ -156,3 +156,17 @@ li a:hover {
 p {
 	text-align: left;
 }
+
+.mobilestats a:link, a:visited {
+  background-color: black;
+  color: white;
+  padding: 14px 25px;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+  border: solid,thin;
+}
+
+ .mobilestats a:hover, a:active {
+  background-color: darkgray;
+}
