@@ -91,7 +91,7 @@
           //default is actually 100%
           click: function(state) {
             if (state) {
-              $(".img__description_layer").show();
+              alert(state);
             }
           },
           hover: function() {
