@@ -155,7 +155,9 @@
 			$('#worldmap').twism("setCountry", {
             name: "nz",
             color: "blue",
-          });
+          }, function() {
+				alert('Color changed to red.')
+			})
 			$('#worldmap').twism("setCountry", {
             name: "py",
             color: "blue",
@@ -164,7 +166,7 @@
             name: "za",
             color: "blue",
           });
-		  $('#worldmap').twism("setCountry", {
+		    $('#worldmap').twism("setCountry", {
             name: "ru",
             color: "blue",
           });
@@ -172,39 +174,40 @@
             name: "gb",
             color: "blue",
           });
-		  $('#worldmap').twism("setCountry", {
+		    $('#worldmap').twism("setCountry", {
             name: "ie",
-            color: "grey"
+            color: "white"
           });
 			$('#worldmap').twism("setCountry", {
             name: "li",
-            color: "grey",
+            color: "white",
           });
-		  $('#worldmap').twism("setCountry", {
+		    $('#worldmap').twism("setCountry", {
             name: "pt",
-            color: "grey",
+            color: "white",
           });
 			$('#worldmap').twism("setCountry", {
             name: "es",
-            color: "grey",
+            color: "white",
           });
-		  $('#worldmap').twism("setCountry", {
+		    $('#worldmap').twism("setCountry", {
             name: "sw",
-            color: "grey",
+            color: "white",
           });
 			$('#worldmap').twism("setCountry", {
             name: "ch",
-            color: "grey",
+            color: "white",
           });
-		  $('#worldmap').twism("setCountry", {
+		    $('#worldmap').twism("setCountry", {
             name: "uy",
-            color: "grey",
+            color: "white",
           });
 			$('#worldmap').twism("setCountry", {
             name: "sm",
-            color: "grey",
+            color: "white",
           });
       });
+	
     </script>
 <div id="worldmap"></div>
 <script>
