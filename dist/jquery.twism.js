@@ -80,10 +80,10 @@
           customMap: false,
           territories: true,
           antarctica: false,
-          color: "#e0bf8b",
+          color: "#A9DA8A",
           border: "white",
           align: "center",
-          backgroundColor: "grey",
+          backgroundColor: "#4af",
           borderWidth: "2",
           height: null,
           //default is actually 100%
@@ -100,8 +100,8 @@
           unhover: function() {
             return;
           },
-          hoverColor: "#ffbb4f",
-          hoverBorder: "red",
+          hoverColor: "#BB0029",
+          hoverBorder: "yellow",
           littleRedBook: true,
           hideCountries: false,
           disableCountries: [],
