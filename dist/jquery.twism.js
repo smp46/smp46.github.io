@@ -89,12 +89,12 @@
           //default is actually 100%
           width: null,
           //default is actually 100%
-         // click: function(state) {
-           // if (state) {
-           //   alert(state);
-           // }
-         // },
-         // hover: function() {
+          click: function(state) {
+            if (state) {
+              alert(state);
+            }
+          },
+          hover: function() {
             return;
           },
           unhover: function() {
@@ -249,15 +249,15 @@
             settings.click(lastclicked);
           });
 
-       //   $("svg", that).on("mouseover", function(e) {
-       //     lastclicked = $(e.target).attr("id");
-       //     settings.hover(lastclicked);
-       //   });
+          $("svg", that).on("mouseover", function(e) {
+            lastclicked = $(e.target).attr("id");
+            settings.hover(lastclicked);
+          });
 
-       //   $("svg", that).on("mouseout", function(e) {
-         //   lastclicked = $(e.target).attr("id");
-       //     settings.unhover(lastclicked);
-       //   });
+          $("svg", that).on("mouseout", function(e) {
+            lastclicked = $(e.target).attr("id");
+            settings.unhover(lastclicked);
+          });
 
           $("svg path, svg rect, svg text", that).on("mouseover", function(e) {
             if (ics && ics.length) {
