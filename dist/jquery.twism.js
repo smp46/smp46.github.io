@@ -89,12 +89,12 @@
           //default is actually 100%
           width: null,
           //default is actually 100%
-          click: function(state) {
-            if (state) {
-              alert(state);
-            }
-          },
-          hover: function() {
+         // click: function(state) {
+           // if (state) {
+           //   alert(state);
+           // }
+         // },
+         // hover: function() {
             return;
           },
           unhover: function() {
