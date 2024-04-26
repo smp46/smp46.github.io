@@ -32,7 +32,7 @@ body, html {
 }
 
 .external-links .linkedin {
-    width: 2.8rem;
+    width: 2.925rem;
     height: 2.5rem;
     margin: 0.2rem
 }
@@ -40,7 +40,7 @@ body, html {
 .home h1 {
     margin: 0;
     font-size: 4rem;
-    color: #333;
+    color: #000000;
 }
 
 .home p {
@@ -54,7 +54,7 @@ body, html {
     margin-top: 4%;
 }
 
-.home-button {
+.button {
     text-decoration: none;
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
@@ -64,52 +64,61 @@ body, html {
     background: #000000;
 }
 
-.section {
-    padding: 50px 10%;
-}
-
-.projects-section {
-    display: flex;
-    justify-content: space-between;
+.projects {
     margin-top: 40%;
     margin-bottom: 40%;
 }
 
-.project-media, .project-description {
-    flex: 1;
-    height: 50rem;
-}
-
-.media-frame {
-    width: 100%;
-    border: none;
-    margin-bottom: 20px;
-}
-
-.button-container {
+.projects h1 {
     text-align: center;
 }
 
-.project-description {
-    padding-left: 20px;
+.projects-container {
+    position: relative;
+    height: 65vh;
 }
 
-.project-description h2 {
-    margin-top: 0;
+.project {
+    height: 100%;
+    width: 50%; 
+    position: absolute;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
 
-.button-container button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    cursor: pointer;
+.project-buttons button {
+    border-radius: 0.3rem;
+    color: #ffffff;
+    background: #000000;
+    border: none;
+    padding: 0.5rem;
+    margin-top: 2%;
 }
 
-.gist {
-    max-width:350px;
-    overflow:auto;
- }
- 
- .gist .blob-wrapper.data {
-    max-height:200px;
-    overflow:auto;
- }
+.media {
+    left: 0;
+}
+
+.media-frame {
+    width: 90%;
+    height: 80%;
+    float: right;
+    margin-right: 4%;
+    border: 1rem solid #000000;
+    border-radius: 2%;
+}
+
+.project-buttons {
+    margin-right: 30%;
+    margin-left: 30%;
+}
+
+.description {
+    right: 0;
+}
+
+.description h2 {
+    font-size: 2rem;
+    text-align: center;
+}

@@ -12,7 +12,7 @@
             <a href="https://discord.com/users/335649164769886208">
                 <img src="images/discord-mark-black.png" alt="Discord" class="discord"></a>
             <a href="https://github.com/smp46">
-                <img src="images/github-mark.png" alt="GitHub" class="github">
+                <img src="images/github-mark.png" alt="GitHub" class="github"></a>
             </a>
             <a href="https://linkedin.com/in/samuel-p-023464286">
                 <img src="images/LI-In-Bug.png" alt="LinkedIn" class="linkedin">
@@ -25,17 +25,75 @@
             aspiring software developer.
         </p>
         <div class="home-buttons">
-            <a href="#uni-projects" class="home-button">Undegrad Projects</a>
-            <a href="#per-projects" class="home-button">Personal Projects</a>
-            <a href="#employment" class="home-button">Employment History</a>
-            <a href="#about-me" class="home-button">About Me</a>
+            <a href="#uni-projects" class="home button">Undegrad Projects</a>
+            <a href="#per-projects" class="home button">Personal Projects</a>
+            <a href="#employment" class="home button">Employment History</a>
+            <a href="#about-me" class="home button">About Me</a>
         </div>
     </div>
-    <div id="uni-projects" class="section">
-        
+
+    <div id="uni-projects" class="projects">
+        <h1>Undergrad Projects</h1>
+        <div class="projects-container">
+            <div class="project media">
+                <img src="images/MazeGameAssets.png" class="media-frame"></img>
+                <div class="project-buttons">
+                    <button onclick="showGUI()">GUI Assets</button>
+                    <button onclick="showGUINA()">GUI No-Assets</button>
+                    <button onclick="showCLI()">CLI</button>
+                </div>
+            </div>
+            <div class="project description">
+                <h2>Maze Game</h2>
+                <p class="description-text">
+                    This is a game I completed in my Intro to Java class. I went far beyond what 
+                    they asked of us, so here it is.
+                    <br>
+                    <br>
+                    A goose named Sir Wobbleton is stuck in a dynamically loaded maze (of your choosing), 
+                    you must get him out (or simply press 'Q' and allow the maze solver to solve the maze). 
+                    Mazes can be loaded from any file that matches the given format (Theoretically can be 
+                    infinitely big). The game also can be loaded in three different ways: CLI mode, GUI 
+                    no-asset mode, and GUI asset mode. Due to licensing, I cannot include the asset folder 
+                    in the source code, however do not worry I implemented an MD5 checksum check to verify 
+                    all assets before displaying. If the assets don't match the checksum, the game will 
+                    work just fine. 
+                </p>
+            </div>
+        </div>    
     </div>
+
+    <div class="projects-container">
+        <div class="project media">
+            <img src="images/MazeGameAssets.png" class="media-frame"></img>
+            <div class="project-buttons">
+                <button onclick="showGUI()">GUI Assets</button>
+                <button onclick="showGUINA()" >GUI No-Assets</button>
+                <button onclick="showCLI()">CLI</button>
+            </div>
+        </div>
+        <div class="project description">
+            <h2>AVR Hero</h2>
+            <p class="description-text">
+                This is a game I completed in my Intro to Java class. I went far beyond what 
+                they asked of us, so here it is.
+                <br>
+                <br>
+                A goose named Sir Wobbleton is stuck in a dynamically loaded maze (of your choosing), 
+                you must get him out (or simply press 'Q' and allow the maze solver to solve the maze). 
+                Mazes can be loaded from any file that matches the given format (Theoretically can be 
+                infinitely big). The game also can be loaded in three different ways: CLI mode, GUI 
+                no-asset mode, and GUI asset mode. Due to licensing, I cannot include the asset folder 
+                in the source code, however do not worry I implemented an MD5 checksum check to verify 
+                all assets before displaying. If the assets don't match the checksum, the game will 
+                work just fine. 
+            </p>
+        </div>
+    </div>
+    
+    
+
     <div id="per-projects" class="section">
-        
     </div>
     <div id="employment" class="section">
         
