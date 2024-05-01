@@ -11,11 +11,30 @@ body, html {
     font-family: 'Open Sans';
 }
 
+.btn-floating {
+    cursor: pointer;
+    border-radius: 50%;
+    position: fixed;
+    display: none;
+    bottom: 1rem; 
+    right: 1rem;
+    align-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+}
+
+#scrollToTopBtn img {
+    width: 0.5rem;
+    height: 0.5rem;
+    object-fit: scale-down;
+}
+
 .home {
     text-align: center;
     padding: 50px;
     background: #fff;
-    margin-top: 40%;
+    margin-top: 30%;
     margin-bottom: 40%;
 }
 
@@ -41,6 +60,15 @@ body, html {
     margin: 0;
     font-size: 4rem;
     color: #000000;
+    font-weight: 550;
+}
+
+.home-buttons .btn {
+    border-radius: 0.3rem;
+    color: #ffffff;
+    background: #000000;
+    margin: 0.2rem;
+    margin-top: 2rem;
 }
 
 .home p {
@@ -50,75 +78,61 @@ body, html {
     margin: 20px auto;
 }
 
-.home-buttons {
-    margin-top: 4%;
-}
-
-.button {
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    border-radius: 0.5rem;
-    color: #ffffff;
-    display: inline-block;
-    margin: 1rem 1rem 1rem 1rem;
-    background: #000000;
-}
-
 .projects {
-    margin-top: 40%;
-    margin-bottom: 40%;
+    padding-top: 20%;
+    padding-bottom: 20%;
 }
 
 .projects h1 {
     text-align: center;
-}
-
-.projects-container {
-    position: relative;
-    height: 65vh;
-}
-
-.project {
-    height: 100%;
-    width: 50%; 
-    position: absolute;
-    top: 0;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-.project-buttons button {
-    border-radius: 0.3rem;
-    color: #ffffff;
-    background: #000000;
-    border: none;
-    padding: 0.5rem;
-    margin-top: 2%;
-}
-
-.media {
-    left: 0;
-}
-
-.media-frame {
-    width: 90%;
-    height: 80%;
-    float: right;
-    margin-right: 4%;
-    border: 1rem solid #000000;
-    border-radius: 2%;
-}
-
-.project-buttons {
-    margin-right: 30%;
-    margin-left: 30%;
-}
-
-.description {
-    right: 0;
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    color: #000000;
+    font-weight: 550;
 }
 
 .description h2 {
     font-size: 2rem;
     text-align: center;
+}
+
+pre {
+    max-height: 500px;
+    overflow-y: auto;
+    font-size: 0.8rem;
+}
+
+.employment {
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.employment h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    color: #000000;
+    font-weight: 550;
+}
+
+
+.about-me {
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.about-me h1 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    color: #000000;
+    font-weight: 550;
+}
+
+.about-me-buttons .btn {
+    border-radius: 0.3rem;
+    color: #ffffff;
+    background: #000000;
+    margin: 0.2rem;
+
 }
