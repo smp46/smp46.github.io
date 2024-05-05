@@ -9,6 +9,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans';
+    scroll-behavior: smooth;
 }
 
 .btn-floating {
@@ -25,9 +26,9 @@ body, html {
 }
 
 #scrollToTopBtn img {
-    width: 0.5rem;
-    height: 0.5rem;
-    object-fit: scale-down;
+  width: 1rem;
+  transform: translateX(-50%) translateY(-70%);
+  margin: 0 auto;
 }
 
 .home {
@@ -36,6 +37,10 @@ body, html {
     background: #fff;
     margin-top: 30%;
     margin-bottom: 40%;
+}
+
+.external-links a{
+    display: inline-block;
 }
 
 .external-links .discord {
@@ -99,12 +104,12 @@ body, html {
 pre {
     max-height: 500px;
     overflow-y: auto;
-    font-size: 0.8rem;
+    font-size: 0.7vw;
 }
 
 .employment {
-    padding-top: 20%;
-    padding-bottom: 20%;
+    margin-top: 20%;
+    margin-bottom: 20%;
 }
 
 .employment h1 {
@@ -134,5 +139,10 @@ pre {
     color: #ffffff;
     background: #000000;
     margin: 0.2rem;
+    font-size: 1vw;
 
+}
+
+.footer_row {
+   padding-bottom: 5%; 
 }

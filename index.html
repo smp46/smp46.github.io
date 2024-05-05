@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en">
 <head>
     <title>Home</title>
@@ -8,25 +9,29 @@
     <script src="./js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="./css/default.min.css">
     <script src="./js/highlight.min.js"></script>
+    <script src="./js/anime.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body class="container-md">
-    <button id="scrollToTopBtn" class="btn btn-dark btn-floating btn-lg">
+    <button id="scrollToTopBtn" class="btyypn btn-dark btn-floating btn-lg">
         <img src="./images/up-arrow.png" alt="Go to top">
     </button>
 
     <div id="home" class="home">
         <div class="external-links">
-            <a href="https://discord.com/users/335649164769886208">
-                <img src="images/discord-mark-black.png" alt="Discord" class="discord"></a>
-            <a href="https://github.com/smp46">
-                <img src="images/github-mark.png" alt="GitHub" class="github"></a>
+            <a href="https://discord.com/users/335649164769886208" target="_blank">
+                <img src="images/discord-mark-black.png" alt="Discord" class="discord">
             </a>
-            <a href="https://linkedin.com/in/samuel-p-023464286">
+            <a href="https://github.com/smp46" target="_blank">
+                <img src="images/github-mark.png" alt="GitHub" class="github">
+            </a>
+            <a href="https://linkedin.com/in/samuel-p-023464286" target="_blank">
                 <img src="images/LI-In-Bug.png" alt="LinkedIn" class="linkedin">
             </a>
         </div>
-        <h1>Hi I'm Samuel</h1>
+            <h1>Hi I'm Samuel
+                <br><small class="text-muted"> (smp46)</small>
+            </h1>
         <p>
             I'm a passionate undergrad studying Computer Science at the University
             of Queensland. This website highlights some of my achievements and skills as an
@@ -220,7 +225,7 @@
         </div>    
     </div>
 
-    <div class="container-fluid employment">
+    <div id="employment" class="container-fluid employment">
         <h1>Employment History</h1>
         <div class="row">
             <div class="col-sm-4">
@@ -258,7 +263,7 @@
         </div>    
     </div>
 
-    <div class="container-fluid about-me">
+    <div id="about-me" class="container-fluid about-me">
         <h1>About Me</h1>
         <div class="row">
             <div class="col-sm-6">
@@ -268,18 +273,16 @@
 
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="about-me-buttons">
-                    <a href="#uni-projects" type="button" class="btn btn-dark btn-lg">Undergrad Projects</a>
-                    <a href="#per-projects" type="button" class="btn btn-dark btn-lg">Personal Projects</a>
-                    <a href="#employment" type="button" class="btn btn-dark btn-lg">Employment History</a>
-                </div>
-            </div>
-        </div>    
+           
     </div>
-<footer>
-    <script src="./js/anime.min.js"></script>
+<footer> 
+    <div class="d-flex align-items-center justify-content-center footer_row"> 
+        <div class="about-me-buttons">
+            <a href="#uni-projects" type="button" class="btn btn-dark btn-lg">Undergrad Projects</a>
+            <a href="#per-projects" type="button" class="btn btn-dark btn-lg">Personal Projects</a>
+            <a href="#employment" type="button" class="btn btn-dark btn-lg">Employment History</a>
+        </div>
+    </div> 
     <script src="./js/script.js"></script>
 </footer>
 </body>

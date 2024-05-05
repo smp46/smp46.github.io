@@ -1,7 +1,7 @@
 document.addEventListener("scroll", function() {
     var scrollPosition = window.scrollY;
     var button = document.getElementById('scrollToTopBtn');
-    if (scrollPosition > 100) {
+    if (scrollPosition > 250) {
         button.style.display = 'block';
     } else {
         button.style.display = 'none';
