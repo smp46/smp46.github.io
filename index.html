@@ -5,28 +5,31 @@
     <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap downloaded from https://getbootstrap.com/docs/5.3/getting-started/introduction/-->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <!-- Highlightjs downloaded with C and Python profiles from https://highlightjs.org/download-->
     <link rel="stylesheet" href="./css/default.min.css">
     <script src="./js/highlight.min.js"></script>
-    <script src="./js/anime.min.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body class="container-md">
-    <button id="scrollToTopBtn" class="btyypn btn-dark btn-floating btn-lg">
+    <!-- REF: Heavily inspired by W3Schools article https://www.w3schools.com/howto/howto_js_scroll_to_top.asp-->
+    <button id="scrollToTopBtn" class="btn-dark btn-floating btn-lg">
         <img src="./images/up-arrow.png" alt="Go to top">
     </button>
 
     <div id="home" class="home">
         <div class="external-links">
+            <!-- REF: All icons retrieved from https://simpleicons.org-->
             <a href="https://discord.com/users/335649164769886208" target="_blank">
-                <img src="images/discord-mark-black.png" alt="Discord" class="discord">
+                <img src="images/discord.svg" alt="Discord" class="discord">
             </a>
             <a href="https://github.com/smp46" target="_blank">
-                <img src="images/github-mark.png" alt="GitHub" class="github">
+                <img src="images/github.svg" alt="GitHub" class="github">
             </a>
             <a href="https://linkedin.com/in/samuel-p-023464286" target="_blank">
-                <img src="images/LI-In-Bug.png" alt="LinkedIn" class="linkedin">
+                <img src="images/linkedin.svg" alt="LinkedIn" class="linkedin">
             </a>
         </div>
             <h1>Hi I'm Samuel
@@ -37,26 +40,29 @@
             of Queensland. This website highlights some of my achievements and skills as an
             aspiring software developer.
         </p>
+        <!-- REF: Buttons from https://getbootstrap.com/docs/5.3/components/buttons/-->
         <div class="home-buttons">
             <a href="#uni-projects" type="button" class="btn btn-dark btn-lg">Undergrad Projects</a>
             <a href="#per-projects" type="button" class="btn btn-dark btn-lg">Personal Projects</a>
-            <a href="#employment" type="button" class="btn btn-dark btn-lg">Employment History</a>
+            <a href="#employment" type="button" class="btn btn-dark btn-lg">Employment</a>
             <a href="#about-me" type="button" class="btn btn-dark btn-lg">About Me</a>
         </div>
     </div>
 
+    <!-- REF: Horizontal stacking (columns) from https://www.w3schools.com/bootstrap/bootstrap_grid_stacked_to_horizontal.asp-->
+    <!-- REF: Carousel was setup using https://getbootstrap.com/docs/5.3/components/carousel -->
     <div id="uni-projects" class="container-fluid projects">
         <h1>Undergrad Projects</h1>
         <div class="row">
-            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="media">
+            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="mazegame">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#mazegame" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#mazegame" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#mazegame" data-bs-slide-to="2"></button>
                   </div>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img src="./images/MazeGameAssets.png" alt="MazeGame with Assets" class="d-block w-100">
+                      <img src="./images/MazeGameDemo.gif" alt="MazeGame with Assets" class="d-block w-100">
                     </div>
                     <div class="carousel-item">
                       <img src="./images/MazeGameNoAssets.png" alt="MazeGame with No Assets" class="d-block w-100">
@@ -66,12 +72,14 @@
                     </div>
                   </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#media" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#media" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-                </button>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#mazegame" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#mazegame" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
             </div>
             <div class="col-sm-6 description">
                 <h2>Maze Game</h2>
@@ -95,11 +103,11 @@
 
     <div id="projects" class="container-fluid projects">
         <div class="row">
-            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="media">
+            <div class="col-sm-6 carousel slide" id="uqunscramble">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#uqunscramble" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#uqunscramble" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#uqunscramble" data-bs-slide-to="2"></button>
                   </div>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -108,17 +116,18 @@
                     <div class="carousel-item">
                         <img src="./images/uqunscramble2.png" alt="UQunscramble screenshot" class="d-block w-100">
                       </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-bs-ride="uqunscramble">
                         <pre class="c"><code class="c_code"></code></pre>                      
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#uqunscramble" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#uqunscramble" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                      </button>
                   </div>
-
-                <button class="carousel-control-prev" type="button" data-bs-target="#media" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#media" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-                </button>
             </div>
             <div class="col-sm-6 description">
                 <h2>UQunscramble</h2>
@@ -141,28 +150,28 @@
     <div id="per-projects" class="container-fluid projects">
         <h1>Personal Projects</h1>
         <div class="row">
-            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="media">
+            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="rcvt">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#rcvt" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#rcvt" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#rcvt" data-bs-slide-to="2"></button>
                   </div>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img src="./images/rcvt.gif" alt="UQunscramble screenshot" class="d-block w-100">
+                      <img src="./images/rcvt.gif" alt="rcvt screenshot" class="d-block w-100">
                     </div>
                     <div class="carousel-item">
-                        <img src="./images/rcvt_cli.png" alt="UQunscramble screenshot" class="d-block w-100">
+                        <img src="./images/rcvt_cli.png" alt="rcvt screenshot" class="d-block w-100">
                       </div>
                     <div class="carousel-item">
-                        <pre class="python"><code class="python_code"></code></pre>                      
+                        <pre class="python"><code class="python_code0"></code></pre>                      
                     </div>
                   </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#media" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#rcvt" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#media" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#rcvt" data-bs-slide="next">
                 <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
@@ -189,44 +198,52 @@
 
     <div class="container-fluid projects">
         <div class="row">
-            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="media">
+            <div class="col-sm-6 carousel slide" data-bs-ride="carousel" id="smartgarage">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#media" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#smartgarage" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#smartgarage" data-bs-slide-to="1"></button>
                   </div>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img src="./images/" alt="Image Goes Here" class="d-block w-100">
+                      <img src="./images/smartgarage.png" alt="Homepage dashboard" class="d-block w-100">
                     </div>
                     <div class="carousel-item">
-                        <img src="./images/" alt="Image Goes Here" class="d-block w-100">
-                      </div>
+                        <pre class="python"><code class="python_code1"></code></pre>                      
+                    </div>
                   </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#media" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#smartgarage" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#media" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#smartgarage" data-bs-slide="next">
                 <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
             <div class="col-sm-6 description">
-                <h2>Lorem Ipsum</h2>
+                <h2>SmartGarage (Work in Progress)</h2>
                 <p class="description-text">
-                    Fusce quis purus augue. Mauris eget quam ut turpis porta bibendum. Etiam lorem justo,
-                    sodales ac varius at, fringilla maximus dui. Aliquam quis faucibus sem. Vivamus eu 
-                    pulvinar tellus. Vestibulum tristique nisi ut diam ultricies sagittis. Aliquam ex 
-                    ante, bibendum nec lacinia semper, faucibus sit amet orci. Sed at felis in velit 
-                    fringilla sodales vitae ut magna. Nulla gravida libero dictum, ultricies ligula vel,
-                    tempor arcu. Integer luctus commodo massa, et molestie leo auctor eu. 
-                    Donec efficitur massa ac dignissim egestas. Cras ac aliquam eros.
+                    This is a multi-part project that I am currently working on. The goal is to "smartify"
+                    my garage without needing any physical modifications to the garage itself. The first part,
+                    is completed and shown on the left. Using PyTorch and a small amount of python, I have trained
+                    a Machine Learning image recognition model to detect if my Garage Door is open or closed based 
+                    on the security camera feed. If the door is open for longer than 10 minutes, I receive an email
+                    notification. I also implemented a custom flask API to intergrate with my 
+                    <a href="https://gethomepage.dev" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Docker Homepage</a>,
+                    as shown on the left.
+                    <br>
+                    <br>
+                    The next part of the project is to implement a system that can open and close the garage door
+                    remotely and non-intrusively. This is very work in progress, and is the hard part. My current
+                    plan is to use a Raspberry Pi and a low cost RF transciver to capture and replay the signal from
+                    the garage door remote.
+                </p>
+
             </div>
         </div>    
     </div>
 
     <div id="employment" class="container-fluid employment">
-        <h1>Employment History</h1>
+        <h1>Employment</h1>
         <div class="row">
             <div class="col-sm-6">
                 <h3>Computer Salesperson at Australian Computer Traders
@@ -259,9 +276,21 @@
             </div>
        
         </div>    
-            <div class="row">
+            <div class="row contact-me">
              <div class="col-sm-12">
-                Find me on LinkedIn or send me an email for more information or to request a full resume.
+                <br>
+                Send me an email or contact me on LinkedIn for more information or to request a full résumé.
+                <br>
+                <br>
+                <div class="external-links">
+                    <!-- REF: All icons retrieved from https://simpleicons.org-->
+                    <a href="mailto:me@smp46.me" target="_blank">
+                        <img src="./images/gmail.svg" alt="Discord" class="discord">
+                    </a>
+                    <a href="https://linkedin.com/in/samuel-p-023464286" target="_blank">
+                        <img src="./images/linkedin.svg" alt="LinkedIn" class="linkedin">
+                    </a>
+                </div>
             </div>
             </div>
     </div>
@@ -270,26 +299,34 @@
         <h1>About Me</h1>
         <div class="row">
             <div class="col-sm-6">
+                <!-- REF: Responsive image from https://www.w3schools.com/bootstrap5/bootstrap_images.php-->
                 <img src="./images/me.jpg" alt="Profile Picture" class="rounded-circle img-fluid">
             </div>
             <div class="col-sm-6">
                 <p>
                 I am excited to completing my Bachelor's of Computer Science, and am keen to enter
-                the field of my major Cyber Security. While I'm not an expert, I enjoy participating in CTFs
-                and I follow the industry closely.
+                the field of my major, Cyber Security. I'm an active member of the UQ Cyber Squad,
+                where we are lucky enough to get regular industry talks and workshops. I enjoy 
+                participating in CTFs and I follow the industry closely.
+                <br>
+                <br>
+                In my free time you'll find me working on personal projects or playing video games.
                 </p>
             </div>
         </div>
            
     </div>
-<footer> 
-    <div class="d-flex align-items-center justify-content-center footer_row"> 
+<footer>
+    <!-- REF: Worked out how to centre the whole div from https://getbootstrap.com/docs/5.0/utilities/flex/-->
+    <div class="d-flex justify-content-center footer_row"> 
         <div class="about-me-buttons">
+            <a href="#" type="button" class="btn btn-dark btn-lg">Home</a>
             <a href="#uni-projects" type="button" class="btn btn-dark btn-lg">Undergrad Projects</a>
             <a href="#per-projects" type="button" class="btn btn-dark btn-lg">Personal Projects</a>
-            <a href="#employment" type="button" class="btn btn-dark btn-lg">Employment History</a>
+            <a href="#employment" type="button" class="btn btn-dark btn-lg">Employment</a>
         </div>
-    </div> 
+    </div>
+    <!-- Loading my javascript here so the code files that can only be retrieved after page load work correctly.-->
     <script src="./js/script.js"></script>
 </footer>
 </body>

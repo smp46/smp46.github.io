@@ -1,3 +1,4 @@
+/* Font: Open Sans from Google Fonts, https://fonts.google.com/specimen/Open+Sans */
 @font-face {
     font-family: 'Open Sans';
     font-style: normal;
@@ -5,89 +6,104 @@
     src: url(/files/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf) format('truetype');
   }
 
+/* 
+Declare the font family for the entire document and change scroll behavior to smooth,
+so clicking on same page links will smooth scroll.
+*/
 body, html {
-    margin: 0;
-    padding: 0;
     font-family: 'Open Sans';
     scroll-behavior: smooth;
 }
 
+/* Heavily inspired by W3Schools article https://www.w3schools.com/howto/howto_js_scroll_to_top.asp */
 .btn-floating {
-    cursor: pointer;
-    border-radius: 50%;
+    cursor: pointer; /* Change the cursor to a pointer on hover*/
     position: fixed;
     display: none;
-    bottom: 1rem; 
+    bottom: 1rem; /* Move the button to 1rem away from the bottom right */
     right: 1rem;
-    align-content: center;
-    align-items: center;
-    width: 2rem;
+    width: 2rem; 
     height: 2rem;
 }
 
+/* Define a responsive width for the up arrow image and use translate to roughly centre it */
 #scrollToTopBtn img {
   width: 1rem;
   transform: translateX(-50%) translateY(-70%);
-  margin: 0 auto;
 }
 
+/* Centre and add padding to centre the div in middle of the page */
 .home {
     text-align: center;
-    padding: 50px;
-    background: #fff;
-    margin-top: 30%;
-    margin-bottom: 40%;
+    padding-top: 30%;
+    padding-bottom: 40%;
 }
 
+/* 
+REF: Used the method from W3Schools to make links stack horizontally without the blue hyperlink
+line between each link.
+https://www.w3schools.com/css/css_inline-block.asp 
+*/
 .external-links a{
     display: inline-block;
 }
 
+/* Set width and height based off the actual pixel size of the image to prevent stretching */
 .external-links .discord {
     width: 3.275rem;
     height: 2.5rem;
     margin: 0.2rem
 }
 
+/* Set width and height based off the actual pixel size of the image to prevent stretching */
 .external-links .github {
     width: 2.5rem;
     height: 2.5rem;
     margin: 0.2rem
 }
 
+/* Set width and height based off the actual pixel size of the image to prevent stretching */
 .external-links .linkedin {
     width: 2.925rem;
     height: 2.5rem;
     margin: 0.2rem
 }
 
+/* Set larger responsive font size for home page title, font colour to black and increase weight for boldness */
 .home h1 {
-    margin: 0;
     font-size: 4rem;
     color: #000000;
     font-weight: 550;
 }
 
+/* Set home buttons to have curved corners, white text on black background and use margin to get a small gap between each */
 .home-buttons .btn {
     border-radius: 0.3rem;
     color: #ffffff;
     background: #000000;
-    margin: 0.2rem;
-    margin-top: 2rem;
+    margin: 0.3rem;
 }
 
+/* 
+Set home paragraph to have a grey colour, larger font size and a max width of 80% so it stays in the middle of the page,
+and responsive padding to add space between divs above and below
+*/
 .home p {
     color: #666;
     font-size: 2rem;
     max-width: 80%;
-    margin: 20px auto;
+    margin: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
+/* Add padding so div content is in middle of screen instead of top when navigated to via link */
 .projects {
     padding-top: 20%;
     padding-bottom: 20%;
 }
 
+/* Centre div header, add margin to bottom to separate from carousel, set font to black and increase weight for boldness */
 .projects h1 {
     text-align: center;
     margin-bottom: 3rem;
@@ -96,22 +112,62 @@ body, html {
     font-weight: 550;
 }
 
+/* Set a standard height for carousel items, with background colour and rounded corners. */
+.projects .carousel-item {
+    height: 700px;
+    background: #f4f4f4;
+    border-radius: 0.3rem;
+}
+
+/* 
+Scale the image to 100% of the carousel item width, and use position absolute, top and
+left attributes and transform to vertically centre the image. And border radius to add nice 
+rounded corners.
+
+I struggled alot trying to figure out a way to vertically center the image in the carousel,
+due to it using Boostrap JS/CSS that was probably overwriting my own CSS.
+
+Eventually I found this article that helped me solve the issue, specifically
+the "Position: Absolute & Transform Properties" section
+REF: https://www.freecodecamp.org/news/how-to-center-an-image-in-css/ 
+*/
+.projects img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.3rem;
+}
+
+/* Add responsive font size and centre project names */
 .description h2 {
     font-size: 2rem;
     text-align: center;
 }
 
+/*
+Set a maximum height, equal to the size of the carousel item, make the div scrollable,
+use a small responsive font size to make code readable without horizontal scrolling,
+set border radius to add rounded corners for uniformity with parent div.
+
+REF: Found out how to make the code in .pre scrollable from this article: 
+https://www.geeksforgeeks.org/making-a-div-vertically-scrollable-using-css/
+*/
 pre {
-    max-height: 500px;
+    max-height: 700px;
     overflow-y: auto;
     font-size: 0.7vw;
+    border-radius: 0.3rem;
 }
 
+/* Add padding so div content is in middle of screen instead of top when navigated to via link */
 .employment {
-    margin-top: 20%;
-    margin-bottom: 20%;
+    padding-top: 20%;
+    padding-bottom: 20%;
 }
 
+/* Centre div header, add margin to bottom to separate from carousel, set font to black and increase weight for boldness */
 .employment h1 {
     text-align: center;
     margin-bottom: 3rem;
@@ -120,12 +176,25 @@ pre {
     font-weight: 550;
 }
 
+/* 
+Centre div content, add top bottom margin to seperate from other divs, 
+and change font size to a responive slightly larger 1.5rem 
+*/
+.employment .contact-me {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: #000000;
+}
 
+/* Add padding so div content is in middle of screen instead of top when navigated to via link */
 .about-me {
     padding-top: 20%;
     padding-bottom: 20%;
 }
 
+/* Centre div header, add margin to bottom to separate from carousel, set font to black and increase weight for boldness */
 .about-me h1 {
     text-align: center;
     margin-bottom: 3rem;
@@ -134,6 +203,13 @@ pre {
     font-weight: 550;
 }
 
+/* Enlarge font slightly and make responsive, add margin so it doesn't reach edge of parent div*/
+.about-me p {
+    font-size: 1.5rem;
+    margin: 5%;
+}
+
+/* Smaller version of home buttons for the footer */
 .about-me-buttons .btn {
     border-radius: 0.3rem;
     color: #ffffff;
@@ -143,6 +219,7 @@ pre {
 
 }
 
+/* Add padding to bottom of page so bottom elements are not on the very bottom of the page */
 .footer_row {
    padding-bottom: 5%; 
 }
