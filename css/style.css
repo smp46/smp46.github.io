@@ -49,21 +49,21 @@ https://www.w3schools.com/css/css_inline-block.asp
 }
 
 /* Set width and height based off the actual pixel size of the image to prevent stretching */
-.external-links .discord {
+.discord {
     width: 3.275rem;
     height: 2.5rem;
     margin: 0.2rem
 }
 
 /* Set width and height based off the actual pixel size of the image to prevent stretching */
-.external-links .github {
+.github {
     width: 2.5rem;
     height: 2.5rem;
     margin: 0.2rem
 }
 
 /* Set width and height based off the actual pixel size of the image to prevent stretching */
-.external-links .linkedin {
+.linkedin {
     width: 2.925rem;
     height: 2.5rem;
     margin: 0.2rem
@@ -157,7 +157,7 @@ https://www.geeksforgeeks.org/making-a-div-vertically-scrollable-using-css/
 pre {
     max-height: 700px;
     overflow-y: auto;
-    font-size: 0.7vw;
+    font-size: 0.7rem;
     border-radius: 0.3rem;
 }
 
@@ -215,7 +215,7 @@ and change font size to a responive slightly larger 1.5rem
     color: #ffffff;
     background: #000000;
     margin: 0.2rem;
-    font-size: 1vw;
+    font-size: 0.8rem;
 
 }
 

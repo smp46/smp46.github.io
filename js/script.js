@@ -17,6 +17,7 @@ document.addEventListener("scroll", function() {
 // Add a listener to the scroll to top button, when clicked 
 // use anime to scroll to the top of the page smoothly
 document.getElementById('scrollToTopBtn').addEventListener('click', function() {
+    // Use the anime function (from animejs) to animate scroll
     anime({
         // Scroll the entire webpage
         targets: document.documentElement,
