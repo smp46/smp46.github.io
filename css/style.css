@@ -35,7 +35,7 @@ body, html {
 /* Centre and add padding to centre the div in middle of the page */
 .home {
     text-align: center;
-    padding-top: 30%;
+    padding-top: 10%;
     padding-bottom: 40%;
 }
 
@@ -222,4 +222,33 @@ and change font size to a responive slightly larger 1.5rem
 /* Add padding to bottom of page so bottom elements are not on the very bottom of the page */
 .footer_row {
    padding-bottom: 5%; 
+}
+
+.character-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.character-gif, .character-final {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#left-gif {
+    left: 0;
+}
+
+#right-gif {
+    right: 0;
+}
+
+.character-final {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out; /* Add a fade-in transition */
 }

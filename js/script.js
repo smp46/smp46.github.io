@@ -64,3 +64,52 @@ document.addEventListener("readystatechange", function(event) {
             })
     }
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const rightGif = document.getElementById('right-gif');
+    const leftGif = document.getElementById('left-gif');
+    const finalImage = document.getElementById('final-image');
+
+    // Configurable variables
+    const animationDuration = 2.4; // Duration in seconds (matches GIF duration)
+    const centerAlignment = 25; // Adjust this value to change the final center alignment in px
+    const fadeDuration = 0.5; // Duration of the fade-in effect in seconds
+
+    // Function to force GIF reset by adding a unique query string
+    function resetGif(gifElement) {
+        const src = gifElement.getAttribute('src');
+        gifElement.setAttribute('src', `${src}?${new Date().getTime()}`);
+    }
+
+    // Reset the GIFs on page load
+    resetGif(leftGif);
+    resetGif(rightGif);
+
+    // Function to calculate and set the dynamic translation based on screen width
+    function animateRightGif() {
+        const screenWidth = window.innerWidth; // Get screen width
+        const containerWidth = document.querySelector('.character-container').offsetWidth;
+
+        const startX = screenWidth * 0.3; // Start 75% across the screen minus half the width of the GIF
+        const endX = screenWidth / 2 - containerWidth / 2 + centerAlignment; // End at the center plus the alignment offset
+
+        rightGif.style.transition = `transform ${animationDuration}s ease-in-out`;
+        rightGif.style.transform = `translateX(-${startX - endX}px)`; // Move from startX to endX
+
+        // Use setTimeout to wait for the animation to finish before hiding GIFs and showing the final image
+        setTimeout(function() {
+            leftGif.style.display = 'none';
+            rightGif.style.display = 'none';
+
+            // Display the final image and start the fade-in effect
+            finalImage.style.display = 'block';
+            setTimeout(function() {
+                finalImage.style.opacity = 1; // Fade in the final image
+            }, 200); // Small delay to ensure the display change is applied before the opacity change
+        }, animationDuration * 1000); // Multiply by 1000 to convert seconds to milliseconds
+    }
+
+    // Start the animation when the page loads
+    animateRightGif();
+});
+
