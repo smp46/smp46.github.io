@@ -241,14 +241,14 @@ and change font size to a responive slightly larger 1.5rem
 
 #left-gif {
     left: 0;
+    opacity: 1;
 }
 
 #right-gif {
     right: 0;
+    opacity: 1;
 }
 
 .character-final {
-    display: none;
     opacity: 0;
-    transition: opacity 0.1s ease-in-out; /* Add a fade-in transition */
 }
