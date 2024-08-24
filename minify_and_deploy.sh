@@ -50,7 +50,7 @@ mv index.min.html index.html
 echo "Committing changes..."
 git add css/style.css js/script.js index.html
 git commit -m "Automated minification of CSS, JS, and HTML"
-git push origin minified
+git push --force origin minified
 
 # Switch back to the master branch
 echo "Switching back to the 'master' branch..."
