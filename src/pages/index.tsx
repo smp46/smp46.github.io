@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center h-screen text-center">
+    <div className="flex flex-col items-center text-center">
       <Head>
         <title>smp46</title>
       </Head>

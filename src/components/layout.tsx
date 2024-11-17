@@ -8,14 +8,10 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <>
-      <div className="flex h-screen">
-        {/* Sidebar */}
-        <Sidebar />
+    <div className="flex h-screen">
+      <Sidebar />
 
-        {/* Main Content */}
-        <main className="flex-1 p-4">{children}</main>
-      </div>
-    </>
+      <main className="flex-1 overflow-y-auto p-4">{children}</main>
+    </div>
   );
 }

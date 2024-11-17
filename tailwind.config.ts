@@ -19,7 +19,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'), // Add typography plugin for prose classes
-  ],
+  plugins: [require('@tailwindcss/typography')],
 } satisfies Config;
