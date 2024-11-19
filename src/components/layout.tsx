@@ -11,11 +11,11 @@ export default function RootLayout({ children }: LayoutProps) {
     <div className="flex h-screen">
       <Sidebar />
 
-
       {/* Main Content */}
-      <main className="s:ml-64 mt-16 sm:mt-0">
+      <main className="flex-1 sm:ml-auto mt-16 sm:mt-0 sm:overflow-y-auto px-8">
         {children}
       </main>
     </div>
   );
 }
+

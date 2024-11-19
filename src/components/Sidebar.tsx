@@ -45,7 +45,7 @@ export default function Sidebar() {
       <div
         className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40 transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 sm:translate-x-0 sm:static mt-8 w-64 flex-shrink-0 sm:mt-0`}
+        } transition-transform duration-300 sm:translate-x-0 static mt-8 w-64 sm:flex-shrink-0 sm:mt-0 overflow-y-scroll`}
       >
         <h1 className="text-5xl font-bold hidden sm:block">smp46</h1>
         <div className="mt-4 flex space-x-4">
@@ -53,7 +53,7 @@ export default function Sidebar() {
             href="https://discord.com/users/335649164769886208"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-2xl transition-transform duration-300 hover:scale-110"
+            className="text-white sm:text-2xl text-4xl transition-transform duration-300 hover:scale-110"
             aria-label="Discord"
           >
             <FaDiscord />
@@ -62,7 +62,7 @@ export default function Sidebar() {
             href="https://github.com/smp46"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-2xl transition-transform duration-300 hover:scale-110"
+            className="text-white sm:text-2xl text-4xl transition-transform duration-300 hover:scale-110"
             aria-label="GitHub"
           >
             <FaGithub />
@@ -71,14 +71,14 @@ export default function Sidebar() {
             href="https://linkedin.com/in/smp46"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-2xl transition-transform duration-300 hover:scale-110"
+            className="text-white sm:text-2xl text-4xl transition-transform duration-300 hover:scale-110"
             aria-label="LinkedIn"
           >
             <FaLinkedin />
           </a>
           <a
             href="mailto:me@smp46.me"
-            className="text-white text-2xl transition-transform duration-300 hover:scale-110"
+            className="text-white sm:text-2xl text-4xl transition-transform duration-300 hover:scale-110"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -86,11 +86,11 @@ export default function Sidebar() {
           </a>
         </div>
 
-        <nav className="flex flex-col space-y-2 mt-6">
+        <nav className="flex flex-col sm:space-y-2 space-y-4 mt-6">
           <Link
             href="/"
             passHref
-            className="text-white font-semibold text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            className="text-white font-semibold sm:text-xl text-3xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
             onClick={closeSidebar}
           >
             Home
@@ -98,7 +98,7 @@ export default function Sidebar() {
           <Link
             href="/personal-projects"
             passHref
-            className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            className="text-white sm:text-xl text-2xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
             onClick={closeSidebar}
           >
             Personal Projects
@@ -106,7 +106,7 @@ export default function Sidebar() {
           <Link
             href="/undergrad-projects"
             passHref
-            className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            className="text-white sm:text-xl text-2xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
             onClick={closeSidebar}
           >
             Undergrad Projects
@@ -114,7 +114,7 @@ export default function Sidebar() {
           <Link
             href="/employment"
             passHref
-            className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            className="text-white sm:text-xl text-2xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
             onClick={closeSidebar}
           >
             Employment
@@ -122,7 +122,7 @@ export default function Sidebar() {
           <Link
             href="/about-me"
             passHref
-            className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            className="text-white sm:text-xl text-2xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
             onClick={closeSidebar}
           >
             About Me

@@ -8,7 +8,7 @@ export default function Undergrad() {
       <Head>
         <title>smp46 - Undergrad Projects</title>
       </Head>
-      <h2 className="text-2xl font-bold mb-4">Welcome to My Portfolio</h2>
+      <h2 className="text-2xl font-bold mb-4 mt-8">Welcome to My Portfolio</h2>
       <p>
         This is the home section where you can provide a brief introduction.
       </p>
