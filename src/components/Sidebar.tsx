@@ -6,14 +6,26 @@ import { FiMenu, FiX } from 'react-icons/fi';
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const toggleSidebar = () => {
+  function toggleSidebar() {
     setIsSidebarOpen(!isSidebarOpen);
+    if (!isMobile) {
+      setIsMobile(true);
+    }
   };
+
+  function closeSidebar() {
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  };
+
+
 
   return (
     <>
-      <div className="sm:hidden fixed top-0 left-0 w-full bg-black text-white flex items-center justify-between px-4 py-4 z-50">
+      <div className="sm:hidden fixed top-0 left-0 w-full bg-black text-white flex items-center justify-between px-8 py-4 z-50">
 
         <button
           className="text-white text-3xl"
@@ -33,7 +45,7 @@ export default function Sidebar() {
       <div
         className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40 transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 sm:translate-x-0 sm:static mt-8 w-128 sm:mt-0`}
+        } transition-transform duration-300 sm:translate-x-0 sm:static mt-8 w-64 flex-shrink-0 sm:mt-0`}
       >
         <h1 className="text-5xl font-bold hidden sm:block">smp46</h1>
         <div className="mt-4 flex space-x-4">
@@ -79,6 +91,7 @@ export default function Sidebar() {
             href="/"
             passHref
             className="text-white font-semibold text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            onClick={closeSidebar}
           >
             Home
           </Link>
@@ -86,6 +99,7 @@ export default function Sidebar() {
             href="/personal-projects"
             passHref
             className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            onClick={closeSidebar}
           >
             Personal Projects
           </Link>
@@ -93,6 +107,7 @@ export default function Sidebar() {
             href="/undergrad-projects"
             passHref
             className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            onClick={closeSidebar}
           >
             Undergrad Projects
           </Link>
@@ -100,6 +115,7 @@ export default function Sidebar() {
             href="/employment"
             passHref
             className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            onClick={closeSidebar}
           >
             Employment
           </Link>
@@ -107,6 +123,7 @@ export default function Sidebar() {
             href="/about-me"
             passHref
             className="text-white text-xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
+            onClick={closeSidebar}
           >
             About Me
           </Link>

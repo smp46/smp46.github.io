@@ -17,6 +17,9 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      spacing: {
+        128: '32rem',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
