@@ -1,0 +1,71 @@
+---
+title: "dockerImageServer"
+type: "personal"
+---
+
+# dockerImageServer
+
+This Docker container downloads an image from a specified URL at regular intervals and serves it via an Nginx web server. I'm publishing it here in hope that someone else might have a use for it. My use case is fetching a snapshot image from a security camera on my local network and exposing it safely behind a nginx web server that can then be put behind a reverse-proxy.
+
+## Prerequisites
+
+- Docker installed on your machine.
+- Basic knowledge of Docker command-line usage.
+
+## Configuration
+
+Configuration is handled through environment variables. The following variables can be set:
+
+- `IMAGE_URL`: The URL of the image to be downloaded and served. (Required)
+- `SLEEP_INTERVAL`: The interval, in seconds, between each image fetch. Defaults to `5` seconds.
+
+## Quick Start
+
+**Docker Run**
+
+  ```bash
+    docker run -d -p 8080:80 \
+    -e IMAGE_URL=your_image_url_here \
+    -e SLEEP_INTERVAL=10 \
+    ghcr.io/smp46/dockerimageserver
+  ```
+
+**Docker Compose**
+
+  ```yaml
+    dockerImageServer:
+      container_name:  dockerImageServer
+      ports:
+          - 8080:80
+      image: ghcr.io/smp46/dockerimageserver
+      environment:
+        - IMAGE_URL=your_image_url_here
+        - SLEEP_INTERVAL=10
+      restart: unless-stopped
+```
+This will start the container and begin serving the image at http://localhost:8080.
+
+## Build from Source
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/smp46/dockerImageServer
+   cd dockerImageServer
+
+2. Build the Docker Image
+
+    ```bash
+    docker build -t dockerimageserver .
+
+3. Run the Docker Container.
+  
+    Replace your_image_url_here with the actual URL of the image you want to serve and optionally adjust the SLEEP_INTERVAL.
+
+    ```bash
+    docker run -d -p 8080:80 \
+      -e IMAGE_URL=your_image_url_here \
+      -e SLEEP_INTERVAL=10 \
+      dockerimageserver
+
+This will start the container and begin serving the image at http://localhost:8080.
