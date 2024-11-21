@@ -1,0 +1,39 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
+import Post from '../../templates/post.js';
+
+const POSTS_PATH = path.join(process.cwd(), 'src/posts');
+
+export async function getStaticPaths() {
+  const filenames = fs.readdirSync(POSTS_PATH);
+  const slugs = filenames.map((name) => name.replace(/\.mdx?$/, ''));
+  const paths = slugs.map((slug) => ({ params: { slug } }));
+
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+  const { slug } = params;
+  const filePath = path.join(POSTS_PATH, `${slug}.mdx`);
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  const { data: frontMatter, content } = matter(fileContent);
+  const mdxSource = await serialize(content);
+
+  return {
+    props: {
+      frontMatter,
+      mdxSource,
+    },
+  };
+}
+
+export default function PostPage({ frontMatter, mdxSource }) {
+  return (
+    <Post frontMatter={frontMatter}>
+      <MDXRemote {...mdxSource} />
+    </Post>
+  );
+}

@@ -13,33 +13,27 @@ export default function Sidebar() {
     if (!isMobile) {
       setIsMobile(true);
     }
-  };
+  }
 
   function closeSidebar() {
     if (isMobile) {
       setIsSidebarOpen(false);
     }
-  };
-
-
+  }
 
   return (
     <>
       <div className="sm:hidden fixed top-0 left-0 w-full bg-black text-white flex items-center justify-between px-8 py-4 z-50">
-
         <button
           className="text-white text-3xl"
           onClick={toggleSidebar}
           aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
         >
-
           {isSidebarOpen ? <FiX /> : <FiMenu />}
-
         </button>
 
         <h1 className="text-3xl font-bold">smp46</h1>
       </div>
-
 
       {/* Sidebar */}
       <div
@@ -96,20 +90,12 @@ export default function Sidebar() {
             Home
           </Link>
           <Link
-            href="/personal-projects"
+            href="/projects"
             passHref
             className="text-white sm:text-xl text-2xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
             onClick={closeSidebar}
           >
-            Personal Projects
-          </Link>
-          <Link
-            href="/undergrad-projects"
-            passHref
-            className="text-white sm:text-xl text-2xl transition-transform duration-300 hover:scale-110 origin-left cursor-pointer"
-            onClick={closeSidebar}
-          >
-            Undergrad Projects
+            Projects
           </Link>
           <Link
             href="/employment"
@@ -137,7 +123,6 @@ export default function Sidebar() {
           onClick={toggleSidebar}
         />
       )}
-
     </>
   );
 }

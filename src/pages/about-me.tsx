@@ -22,9 +22,9 @@ export default function AboutMe() {
       <div className="text-center mt-9">
         <h1 className="text-4xl font-bold mb-6">About Me</h1>
         <p className="text-lg mb-4">
-          I am excited to complete my Bachelor&#39;s of Computer Science and am keen
-          to enter the field of my major, Cyber Security. I&#39;m an active member
-          of the UQ Cyber Squad, where we are lucky enough to get regular
+          I am excited to complete my Bachelor&#39;s of Computer Science and am
+          keen to enter the field of my major, Cyber Security. I&#39;m an active
+          member of the UQ Cyber Squad, where we are lucky enough to get regular
           industry talks and workshops. I enjoy participating in CTFs and follow
           the industry closely.
         </p>
