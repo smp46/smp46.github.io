@@ -45,7 +45,7 @@ export default function Sidebar() {
       <div
         className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40 transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 sm:translate-x-0 static mt-8 w-64 sm:flex-shrink-0 sm:mt-0 overflow-y-scroll`}
+        } transition-transform duration-300 sm:translate-x-0 sm:static mt-8 w-64 sm:flex-shrink-0 sm:mt-0 overflow-y-scroll`}
       >
         <h1 className="text-5xl font-bold hidden sm:block">smp46</h1>
         <div className="mt-4 flex space-x-4">
