@@ -9,12 +9,3 @@ const baseConfig = {
   },
 };
 
-const withMDX = createMDX({
-  extension: /\.mdx?$/, // Match .md and .mdx files
-  options: {
-    // Add any desired remark or rehype plugins here
-  },
-});
-
-export default withMDX(baseConfig);
-
