@@ -74,7 +74,7 @@ export default function Personal({ posts }) {
 }
 
 export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), 'src/posts');
+  const postsDirectory = path.join(process.cwd(), 'src/projects');
   const filenames = await fs.readdir(postsDirectory);
 
   const files = await Promise.all(
@@ -91,7 +91,7 @@ export async function getStaticProps() {
 
   const posts = files.map((file) => {
     return {
-      path: `/posts/${file.filename.replace('.mdx', '')}`,
+      path: `/projects/${file.filename.replace('.mdx', '')}`,
       title: file.matter.data.title,
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
     };

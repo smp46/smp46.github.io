@@ -5,7 +5,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 import Post from '../../templates/post.js';
 
-const POSTS_PATH = path.join(process.cwd(), 'src/posts');
+const POSTS_PATH = path.join(process.cwd(), 'src/projects');
 
 export async function getStaticPaths() {
   const filenames = fs.readdirSync(POSTS_PATH);
