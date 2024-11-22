@@ -5,7 +5,17 @@ import path from 'path';
 import grayMatter from 'gray-matter';
 import Link from 'next/link';
 
-export default function Personal({ posts }) {
+interface Post {
+  path: string;
+  title: string;
+  type: string;
+}
+
+interface Props {
+  posts: Post[];
+}
+
+export default function Personal({ posts }: Props) {
   const personalProjects = posts.filter((post) => post.type === 'personal');
   const undergradProjects = posts.filter((post) => post.type === 'undergrad');
 
@@ -65,7 +75,7 @@ export default function Personal({ posts }) {
                   </div>
                 </Link>
               );
-            })}
+
           </div>
         </section>
       </main>
@@ -89,13 +99,13 @@ export async function getStaticProps() {
     })
   );
 
-  const posts = files.map((file) => {
+  const posts: Post[] = files.map((file) => ({
     return {
       path: `/projects/${file.filename.replace('.mdx', '')}`,
       title: file.matter.data.title,
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
     };
-  });
+  }));
 
   return {
     props: {
