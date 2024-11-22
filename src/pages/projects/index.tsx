@@ -75,13 +75,13 @@ export default function Personal({ posts }: Props) {
                   </div>
                 </Link>
               );
-
+            })}
           </div>
         </section>
       </main>
     </div>
   );
-}
+};
 
 export async function getStaticProps() {
   const postsDirectory = path.join(process.cwd(), 'src/projects');
@@ -99,13 +99,13 @@ export async function getStaticProps() {
     })
   );
 
-  const posts: Post[] = files.map((file) => ({
+  const posts: Post[] = files.map((file) => {
     return {
       path: `/projects/${file.filename.replace('.mdx', '')}`,
       title: file.matter.data.title,
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
     };
-  }));
+  });
 
   return {
     props: {

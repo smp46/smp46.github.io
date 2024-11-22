@@ -41,8 +41,7 @@ export default function Home() {
             src="/me3.gif"
             alt="Left GIF animation"
             unoptimized={false}
-            layout="fill"
-            objectFit="contain"
+            fill
             style={{ position: 'absolute', top: 0, left: 0, opacity: 1 }}
           />
           <Image
@@ -50,16 +49,14 @@ export default function Home() {
             src="/snake3.gif"
             unoptimized={false}
             alt="Right GIF animation"
-            layout="fill"
-            objectFit="contain"
+            fill
             style={{ position: 'absolute', top: 0, left: 0, opacity: 1 }}
           />
           <Image
             ref={finalImageRef}
             src="/pp.png"
             alt="Final Image"
-            layout="fill"
-            objectFit="contain"
+            fill
             style={{ position: 'absolute', top: 0, left: 0, opacity: 0 }}
           />
         </div>
