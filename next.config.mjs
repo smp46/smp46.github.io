@@ -1,13 +1,13 @@
-import createMDX from '@next/mdx';
-
-/** @type {import('next').NextConfig} */
-const baseConfig = {
-  output: 'export',
-  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+const isProd = process.env.NODE_ENV === 'production';
+const nextConfig = {
+  reactStrictMode: true,
   images: {
-    unoptimized: true, // Globally disable image optimization
+    unoptimized: true, // Disable default image optimization
   },
-  basePath: '/smp46.github.io', // Replace <repository-name> with your GitHub repo name
-  trailingSlash: true, // Ensures all paths end with a slash
+  assetPrefix: isProd ? '/smp46.github.io/' : '',
+  basePath: isProd ? '/smp46.github.io' : '',
+  output: 'export'
 };
+
+export default nextConfig;
 
