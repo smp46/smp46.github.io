@@ -7,7 +7,7 @@ const baseConfig = {
   images: {
     unoptimized: true, // Globally disable image optimization
   },
-  basePath: '/<repository-name>', // Replace <repository-name> with your GitHub repo name
+  basePath: '/smp46.github.io', // Replace <repository-name> with your GitHub repo name
   trailingSlash: true, // Ensures all paths end with a slash
 };
 
