@@ -5,7 +5,7 @@ const nextConfig = {
     unoptimized: true, // Disable default image optimization
   },
   assetPrefix: isProd ? '/smp46.github.io/' : '',
-  basePath: isProd ? '/smp46.github.io' : '',
+  basePath: process.env.DEPLOYED_GITHUB_PATH || isProd ? '/smp46.github.io' : '',
   output: 'export'
 };
 
