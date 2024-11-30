@@ -13,6 +13,11 @@ export default {
     './src/app/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './*.{js,ts,jsx,tsx,mdx}',
+    // Content for prod
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './layouts/**/*.{js,ts,jsx,tsx}',
+    './public/**/*.html',
   ],
   theme: {
     extend: {
