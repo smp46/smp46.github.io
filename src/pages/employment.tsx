@@ -12,12 +12,12 @@ export default function Employment() {
       <h1 className="text-4xl font-bold mb-8 text-center">Employment</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white shadow-lg rounded-lg p-6">
-          <h3 className="text-2xl font-semibold">
+          <h3 className="text-3xl font-semibold">
             Computer Salesperson at Australian Computer Traders
             <br />
             <small className="text-gray-500">March 2023 - Current</small>
           </h3>
-          <ul className="mt-4 list-disc pl-5 space-y-3">
+          <ul className="mt-4 text-xl list-disc pl-5 space-y-3">
             <li>
               Working in the primary retail store for the company, focusing on
               sales of refurbished laptops and desktops.
@@ -30,12 +30,12 @@ export default function Employment() {
           </ul>
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6">
-          <h3 className="text-2xl font-semibold">
+          <h3 className="text-3xl font-semibold">
             Computer Technician at Pro Computers
             <br />
             <small className="text-gray-500">December 2019 - March 2022</small>
           </h3>
-          <ul className="mt-4 list-disc pl-5 space-y-3">
+          <ul className="mt-4 text-xl list-disc pl-5 space-y-3">
             <li>
               Customer facing computer technician role with a focus on computer
               repairs, customer support and retail sales.
@@ -51,7 +51,7 @@ export default function Employment() {
           </ul>
         </div>
       </div>
-      <div className="mt-8 text-center">
+      <div className="mt-8 text-center text-xl">
         <p>
           Send me an email or contact me on LinkedIn for more information or to
           request a full résumé.
