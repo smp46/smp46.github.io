@@ -65,7 +65,7 @@ export default function Employment() {
             <SiGmail size="40" />
           </a>
           <a
-            href="https://linkedin.com/in/samuel-p-023464286"
+            href="https://linkedin.com/in/smp46"
             target="_blank"
             rel="noopener noreferrer"
           >
