@@ -1,9 +1,9 @@
 # *
 User-agent: *
 Allow: /
-
-# Host
-Host: https://smp46.me
+Disallow: /me.jpg
+Disallow: /me3.gif
+Disallow: /snake3.gif
 
 # Sitemaps
 Sitemap: https://smp46.me/sitemap.xml
