@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio Website
+This repository contains the source code for my personal website. The website itself covers an intro to my projects and a little about who I am.
 
-## Getting Started
+## Features
+ - Written in Typescript with NextJS/React.
+ - Fully dynamic will scale (well) to most devices.
+ - Website is entirely statically generated.
+ - Articles (projects) are written in MDX format and get compiled automatically as a Github workflow.
 
-First, run the development server:
+## How the Markdown stuff works
+Painfully! It was a lot of banging my head against the wall using various guides and resources to reach my goal of *easier* article creation / updating. What ended up being the most helpful article was [this one by Colby Fayock](https://spacejelly.dev/posts/how-to-source-mdx-content-in-next-js-to-dynamically-create-pages-for-a-blog).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The end result is a relatively easy way to maintain and add articles/project write-ups. The process is as simple as:
+
+1. Write the article in Markdown(X) and copy it to the src/projects directory.
+2. Add two fields to the top of the page, to extract a title and allow for categorising. For example:
+
+```
+  ---
+  title: "RightClickVirusTotal"
+  type: "personal"
+  ---
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. `git add . && git commit` And ta-dah, the Github workflow handles the compiling and then it goes live at [smp46.me/projects](https://smp46.me/projects).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Testing/Building
+Requirements: `npm 10.9.2` - ymmv with other versions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For developing `npm run dev`, this even works for adding MDX files. Navigating away then back to /projects, will refresh and get new files.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For building/generating a static site `npm run build`, find the website files in /out.
