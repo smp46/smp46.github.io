@@ -22,6 +22,7 @@ const staticRoutes = [
 module.exports = {
   siteUrl: 'https://smp46.me', // Replace with your domain
   generateRobotsTxt: true,    // Generate robots.txt
+  generateIndexSitemap: false,
   additionalPaths: async (config) => {
     // Generate dynamic paths for the Markdown files
     const projectPaths = getProjectSlugs().map((slug) => ({
