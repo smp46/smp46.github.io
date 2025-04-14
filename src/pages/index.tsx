@@ -26,7 +26,9 @@ export default function Home() {
     <div id="home" className="container mx-auto px-4 py-8">
       <div className="flex flex-col items-center text-center sm:px-8 py-10">
         <Head>
-          <title>smp46</title>
+          <title>smp46 - Portfolio</title>
+          <meta name="description" content="Statically generated portfolio, written in Typescript with NextJS."></meta>
+          <meta name="keywords" content="Portfolio, Developer, Username"></meta>
         </Head>
         <div className="mb-4">
           <div

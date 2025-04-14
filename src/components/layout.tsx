@@ -1,5 +1,6 @@
 // src/app/layout.tsx
 import Sidebar from './Sidebar';
+import Head from 'next/head';
 import { ReactNode } from 'react';
 
 interface LayoutProps {
@@ -9,6 +10,10 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <div className="flex h-screen">
+      <Head>
+        <meta http-equiv='content-language' content='en-us'></meta>
+        <meta name="author" content="Samuel Paynter"></meta>
+      </Head>
       <Sidebar />
 
       {/* Main Content */}
