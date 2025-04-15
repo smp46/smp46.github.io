@@ -1,7 +1,7 @@
 import Head from 'next/head';
 
 export default function Post({ children, frontMatter }) {
-  const { title, description, keywords, subtitle } = frontMatter;
+  const { title, description, keywords} = frontMatter;
   return (
     <div className="min-h-screen ">
       <Head>
