@@ -25,14 +25,14 @@ export default function Sidebar() {
     <>
       <div className="sm:hidden fixed top-0 left-0 w-full bg-black text-white flex items-center justify-between px-8 py-4 z-50">
         <button
-          className="text-white text-3xl"
+          className="text-white text-5xl flex items-center justify-center "  // Ensure button is aligned with center
           onClick={toggleSidebar}
           aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
         >
           {isSidebarOpen ? <FiX /> : <FiMenu />}
         </button>
 
-        <h2 className="sm:text-3xl text-5xl font-bold">smp46</h2>
+        <h2 className="sm:text-3xl text-5xl font-bold leading-none -translate-y-2 sm:translate-y-0">smp46</h2> {/* Adjust line height if necessary */}
       </div>
 
       {/* Sidebar */}
