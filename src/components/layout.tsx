@@ -12,7 +12,7 @@ export default function RootLayout({ children }: LayoutProps) {
     <div className="flex h-screen">
       <Head>
         <meta http-equiv='content-language' content='en-us'></meta>
-        <meta name="author" content="Samuel Paynter"></meta>
+        <meta name="author" content="Samuel Paynter "></meta>
       </Head>
       <Sidebar />
 

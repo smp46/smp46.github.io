@@ -8,7 +8,10 @@ import Link from 'next/link';
 interface Post {
   path: string;
   title: string;
+  subtitle: string;
   type: string;
+  description: string;
+  keywords: string;
 }
 
 interface Props {
@@ -20,9 +23,12 @@ export default function Personal({ posts }: Props) {
   const undergradProjects = posts.filter((post) => post.type === 'undergrad');
 
   return (
+    <>
     <div className="min-h-screen py-10 px-6">
       <Head>
         <title>smp46 - Projects</title>
+        <meta name="description" content="Explore my personal and undergraduate projects showcasing my journey and skills."></meta>
+        <meta name="keywords" content="Portfolio, Developer, Software Developer, Projects, Write ups, articles, programming"></meta>
       </Head>
       <header className="max-w-4xl mx-auto text-center mb-10">
         <h1 className="text-4xl font-bold mb-4">
@@ -40,7 +46,7 @@ export default function Personal({ posts }: Props) {
           <h2 className="text-3xl font-bold mb-6">Personal Projects</h2>
           <div className="grid grid-cols-1 gap-3 ">
             {personalProjects.map((post) => {
-              const { title, path } = post;
+              const { title, subtitle, path } = post;
               return (
                 <Link key={path} href={path}>
                   <div className="group p-6 rounded-lg shadow-lg bg-white hover:bg-gray-50 transition cursor-pointer border border-gray-200">
@@ -48,7 +54,7 @@ export default function Personal({ posts }: Props) {
                       {title}
                     </h3>
                     <p className="text-md text-gray-500 mt-2">
-                      Click to learn more about this project.
+                      {subtitle}
                     </p>
                   </div>
                 </Link>
@@ -62,7 +68,7 @@ export default function Personal({ posts }: Props) {
           <h2 className="text-3xl font-bold mb-6">Undergrad Projects</h2>
           <div className="grid grid-cols-1 gap-3 ">
             {undergradProjects.map((post) => {
-              const { title, path } = post;
+              const { title, subtitle, path } = post;
               return (
                 <Link key={path} href={path}>
                   <div className="group p-6 rounded-lg shadow-lg bg-white hover:bg-gray-50 transition cursor-pointer border border-gray-200">
@@ -70,7 +76,7 @@ export default function Personal({ posts }: Props) {
                       {title}
                     </h3>
                     <p className="text-md text-gray-500 mt-2">
-                      Click to learn more about this project.
+                      {subtitle}
                     </p>
                   </div>
                 </Link>
@@ -80,6 +86,7 @@ export default function Personal({ posts }: Props) {
         </section>
       </main>
     </div>
+    </>
   );
 };
 
@@ -103,6 +110,9 @@ export async function getStaticProps() {
     return {
       path: `/projects/${file.filename.replace('.mdx', '')}`,
       title: file.matter.data.title,
+      subtitle: file.matter.data.subtitle,
+      description: file.matter.data.description,
+      keywords: file.matter.data.keywords,
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
     };
   });
