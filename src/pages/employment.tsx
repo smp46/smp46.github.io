@@ -7,7 +7,7 @@ export default function Employment() {
   return (
     <div id="employment" className="container mx-auto px-4 py-8">
       <Head>
-        <title>smp46 - Employment</title>
+        <title>Employment - smp46</title>
       </Head>
       <h1 className="text-4xl font-bold mb-8 text-center">Employment</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

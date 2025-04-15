@@ -7,7 +7,7 @@ export default function AboutMe() {
     <div id="about-me" className="container mx-auto px-4 py-8">
       <div className="lg:grid-cols-2 gap-8 items-center py-12 px-6">
         <Head>
-          <title>smp46 - About Me</title>
+          <title>About Me - smp46</title>
         </Head>
 
         <div className="flex justify-center">
