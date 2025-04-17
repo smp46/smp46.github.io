@@ -1,11 +1,11 @@
 import Head from 'next/head';
 
 export default function Post({ children, frontMatter }) {
-  const { title, description, keywords} = frontMatter;
+  const { title, description, keywords, subtitle} = frontMatter;
   return (
     <div className="min-h-screen ">
       <Head>
-        <title>{title}</title>
+        <title>{title.concat(" | ").concat(subtitle)}</title>
         <meta name="description" content={description}></meta>
         <meta name="keywords" content={keywords}></meta>
       </Head>
