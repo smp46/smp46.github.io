@@ -24,13 +24,11 @@ export default function Sidebar() {
   }
 
   const navLinks = [
-    { href: '/', label: 'Home' },
+    { href: '/', label: 'Welcome' },
     { href: '/projects/', label: 'Projects' },
-    { href: '/employment/', label: 'Employment' },
-    { href: '/about-me/', label: 'About Me' },
+    { href: '/experience/', label: 'Experience' },
+    { href: '/whoami/', label: 'whoami' },
   ];
-
-  console.log(pathname)
 
   return (
     <>

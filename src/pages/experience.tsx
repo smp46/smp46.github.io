@@ -3,13 +3,15 @@ import { FaLinkedin } from 'react-icons/fa';
 import { SiGmail } from 'react-icons/si';
 import Head from 'next/head';
 
-export default function Employment() {
+export default function Experience() {
   return (
-    <div id="employment" className="container mx-auto px-4 py-8">
+    <div id="experience" className="container mx-auto px-4 py-8">
       <Head>
-        <title>Employment - smp46</title>
+        <title>Experience – smp46</title>
+        <meta name="description" content="A detailed look at smp46's professional experience, roles."></meta>
+        <meta name="keywords" content="smp46, software engineer experience, developer work history, resume, tech career, experience, professional background"></meta>
       </Head>
-      <h1 className="text-4xl font-bold mb-8 text-center">Employment</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Experience</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h3 className="text-3xl font-semibold">
