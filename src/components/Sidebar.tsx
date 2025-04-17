@@ -93,7 +93,11 @@ export default function Sidebar() {
 
         <nav className="flex flex-col sm:space-y-2 space-y-4 mt-6">
           {navLinks.map(({ href, label }) => {
-            const isActive = pathname === href;
+            const isActive =
+              href === '/'
+                ? pathname === '/'
+                : pathname.startsWith(href);
+
             return (
               <Link
                 key={href}
