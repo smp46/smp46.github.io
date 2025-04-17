@@ -26,7 +26,7 @@ export default function Welcome() {
     <div id="welcome" className="container mx-auto px-4 py-8">
       <div className="flex flex-col items-center text-center sm:px-8 py-10">
         <Head>
-          <title>Hi, I&#39;m smp46 – Software Engineer & Builder of Things</title>
+          <title>Hi, I&#39;m smp46 | Software Engineer & Builder of Things</title>
           <meta name="description" content="I&#39;m a passionate undergrad studying Computer Science at theUniversity of Queensland. This website highlights some of my achievements and skills as an aspiring software developer."></meta>
           <meta name="keywords" content="smp46, software engineer, developer portfolio, web developer, TypeScript, Next.js, personal site"></meta>
         </Head>

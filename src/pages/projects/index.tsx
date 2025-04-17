@@ -26,7 +26,7 @@ export default function Personal({ posts }: Props) {
     <>
     <div className="min-h-screen py-10 px-6">
       <Head>
-        <title>Projects - smp46</title>
+        <title>Projects - Achievements, Attemps and Other Things - smp46</title>
         <meta name="description" content="Explore my personal and undergraduate projects showcasing my journey and skills."></meta>
         <meta name="keywords" content="Portfolio, Developer, Software Developer, Projects, Write ups, articles, programming"></meta>
       </Head>

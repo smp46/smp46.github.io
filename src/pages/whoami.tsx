@@ -7,7 +7,7 @@ export default function Whoami() {
     <div id="whoami" className="container mx-auto px-4 py-8">
       <div className="lg:grid-cols-2 gap-8 items-center py-12 px-6">
         <Head>
-          <title>whoami – smp46, Software Engineer, Student & Tinkerer</title>
+          <title>whoami - Software Engineer, Student & Tinkerer – smp46</title>
           <meta name="description" content="Learn more about smp46 – a software engineer with a passion for building tools, apps, and playful digital experiences. Here's my journey, philosophy, and what drives me."></meta>
           <meta name="keywords" content="smp46, whoami, about smp46, software engineer bio, developer story, personal site, web developer, creative engineer"></meta>
         </Head>
