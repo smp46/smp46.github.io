@@ -12,7 +12,25 @@ export default function Experience() {
         <meta name="keywords" content="smp46, software engineer experience, developer work history, resume, tech career, experience, professional background"></meta>
       </Head>
       <h1 className="text-4xl font-bold mb-8 text-center">My Experience</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          <h3 className="text-3xl font-semibold">
+            Treasurer at UQ Cyber Squad
+            <br />
+            <small className="text-gray-500">October 2024 - Current</small>
+          </h3>
+          <ul className="mt-4 text-xl list-disc pl-5 space-y-3">
+            <li>
+              Approving, managing and balancing finances for the Club.
+            </li>
+            <li>
+              Reaching out to industry to secure talks, sponsorships and other experiences for our members.
+            </li>
+            <li>
+              Overall, running and supporting a rapidly growing university club.
+            </li>
+          </ul>
+        </div>
         <div className="bg-white shadow-lg rounded-lg p-6">
           <h3 className="text-3xl font-semibold">
             Computer Salesperson at Australian Computer Traders
