@@ -12,6 +12,7 @@ interface Post {
   type: string;
   description: string;
   keywords: string;
+  github: string;
 }
 
 interface Props {
