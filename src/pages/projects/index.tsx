@@ -114,6 +114,7 @@ export async function getStaticProps() {
       subtitle: file.matter.data.subtitle,
       description: file.matter.data.description,
       keywords: file.matter.data.keywords,
+      github: file.matter.data.github,
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
     };
   });
