@@ -57,7 +57,7 @@ export default function Welcome() {
             />
             <Image
               ref={finalImageRef}
-              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/pp.png"
+              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/pp.png?q=85&amp;f=webp"
               alt="Final Image"
               fill
               style={{ position: 'absolute', top: 0, left: 0, opacity: 0 }}
