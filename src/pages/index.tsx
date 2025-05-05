@@ -41,7 +41,7 @@ export default function Home() {
           >
             <Image
               ref={leftGifRef}
-              src="/me3.gif"
+              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/me3.gif"
               alt="Left GIF animation"
               unoptimized={false}
               fill
@@ -49,7 +49,7 @@ export default function Home() {
             />
             <Image
               ref={rightGifRef}
-              src="/snake3.gif"
+              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/snake3.gif"
               unoptimized={false}
               alt="Right GIF animation"
               fill
@@ -57,7 +57,7 @@ export default function Home() {
             />
             <Image
               ref={finalImageRef}
-              src="/pp.png"
+              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/pp.png"
               alt="Final Image"
               fill
               style={{ position: 'absolute', top: 0, left: 0, opacity: 0 }}

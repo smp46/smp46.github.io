@@ -12,7 +12,7 @@ export default function AboutMe() {
 
         <div className="flex justify-center">
           <Image
-            src="/me.jpg"
+            src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/me.jpg"
             width={400}
             height={300}
             alt="Profile Picture"
