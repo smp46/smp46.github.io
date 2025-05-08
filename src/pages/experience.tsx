@@ -8,8 +8,14 @@ export default function Experience() {
     <div id="experience" className="container mx-auto px-4 py-8">
       <Head>
         <title>My Experience - Past Roles and Work History – smp46</title>
-        <meta name="description" content="A detailed look at smp46's professional experience, roles."></meta>
-        <meta name="keywords" content="smp46, software engineer experience, developer work history, resume, tech career, experience, professional background"></meta>
+        <meta
+          name="description"
+          content="A detailed look at smp46's professional experience, roles."
+        ></meta>
+        <meta
+          name="keywords"
+          content="smp46, software engineer experience, developer work history, resume, tech career, experience, professional background"
+        ></meta>
       </Head>
       <h1 className="text-4xl font-bold mb-8 text-center">My Experience</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -20,11 +26,10 @@ export default function Experience() {
             <small className="text-gray-500">October 2024 - Current</small>
           </h3>
           <ul className="mt-4 text-xl list-disc pl-5 space-y-3">
+            <li>Approving, managing and balancing finances for the Club.</li>
             <li>
-              Approving, managing and balancing finances for the Club.
-            </li>
-            <li>
-              Reaching out to industry to secure talks, sponsorships and other experiences for our members.
+              Reaching out to industry to secure talks, sponsorships and other
+              experiences for our members.
             </li>
             <li>
               Overall, running and supporting a rapidly growing university club.

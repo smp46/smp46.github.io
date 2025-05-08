@@ -11,14 +11,13 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <div className="flex h-screen">
       <Head>
-        <meta httpEquiv='content-language' content='en-us'></meta>
+        <meta httpEquiv="content-language" content="en-us"></meta>
         <meta name="author" content="Samuel Paynter "></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Sidebar />
 
-      {/* Main Content */}
-      <main className="flex-1 sm:ml-auto mt-16 sm:mt-0 sm:overflow-y-auto px-8 w-screen">
+      <main className="flex-1 sm:ml-auto mt-16 sm:mt-0 sm:overflow-y-scroll px-8 w-screen">
         {children}
       </main>
     </div>

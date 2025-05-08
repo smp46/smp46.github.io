@@ -23,58 +23,71 @@ export default function Welcome() {
   }, []);
 
   return (
-    <div id="welcome" className="container mx-auto px-4 py-8">
-      <div className="flex flex-col items-center text-center sm:px-8 py-10">
-        <Head>
-          <title>Hi, I&#39;m smp46 | Software Engineer & Builder of Things</title>
-          <meta name="description" content="I&#39;m a passionate undergrad studying Computer Science at theUniversity of Queensland. This website highlights some of my achievements and skills as an aspiring software developer."></meta>
-          <meta name="keywords" content="smp46, software engineer, developer portfolio, web developer, TypeScript, Next.js, personal site"></meta>
-        </Head>
-        <div className="mb-4">
-          <div
-            style={{
-              position: 'relative',
-              width: '150px',
-              height: '150px',
-              margin: '0 auto',
-            }}
-          >
-            <Image
-              ref={leftGifRef}
-              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/me3.gif"
-              alt="Left GIF animation"
-              unoptimized={false}
-              fill
-              style={{ position: 'absolute', top: 0, left: 0, opacity: 1 }}
-            />
-            <Image
-              ref={rightGifRef}
-              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/snake3.gif"
-              unoptimized={false}
-              alt="Right GIF animation"
-              fill
-              style={{ position: 'absolute', top: 0, left: 0, opacity: 1 }}
-            />
-            <Image
-              ref={finalImageRef}
-              src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/pp.png?q=85&amp;f=webp"
-              alt="Final Image"
-              fill
-              style={{ position: 'absolute', top: 0, left: 0, opacity: 0 }}
-            />
+    <div
+      id="welcome"
+      className="flex items-center justify-center md:min-h-screen"
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col items-center text-center sm:px-8 py-10">
+          <Head>
+            <title>
+              Hi, I&#39;m smp46 | Software Engineer & Builder of Things
+            </title>
+            <meta
+              name="description"
+              content="I&#39;m a passionate undergrad studying Computer Science at theUniversity of Queensland. This website highlights some of my achievements and skills as an aspiring software developer."
+            ></meta>
+            <meta
+              name="keywords"
+              content="smp46, software engineer, developer portfolio, web developer, TypeScript, Next.js, personal site"
+            ></meta>
+          </Head>
+          <div className="mb-4">
+            <div
+              style={{
+                position: 'relative',
+                width: '150px',
+                height: '150px',
+                margin: '0 auto',
+              }}
+            >
+              <Image
+                ref={leftGifRef}
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/me3.gif"
+                alt="Left GIF animation"
+                unoptimized={false}
+                fill
+                style={{ position: 'absolute', top: 0, left: 0, opacity: 1 }}
+              />
+              <Image
+                ref={rightGifRef}
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/snake3.gif"
+                unoptimized={false}
+                alt="Right GIF animation"
+                fill
+                style={{ position: 'absolute', top: 0, left: 0, opacity: 1 }}
+              />
+              <Image
+                ref={finalImageRef}
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/pp.png?q=85&amp;f=webp"
+                alt="Final Image"
+                fill
+                style={{ position: 'absolute', top: 0, left: 0, opacity: 0 }}
+              />
+            </div>
           </div>
+
+          <h1 className="sm:text-6xl text-5xl font-semibold text-black mt-4 mb-2">
+            Hi, I&#39;m Samuel
+          </h1>
+          <h2 className="text-4xl sm:text-5xl text-gray-600">(smp46)</h2>
+
+          <p className="sm:mt-4 mt-12 md:text-3xl text-2xl sm:p-4">
+            I&#39;m a passionate undergrad studying Computer Science at the
+            University of Queensland. This website highlights some of my
+            achievements and skills as an aspiring software developer.
+          </p>
         </div>
-
-        <h1 className="text-6xl font-semibold text-black mt-4 mb-2">
-          Hi, I&#39;m Samuel
-        </h1>
-        <h2 className="text-5xl text-gray-600">(smp46)</h2>
-
-        <p className="sm:mt-4 mt-12 text-3xl sm:p-4">
-          I&#39;m a passionate undergrad studying Computer Science at the
-          University of Queensland. This website highlights some of my
-          achievements and skills as an aspiring software developer.
-        </p>
       </div>
     </div>
   );

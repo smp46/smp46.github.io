@@ -42,13 +42,16 @@ export default function Sidebar() {
         </button>
 
         <Link href="/">
-          <h2 className="sm:text-3xl text-5xl font-bold leading-none -translate-y-2 sm:translate-y-0">smp46</h2>
+          <h2 className="sm:text-3xl text-5xl font-bold leading-none -translate-y-2 sm:translate-y-0">
+            smp46
+          </h2>
         </Link>
       </div>
 
       <div
-        className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          } transition-transform duration-300 sm:translate-x-0 sm:static mt-8 w-64 sm:flex-shrink-0 sm:mt-0 overflow-y-scroll`}
+        className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40 transform ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } transition-transform duration-300 sm:translate-x-0 sm:static mt-8 w-64 sm:flex-shrink-0 sm:mt-0 overflow-y-scroll`}
       >
         <Link href="/">
           <h2 className="text-5xl font-bold hidden sm:block">smp46</h2>
@@ -94,16 +97,16 @@ export default function Sidebar() {
         <nav className="flex flex-col sm:space-y-2 space-y-4 mt-6">
           {navLinks.map(({ href, label }) => {
             const isActive =
-              href === '/'
-                ? pathname === '/'
-                : pathname.startsWith(href);
+              href === '/' ? pathname === '/' : pathname.startsWith(href);
 
             return (
               <Link
                 key={href}
                 href={href}
                 className={`text-white transition-transform duration-300 hover:scale-110 origin-left cursor-pointer ${
-                  isActive ? 'font-semibold sm:text-2xl text-3xl' : 'sm:text-xl text-2xl'
+                  isActive
+                    ? 'font-semibold sm:text-2xl text-3xl'
+                    : 'sm:text-xl text-2xl'
                 }`}
                 onClick={closeSidebar}
               >
@@ -123,4 +126,3 @@ export default function Sidebar() {
     </>
   );
 }
-
