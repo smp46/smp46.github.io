@@ -27,7 +27,7 @@ export default function Welcome() {
       id="welcome"
       className="flex items-center justify-center md:min-h-screen"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 lg:translate-y-[-30%]">
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
           <Head>
             <title>

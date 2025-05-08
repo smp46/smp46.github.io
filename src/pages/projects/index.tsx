@@ -25,7 +25,12 @@ export default function Personal({ posts }: Props) {
 
   return (
     <>
-    <div className="min-h-screen py-10 px-6">
+    <div
+      id="welcome"
+      className="flex items-center justify-center md:min-h-screen"
+    >
+      <div className="container mx-auto px-4 py-10 lg:translate-y-[-30%]">
+    {/* <div className="min-h-screen py-10 px-6"> */}
       <Head>
         <title>Projects - Achievements, Attemps and Other Things - smp46</title>
         <meta name="description" content="Explore my personal and undergraduate projects showcasing my journey and skills."></meta>
@@ -86,6 +91,7 @@ export default function Personal({ posts }: Props) {
           </div>
         </section>
       </main>
+    </div>
     </div>
     </>
   );
