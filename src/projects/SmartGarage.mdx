@@ -7,7 +7,7 @@ keywords: "SmartGarage, Raspberry Pi garage door, machine learning IoT, MobileNe
 github: "https://github.com/smp46/SmartGarage"
 ---
 
-# SmartGarage
+# SmartGarage: A DIY Wireless Garage Door Control System w/Machine Learning
 
 ## Introduction
 
@@ -17,7 +17,7 @@ So I get thinking and I come up with the project you're reading right now. To cr
 
 This project ended up combining hardware hacking, machine learning, and a web interface to create a practical solution using nothing but off the shelf (or the internet) parts and a bit of coding elbow grease.
 
-![Final Result](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/1.jpg)
+![Final Result](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/1.jpg?q=85&f=webp)
 
 It's hard to show a teaser of the final result because it has so many parts, but here is what was the hardest part of the solution (I swear it's not a bomb).
 
@@ -37,13 +37,13 @@ A little over a year goes by, life goes on, and my garage remains dumb :(
 
 However, recently while procrastinating some other programming assignments I remembered this project. And I thought, if a fob can open and close the door, maybe I can just automate pressing the button on the fob. Sometimes the simplest solutions are the ones staring you right in the face all along...
 
-## The Hardware Hack
+## The Hardware Hack
 
 So I ordered a couple of generic garage door fobs off eBay that were compatible with my opener. After adding them to the garage door (following the actual process in the manual), I started thinking about how I could simulate a button press with my Raspberry Pi Zero W.
 
 Now, I'm not an electrical engineer by any stretch, but I figured how complicated could a fob be. I carefully cracked open one of the generic fobs and examined the PCB. After some poking around with a multimeter, I discovered something beautifully simple: the button on the fob just bridges two contacts on the PCB. If I could find a way to bridge those contacts on command from the Pi, I'd be cooking.
 
-![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/2.jpg)
+![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/2.jpg?q=85&f=webp)
 
 Here is the naked fob and the contacts I needed to bridge.
 
@@ -58,7 +58,7 @@ After some research, I figured out I needed:
 - A bit of soldering skill (which I do not have)
 
 Here's the circuit I ended up with:
-![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/3.png)
+![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/3.png?q=85&f=webp)
 
 I soldered two thin wires to the contact points either side of the fob's button, ran them to the relay, and connected everything according to the diagram above. The idea is simple: when GPIO pin 17 goes high, it activates the relay, which bridges the contacts on the fob, which sends the signal to open/close the garage door.
 
@@ -75,7 +75,7 @@ machine learning—specifically, computer vision.
 
 Honestly, this was the hardest and most tedious part of making the image recognition model. In order to train an accurate model, I needed a lot of data and I needed it categorised.
 
-So I used that [bash script]([Bash script for fetching security camera snapshots · GitHub](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9)) that saves a picture every minute, or every second during "peak times" i.e. times when the door is mostly likely to be open, to collect a lot of data.
+So I used that [bash script](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9) that saves a picture every minute, or every second during "peak times" i.e. times when the door is mostly likely to be open, to collect a lot of data.
 
 The result:
 
@@ -84,7 +84,7 @@ $ ls ~/garage/training_imgs | wc -l
 158332
 ```
 
-Now that might look nice - more data is more better right? Not quite. When training a model I discovered a *good dataset* is a *balanced dataset*. And balance is difficult when most of the time the garage door is not open. To remedy thism I made that bash script collect more often when the door might be open and used a [python script]([Balance dataset · GitHub](https://gist.github.com/smp46/b92a8b312fcd92632b4b6de99c9d8af7) that creates a lot of permutations of the same pictures.
+Now that might look nice - more data is more better right? Not quite. When training a model I discovered a *good dataset* is a *balanced dataset*. And balance is difficult when most of the time the garage door is not open. To remedy thism I made that bash script collect more often when the door might be open and used a [python script](https://gist.github.com/smp46/b92a8b312fcd92632b4b6de99c9d8af7) that creates a lot of permutations of the same pictures.
 
 But how do you categorise all those pictures? Slowly and manually...
 
@@ -136,11 +136,11 @@ Was all this ML stuff necessary? Probably not. Was there a simpler way to achiev
 
 With the hardware and machine learning components working, I needed a way to tie everything together into a cohesive system. Let me illustrate the architecture and then I can explain why this is a perfectly sane project (and not at all an overcomplicated solution to a problem that probably has a $20 commercial alternative):
 
-###### Architecture
+###### Architecture
 
 The system follows a microservices approach, with each component handling a specific responsibility and communicating via HTTP APIs.
 
-![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.png)
+![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.png?q=85&f=webp)
 
 
 ##### The Components
@@ -153,7 +153,7 @@ I chose Rust for the main HTTP server because it needs to be running 24/7 and I 
 
 Every second a script retrieves a snapshot of the garage security camera feed and saves this to a RAM-disk. A RAM-disk is used to prevent excessive wear and tear from constant writes to the system drive. A custom systemd service is used to trigger this every second, as crontab is limited to once per minute.
 
-###### Image Recognition Script
+###### Image Recognition Script
 
 This is a variant of `justPredict.py` script mentioned before, except it reads a file from a specified path and sends its results to the Garage Door Status API. Again, I use a custom systemd service to keep this script running and restart it on boot.
 
@@ -165,7 +165,7 @@ Super simple Python HTTP API server that receives the garage door status from th
 
 This widget lives on my homepage and provides the snapshot from the camera, the status of the door as reported by the Garage Door Status API and the time it was last opened. The preview is using an iframe that just displays the snapshot image, where the iframe html is mounted to the homepage docker container.
 
-![homepage_widget](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png)
+![homepage_widget](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png?q=85&f=webp)
 You can find the [widget code on GitHub](https://gist.github.com/smp46/37efd7d30b2980b4553c148d08c0b969) if you want to implement something similar.
 
 ###### Email Notification Service
@@ -176,7 +176,7 @@ This is a [bash script](https://gist.github.com/smp46/239d90712a911fb3703fb5511a
 
 This website provides the snapshot of the security camera and has a button that sends a POST request through an nginx proxy to the Rust HTTP API Server on the Pi. The website is hosted via nginx through a Cloudflare Tunnel, using Google SSO it is protected against unwanted visitors.
 
-![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.png)
+![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.png?q=85&f=webp)
 
 ## The Result
 
