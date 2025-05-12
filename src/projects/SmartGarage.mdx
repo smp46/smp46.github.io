@@ -128,6 +128,10 @@ To test, I put together
 [a basic python script](https://gist.github.com/smp46/d68ac357b1ac97062de757412eb9bc09) that makes
 GPIO17 high for half a second. And shockingly, the door opens. Yippee!
 
+You might be wondering what sleek professional way I put this all together:
+![final_circuit](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/4.jpg?q=85&f=webp)
+I'm honestly not sure what the correct way to package something like this is, am definitely open to feedback if anyone has any better ideas.
+
 ## Teaching My Computer to See
 
 After getting the hardware working, I needed to tackle the "smart" part of my SmartGarage: teaching
@@ -170,8 +174,8 @@ RAMdisk while I'm working with it helped speed things up. As turns out handling 
 
 During my first attempt at this project, I put together
 [a set of Python scripts](https://github.com/smp46/SmartGarage/tree/ac813584dbb65167c8f29fbdaa52849de34d0e04)
-using the MobileNetV2 model with PyTorch. For this revival, I upgraded to MobileNetV3, which offers
-better accuracy with similar computational requirements, and made some adjustments to optimize the
+using the MobileNetV2 model with PyTorch. For this revival, I upgraded to MobileNetV3, which is meant
+to be better overall without needing additional compute, and made some adjustments to optimize the
 images for training.
 
 ###### Why the MobileNet Model?
@@ -205,15 +209,12 @@ Enter the number of epochs: 10
 
 The output of that model will be a file called `may10_bigdata_10_epochs.pth` and a `config.ini`,
 this contains the additional training data needed for predictions and the configuration for the
-other script `justPredict.py`. That second script allows me to just pass it a file, a little like
-this:
+other script `justPredict.py`. That second script allows me to just pass it a file:
 
 ```bash
 root@docker:/train# python3 justPredict.py testing_imgs/garage5.jpg
 open
 ```
-
-######
 
 ###### Can I Give it a Go?
 
@@ -236,59 +237,57 @@ $20 commercial alternative):
 ###### Architecture
 
 The system follows a microservices approach, with each component handling a specific responsibility
-and communicating via HTTP APIs.
+and communicating via HTTP APIs. The Rust HTTP server runs on the Pi Zero W, the rest is running on my 
+homeserver both in and out of Docker containers.
 
 ![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.png?q=85&f=webp)
 
 ##### The Components
 
-###### Rust HTTP API Server
+###### [**Rust HTTP API Server**](https://github.com/smp46/SmartGarage/tree/main/garage_door_api)
 
-I chose Rust for the main HTTP server because it needs to be running 24/7 and I don't want my poor
+Initially this was just another Python FastAPI, but I switched to Rust, using Axum Server, because it needs to be running 24/7 and I don't want my poor
 little Pi Zero W running too hard. The server listens on port `3000` for a POST request to `/toggle`
 with the correct authorisation token, when receieve it triggers the button on the fob and the door
 opens or closes.
 
-###### Fetch Video Snapshot Bash Script
+###### [**Fetch Video Snapshot Bash Script**](https://github.com/smp46/SmartGarage/blob/main/garage-img.sh)
 
 Every second a script retrieves a snapshot of the garage security camera feed and saves this to a
 RAM-disk. A RAM-disk is used to prevent excessive wear and tear from constant writes to the system
 drive. A custom systemd service is used to trigger this every second, as crontab is limited to once
 per minute.
 
-###### Image Recognition Script
+###### [**Image Recognition Script**](https://github.com/smp46/SmartGarage/blob/main/image_recognition/garage_monitor.py)
 
 This is a variant of `justPredict.py` script mentioned before, except it reads a file from a
 specified path and sends its results to the Garage Door Status API. Again, I use a custom systemd
 service to keep this script running and restart it on boot.
 
-###### Garage Door Status API
+###### [**Garage Door Status API**](https://github.com/smp46/SmartGarage/blob/main/status_api/app/main.py)
 
-Super simple Python HTTP API server that receives the garage door status from the Image Recognitio
+Super simple Python HTTP API server, using FastAPI, that receives the garage door status from the Image Recognitio
 Script, updates its internal last_opened state if the status changes from closed to open. And then
 responds with this data in a JSON response when a POST request is sent to
 `http://garage-api:5000/status`.
 
-###### Homepage Custom API Widget
+###### [**Homepage Custom API Widget**](https://gist.github.com/smp46/37efd7d30b2980b4553c148d08c0b969)
 
 This widget lives on my homepage and provides the snapshot from the camera, the status of the door
 as reported by the Garage Door Status API and the time it was last opened. The preview is using an
 iframe that just displays the snapshot image, where the iframe html is mounted to the homepage
 docker container.
 
-![homepage_widget](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png?q=85&f=webp)
-You can find the
-[widget code on GitHub](https://gist.github.com/smp46/37efd7d30b2980b4553c148d08c0b969) if you want
-to implement something similar.
+![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png?q=85&f=webp)
 
-###### Email Notification Service
+###### [**Email Notification Service**](https://github.com/smp46/SmartGarage/blob/main/garage_notifs.sh)
 
-This is a [bash script](https://gist.github.com/smp46/239d90712a911fb3703fb5511ad54664) that is run
+This is a bash script that is run
 every minute with crontab. It checks the Status API for the current status and the last opened
 status, if it is currently open and the last opened was more than 10 minutes ago it send a friendly
 email with a link to the website to close it.
 
-###### SmartGarage Control Website
+###### [**SmartGarage Control Website**](https://github.com/smp46/SmartGarage/tree/main/website)
 
 This website provides the snapshot of the security camera and has a button that sends a POST request
 through an nginx proxy to the Rust HTTP API Server on the Pi. The website is hosted via nginx
@@ -298,7 +297,19 @@ through a Cloudflare Tunnel, using Google SSO it is protected against unwanted v
 
 ## The Result
 
-###### The Final Product
+###### But at What Cost?
+Not too much actually, if we ignore how many hours I put into this, and there's a few things leftover / will be used when I do something similar again.
+| Component | Cost (AUD) |
+| :--- | ---: |
+| Raspberry Pi Zero W | $25.00 |
+| Pi GPIO Pins and Case | $8.00 |
+| Generic Garage Door Fob | $8.00 |
+| 5V Relay | $8.00 |
+| 220 Ohm 0.5 Watt Resistors | $0.85 |
+| Soldering Iron kit | $45.00 |
+| **Total** | **$94.85** |
+
+###### To Conclude
 
 After several months of development, testing, and refinement, I'm happy to report that my
 SmartGarage system has been running reliably for over a month now. The system successfully:
@@ -307,3 +318,6 @@ SmartGarage system has been running reliably for over a month now. The system su
 - Accurately detects the door's open/closed state with reasonable accuracy
 - Sends me notifications if I've left the door open for more than 10 minutes
 - Provides a real-time view of my garage through the security camera
+
+Here's a demo of it in action:
+![demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/demo.webm)
