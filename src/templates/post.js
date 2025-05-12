@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { FaGithub } from 'react-icons/fa';
-import '../prism-theme.css';
+
 
 export default function Post({ children, frontMatter }) {
   const { title, description, keywords, subtitle, github } = frontMatter;

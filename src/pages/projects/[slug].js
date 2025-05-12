@@ -6,7 +6,6 @@ import { MDXRemote } from 'next-mdx-remote';
 import Post from '../../templates/post.js';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrismPlus from 'rehype-prism-plus';
 
 const POSTS_PATH = path.join(process.cwd(), 'src/projects');
