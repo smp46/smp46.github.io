@@ -55,8 +55,13 @@ can't be that hard to use right. I order one, a breadboard and a wiring kit to p
 As soon as I got it, I started trying to cobble something together, I try a
 [CC1101 driver library](https://github.com/SpaceTeddy/CC1101), I find
 [a python interface for it even](https://github.com/fphammerle/python-cc1101). But I don't have much
-luck. I get to the stage where I can receive some kind of signal, however to be honest I know
-nothing about radio and I'm only a CompSci student not an electrical engineer. So after weeks of
+luck.
+
+I get to the stage where I can receive some kind of signal, however to be honest I know
+nothing about radio and I'm only a CompSci student not an electrical engineer. Even though it 
+is the same chip used by the Flipper Zero, there seems to be fair bit of special sauce that goes
+into being able to pull a signal out of the air cleanly, then resend it. Documentation for the drivers
+didn't back much sense to me, if there was any at all. So after weeks of
 trying I decide to pivot to another approach (definitely not a skill issue... okay maybe a little).
 
 So I have a crack at the other side of the project, training an image recognition model to tell me
@@ -103,12 +108,12 @@ Here is the naked fob and the contacts I needed to bridge.
 
 After some research, I figured out I needed:
 
-- [Arduino Compatible 5V Relay](https://www.jaycar.com.au/arduino-compatible-5v-relay/p/XC4419)
-  - as the Pi can't "bridge" but it can send high low signals
-  - allows me to complete a circuit with the Pi's GPIO
-- Some wires
-- [220 Ohm 0.5 Watt Metal Film Resistor](https://www.jaycar.com.au/220-ohm-0-5-watt-metal-film-resistors-pack-of-8/p/RR0556)
-  - to protect the GPIO pin
+- [**Arduino Compatible 5V Relay**](https://www.jaycar.com.au/arduino-compatible-5v-relay/p/XC4419)
+    - This allows me to use the GPIO on the Pi to send a high signal, which can then bridge the circuit.
+    As the Pi can't "bridge" but it can send high low signals.
+- [**220 Ohm 0.5 Watt Resistor**](https://www.jaycar.com.au/220-ohm-0-5-watt-metal-film-resistors-pack-of-8/p/RR0556)
+  - This prevents the unlikely chance of the Relay drawing too much current and cooking my Pi (in the bad way).
+- Some wires to connect everything together (I used the ones that came with my breadboard kit)
 - A bit of soldering skill (which I do not have)
 
 Here's the circuit I ended up with:
