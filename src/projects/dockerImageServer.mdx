@@ -1,15 +1,23 @@
 ---
-title: "dockerImageServer"
-subtitle: "Docker Image Server for Periodic Image Fetching with Nginx"
-type: "personal"
-description: "dockerImageServer is a lightweight Docker container that periodically downloads an image from a URL and serves it via Nginx. Ideal for use cases like exposing security camera snapshots through a reverse proxy."
-keywords: "Docker, Nginx, image server, reverse proxy, security camera, docker container, open source, devops tools, docker compose, docker run, automation"
-github: "https://github.com/smp46/dockerImageServer"
+title: 'dockerImageServer'
+subtitle: 'Docker Image Server for Periodic Image Fetching with Nginx'
+type: 'personal'
+description:
+  'dockerImageServer is a lightweight Docker container that periodically downloads an image from a
+  URL and serves it via Nginx. Ideal for use cases like exposing security camera snapshots through a
+  reverse proxy.'
+keywords:
+  'Docker, Nginx, image server, reverse proxy, security camera, docker container, open source,
+  devops tools, docker compose, docker run, automation'
+github: 'https://github.com/smp46/dockerImageServer'
 ---
 
 # dockerImageServer: Docker Image Server for Periodic Image Fetching with Nginx
 
-This Docker container downloads an image from a specified URL at regular intervals and serves it via an Nginx web server. I'm publishing it here in hope that someone else might have a use for it. My use case is fetching a snapshot image from a security camera on my local network and exposing it safely behind a nginx web server that can then be put behind a reverse-proxy.
+This Docker container downloads an image from a specified URL at regular intervals and serves it via
+an Nginx web server. I'm publishing it here in hope that someone else might have a use for it. My
+use case is fetching a snapshot image from a security camera on my local network and exposing it
+safely behind a nginx web server that can then be put behind a reverse-proxy.
 
 ## Prerequisites
 
@@ -27,26 +35,27 @@ Configuration is handled through environment variables. The following variables 
 
 **Docker Run**
 
-  ```bash
-    docker run -d -p 8080:80 \
-    -e IMAGE_URL=your_image_url_here \
-    -e SLEEP_INTERVAL=10 \
-    ghcr.io/smp46/dockerimageserver
-  ```
+```bash
+  docker run -d -p 8080:80 \
+  -e IMAGE_URL=your_image_url_here \
+  -e SLEEP_INTERVAL=10 \
+  ghcr.io/smp46/dockerimageserver
+```
 
 **Docker Compose**
 
-  ```yaml
-    dockerImageServer:
-      container_name:  dockerImageServer
-      ports:
-          - 8080:80
-      image: ghcr.io/smp46/dockerimageserver
-      environment:
-        - IMAGE_URL=your_image_url_here
-        - SLEEP_INTERVAL=10
-      restart: unless-stopped
+```yaml
+dockerImageServer:
+  container_name: dockerImageServer
+  ports:
+    - 8080:80
+  image: ghcr.io/smp46/dockerimageserver
+  environment:
+    - IMAGE_URL=your_image_url_here
+    - SLEEP_INTERVAL=10
+  restart: unless-stopped
 ```
+
 This will start the container and begin serving the image at http://localhost:8080.
 
 ## Build from Source
@@ -57,19 +66,25 @@ This will start the container and begin serving the image at http://localhost:80
    git clone https://github.com/smp46/dockerImageServer
    cd dockerImageServer
 
+   ```
+
 2. Build the Docker Image
 
-    ```bash
-    docker build -t dockerimageserver .
+   ```bash
+   docker build -t dockerimageserver .
+
+   ```
 
 3. Run the Docker Container.
-  
-    Replace your_image_url_here with the actual URL of the image you want to serve and optionally adjust the SLEEP_INTERVAL.
 
-    ```bash
-    docker run -d -p 8080:80 \
-      -e IMAGE_URL=your_image_url_here \
-      -e SLEEP_INTERVAL=10 \
-      dockerimageserver
+   Replace your_image_url_here with the actual URL of the image you want to serve and optionally
+   adjust the SLEEP_INTERVAL.
+
+   ```bash
+   docker run -d -p 8080:80 \
+     -e IMAGE_URL=your_image_url_here \
+     -e SLEEP_INTERVAL=10 \
+     dockerimageserver
+   ```
 
 This will start the container and begin serving the image at http://localhost:8080.

@@ -23,16 +23,11 @@ export default function Welcome() {
   }, []);
 
   return (
-    <div
-      id="welcome"
-      className="flex items-center justify-center md:min-h-screen"
-    >
+    <div id="welcome" className="flex items-center justify-center md:min-h-screen">
       <div className="container mx-auto px-4 lg:translate-y-[-30%]">
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
           <Head>
-            <title>
-              Hi, I&#39;m smp46 | Software Engineer & Builder of Things
-            </title>
+            <title>Hi, I&#39;m smp46 | Software Engineer & Builder of Things</title>
             <meta
               name="description"
               content="I&#39;m a passionate undergrad studying Computer Science at theUniversity of Queensland. This website highlights some of my achievements and skills as an aspiring software developer."
@@ -83,9 +78,9 @@ export default function Welcome() {
           <h2 className="text-4xl sm:text-5xl text-gray-600">(smp46)</h2>
 
           <p className="sm:mt-4 mt-12 md:text-3xl text-2xl sm:p-4">
-            I&#39;m a passionate undergrad studying Computer Science at the
-            University of Queensland. This website highlights some of my
-            achievements and skills as an aspiring software developer.
+            I&#39;m a passionate undergrad studying Computer Science at the University of
+            Queensland. This website highlights some of my achievements and skills as an aspiring
+            software developer.
           </p>
         </div>
       </div>

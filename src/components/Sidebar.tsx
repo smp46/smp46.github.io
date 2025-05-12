@@ -96,17 +96,14 @@ export default function Sidebar() {
 
         <nav className="flex flex-col sm:space-y-2 space-y-4 mt-6">
           {navLinks.map(({ href, label }) => {
-            const isActive =
-              href === '/' ? pathname === '/' : pathname.startsWith(href);
+            const isActive = href === '/' ? pathname === '/' : pathname.startsWith(href);
 
             return (
               <Link
                 key={href}
                 href={href}
                 className={`text-white transition-transform duration-300 hover:scale-110 origin-left cursor-pointer ${
-                  isActive
-                    ? 'font-semibold sm:text-2xl text-3xl'
-                    : 'sm:text-xl text-2xl'
+                  isActive ? 'font-semibold sm:text-2xl text-3xl' : 'sm:text-xl text-2xl'
                 }`}
                 onClick={closeSidebar}
               >

@@ -4,10 +4,7 @@ import Head from 'next/head';
 
 export default function Whoami() {
   return (
-    <div
-      id="welcome"
-      className="flex items-center justify-center md:min-h-screen"
-    >
+    <div id="welcome" className="flex items-center justify-center md:min-h-screen">
       <div className="container mx-auto px-4 lg:translate-y-[-20%]">
         <Head>
           <title>whoami - Software Engineer, Student & Tinkerer – smp46</title>
@@ -38,15 +35,14 @@ export default function Whoami() {
           <div className="text-center mt-6 lg:mt-0 order-2">
             <h1 className="text-5xl font-bold mb-6">whoami</h1>
             <p className="md:text-3xl text-2xl mb-4">
-              I am excited to complete my Bachelor&#39;s of Computer Science and
-              am keen to enter the field of my major, Cyber Security. I&#39;m an
-              active member of the UQ Cyber Squad, where we are lucky enough to
-              get regular industry talks and workshops. I enjoy participating in
-              CTFs and follow the industry closely.
+              I am excited to complete my Bachelor&#39;s of Computer Science and am keen to enter
+              the field of my major, Cyber Security. I&#39;m an active member of the UQ Cyber Squad,
+              where we are lucky enough to get regular industry talks and workshops. I enjoy
+              participating in CTFs and follow the industry closely.
               <br />
               <br />
-              In my free time, you&#39;ll find me working on personal projects
-              or playing video games.
+              In my free time, you&#39;ll find me working on personal projects or playing video
+              games.
             </p>
           </div>
         </div>
