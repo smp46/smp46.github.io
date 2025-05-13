@@ -28,34 +28,33 @@ export default function Search() {
 
   useEffect(() => {
     async function loadPagefind() {
-      if (typeof window.pagefind === 'undefined') {
+        if (typeof window.pagefind === "undefined") {
         try {
-          window.pagefind = await import(
-            // @ts-expect-error pagefind.js generated after build
-            /* webpackIgnore: true */ './pagefind.js'
-          );
-        } catch (e) {
-          console.error('Failed to load pagefind:', e);
-          window.pagefind = {
-            search: () =>
-              Promise.resolve({
+            window.pagefind = await import(
+            // @ts-expect-error pagefind exists only on build
+            /* webpackIgnore: true */ "./pagefind/pagefind.js"
+            );
+        } catch(e) {
+            console.log(e);
+            window.pagefind = {
+            search: () => Promise.resolve({ 
                 results: [
-                  {
-                    id: 'dummy-id',
-                    data: () =>
-                      Promise.resolve({
-                        url: '/example-page',
-                        meta: { title: 'Example Page' },
-                        excerpt:
-                          'This is a sample search result for development.',
-                      }),
-                  },
-                ],
-              }),
-          };
-
+                {
+                    id: "dummy-id",
+                    data: async () => ({
+                    url: '/dummy-url',
+                    meta: {
+                        title: 'dummy title'
+                    },
+                    excerpt: 'dummy excerpt'
+                    })
+                }
+                ] 
+            })
+            }
         }
-      }
+        }
+
     }
     loadPagefind();
   }, []);
