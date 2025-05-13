@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
+import { BsCommand } from 'react-icons/bs';
 
 export default function Welcome() {
   const rightGifRef = useRef<HTMLImageElement>(null);
@@ -25,7 +26,7 @@ export default function Welcome() {
   return (
     <div
       id="welcome"
-      className="flex items-center justify-center md:min-h-screen"
+      className="flex flex-col items-center justify-center md:min-h-screen relative"
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
@@ -87,13 +88,91 @@ export default function Welcome() {
             University of Queensland. This website highlights some of my
             achievements and skills as an aspiring software developer.
           </p>
+        </div>
+      </div>
 
-          <p className="hidden sm:block inset-08 text-gray-400 text-center">
-            Hint: You can start typing anywhere on this website to bring up the
-            search bar.
-          </p>
+      {/* Fixed bottom keyboard shortcuts bar */}
+      <div className="hidden sm:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md pl-64 py-6 px-4 w-full">
+        <div className="flex items-center justify-center flex-wrap text-gray-400 max-w-4xl mx-auto">
+          <span className="mr-2">Press</span>
+
+          <svg className="mx-1 w-8 h-8" viewBox="0 0 100 100">
+            <rect
+              x="5"
+              y="5"
+              width="90"
+              height="90"
+              rx="10"
+              ry="10"
+              className="fill-none stroke-gray-400 stroke-2"
+            />
+            <text
+              x="50"
+              y="60"
+              fill="currentColor"
+              className="text-3xl"
+              textAnchor="middle"
+            >
+              Ctrl
+            </text>
+          </svg>
+          <span className="ml-1">+</span>
+
+          <svg className="mx-1 w-20 h-8" viewBox="0 0 200 100">
+            <rect
+              x="5"
+              y="5"
+              width="190"
+              height="90"
+              rx="10"
+              ry="10"
+              className="fill-none stroke-gray-400 stroke-2"
+            />
+            <text
+              x="100"
+              y="60"
+              fill="currentColor"
+              className="text-3xl"
+              textAnchor="middle"
+            >
+              Space
+            </text>
+          </svg>
+
+          <span className="mr-2">or</span>
+
+          <div className="mx-1 w-8 h-8 border border-gray-400 rounded-md flex items-center justify-center">
+            <BsCommand className="text-gray-400 text-md" />
+          </div>
+          <span className="ml-1">+</span>
+
+          <svg className="w-20 h-8" viewBox="0 0 200 100">
+            <rect
+              x="5"
+              y="5"
+              width="190"
+              height="90"
+              rx="10"
+              ry="10"
+              className="fill-none stroke-gray-400 stroke-2"
+            />
+            <text
+              x="100"
+              y="60"
+              fill="currentColor"
+              className="text-3xl"
+              textAnchor="middle"
+            >
+              Space
+            </text>
+          </svg>
+
+          <span className="ml-1">
+            to launch the search bar anywhere on this website.
+          </span>
         </div>
       </div>
     </div>
   );
 }
+

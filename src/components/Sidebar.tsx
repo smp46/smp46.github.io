@@ -26,17 +26,21 @@ export default function Sidebar() {
   }
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && showSearch) {
-        setShowSearch(false);
-      } else if (!showSearch && (/^[a-zA-Z]$/.test(e.key))) {
+    function handleKeyDown(event) {
+      if (
+        (event.metaKey && event.key === ' ') || // For macOS (Command+Space)
+        (event.ctrlKey && event.key === ' ') // For Windows/Linux (Ctrl+Space)
+      ) {
         setShowSearch(true);
+      } else if (event.key === 'Escape' && showSearch) {
+        setShowSearch(false);
       }
-    };
+    }
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showSearch]);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const navLinks = [
     { href: '/', label: 'Welcome' },
@@ -66,19 +70,19 @@ export default function Sidebar() {
         </Link>
       </div>
 
-        {showSearch && (
+      {showSearch && (
         <div
-            className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 flex items-center
+          className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center
             justify-center pt-20 z-50"
-            onClick={(e) => {
+          onClick={(e) => {
             if (e.target === e.currentTarget) {
-                setShowSearch(false);
+              setShowSearch(false);
             }
-            }}
+          }}
         >
-            <Search onResultClick={() => setShowSearch(false)} />
+          <Search onResultClick={() => setShowSearch(false)} />
         </div>
-        )}
+      )}
 
       <div
         className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40
