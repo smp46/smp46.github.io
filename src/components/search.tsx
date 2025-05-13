@@ -121,6 +121,7 @@ function SearchResultItem({ result }: { result: SearchResult }) {
     async function fetchData() {
       try {
         const resultData = await result.data();
+        resultData.url = resultData.url.replace('_next/static/chunks/pages/', '');
         setData(resultData);
       } catch (error) {
         console.error('Error fetching result data:', error);
