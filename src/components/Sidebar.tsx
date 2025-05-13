@@ -76,7 +76,7 @@ export default function Sidebar() {
             }
             }}
         >
-            <Search onResultClick={() => setShowSearch(false)} />
+            <Search />
         </div>
         )}
 

@@ -13,6 +13,10 @@ interface SearchResult {
   }>;
 }
 
+interface SearchResultItemProps {
+  result: SearchResult;
+}
+
 interface PagefindWindow extends Window {
   pagefind?: {
     search: (query: string) => Promise<{ results: SearchResult[] }>;
@@ -110,7 +114,8 @@ export default function Search() {
   );
 }
 
-function SearchResultItem({ result }: { result: SearchResult }) {
+
+function SearchResultItem({ result}: SearchResultItemProps) {
   const [data, setData] = useState<{
     url: string;
     meta: { title: string };
