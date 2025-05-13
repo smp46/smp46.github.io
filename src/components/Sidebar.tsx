@@ -40,7 +40,7 @@ export default function Sidebar() {
     document.addEventListener('keydown', handleKeyDown);
 
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  });
 
   const navLinks = [
     { href: '/', label: 'Welcome' },
