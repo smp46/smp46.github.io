@@ -15,8 +15,8 @@ interface SearchResult {
 
 interface PagefindWindow extends Window {
   pagefind?: {
-    debouncedSearch: (query: string) => Promise<{ results: SearchResult[] }>;
     search: (query: string) => Promise<{ results: SearchResult[] }>;
+    debouncedSearch?: (query: string) => Promise<{ results: SearchResult[] }>;
   };
 }
 
@@ -31,26 +31,29 @@ export default function Search() {
       if (typeof window.pagefind === 'undefined') {
         try {
           window.pagefind = await import(
-            // @ts-expect-error pagefind exists only on build
-            /* webpackIgnore: true */ './pagefind/pagefind.js'
+            // @ts-expect-error pagefind.js generated after build
+            /* webpackIgnore: true */ './pagefind.js'
           );
         } catch (e) {
+          console.error('Failed to load pagefind:', e);
           window.pagefind = {
-            search: () => ({
-              results: [
-                {
-                  id: 'dummy-id',
-                  data: async () => ({
-                    url: '/dummy-url',
-                    meta: {
-                      title: 'dummy title',
-                    },
-                    excerpt: 'dummy excerpt',
-                  }),
-                },
-              ],
-            }),
+            search: () =>
+              Promise.resolve({
+                results: [
+                  {
+                    id: 'dummy-id',
+                    data: () =>
+                      Promise.resolve({
+                        url: '/example-page',
+                        meta: { title: 'Example Page' },
+                        excerpt:
+                          'This is a sample search result for development.',
+                      }),
+                  },
+                ],
+              }),
           };
+
         }
       }
     }
