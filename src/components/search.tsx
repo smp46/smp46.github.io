@@ -155,10 +155,17 @@ function SearchResultItem({ result, onResultClick }: SearchResultItemProps) {
       onClick={() => onResultClick && onResultClick()}
     >
       <h4 className="font-medium">{data.meta.title}</h4>
-      <p
-        className="text-sm text-gray-600"
-        dangerouslySetInnerHTML={{ __html: data.excerpt }}
-      ></p>
+      <div className="text-sm text-gray-600 search-results-container">
+        <style jsx>{`
+          .search-results-container :global(mark) {
+            background-color: #d3d3d3;
+            color: #000;
+            padding: 0 2px;
+            border-radius: 2px;
+          }
+        `}</style>
+        <p dangerouslySetInnerHTML={{ __html: data.excerpt }}></p>
+      </div>
     </Link>
   );
 }
