@@ -77,9 +77,12 @@ jobs:
       - name: Install pagefind
         run: npm install -g pagefind
 
-      # Use npm run build instead of direct next build to trigger postbuild
-      - name: Build with Next.js and run postbuild
-        run: ${{ steps.detect-package-manager.outputs.manager }} run build
+      - name: Build with Next.js
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+
+      - name: Run Pagefind
+        run: npx pagefind --site out --output-path out/_next/static/chunks/pages/pagefind
+  
       - name: Generate sitemap
         run: npx next-sitemap
       # - name: Commit and push sitemap
