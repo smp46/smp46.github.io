@@ -87,6 +87,9 @@ export default function Welcome() {
             University of Queensland. This website highlights some of my
             achievements and skills as an aspiring software developer.
           </p>
+
+
+        <p1 className="hidden sm:block inset-08 text-gray-300 text-center">Hint: You can start typing anywhere on this website to bring up the search bar.</p1>
         </div>
       </div>
     </div>
