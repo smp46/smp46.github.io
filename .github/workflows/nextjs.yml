@@ -81,7 +81,7 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         
       - name: Run Pagefind
-        run: npx pagefind --site .next --output-path .next/static/chunks/pages/pagefind
+        run: npx pagefind --site out
 
       - name: Generate sitemap
         run: npx next-sitemap
