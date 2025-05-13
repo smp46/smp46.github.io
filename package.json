@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "postbuild": "pagefind --site .next --output-path .next/static/chunks/pages/pagefind",
+    "postbuild": "pagefind --site .next --output-path .next/static/chunks/pages/pagefind --serve",
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
