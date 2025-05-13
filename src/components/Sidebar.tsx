@@ -29,7 +29,7 @@ export default function Sidebar() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && showSearch) {
         setShowSearch(false);
-      } else {
+      } else if (!showSearch) {
         setShowSearch(true);
       }
     };
@@ -66,14 +66,19 @@ export default function Sidebar() {
         </Link>
       </div>
 
-      {showSearch && (
+        {showSearch && (
         <div
-          className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 flex items-center
+            className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 flex items-center
             justify-center pt-20 z-50"
+            onClick={(e) => {
+            if (e.target === e.currentTarget) {
+                setShowSearch(false);
+            }
+            }}
         >
-          <Search />
+            <Search onResultClick={() => setShowSearch(false)} />
         </div>
-      )}
+        )}
 
       <div
         className={`fixed top-0 left-0 h-screen bg-black text-white flex flex-col px-4 py-8 z-40
