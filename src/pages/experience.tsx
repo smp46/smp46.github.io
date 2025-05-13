@@ -9,7 +9,7 @@ export default function Experience() {
       id="welcome"
       className="flex items-center justify-center md:min-h-screen"
     >
-      <div className="container mx-auto px-4 py-8 sm:py-0 xl:translate-y-[-30%]">
+      <div className="container mx-auto px-4 py-8 sm:py-0">
         <Head>
           <title>My Experience - Past Roles and Work History – smp46</title>
           <meta

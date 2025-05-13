@@ -8,7 +8,7 @@ export default function Whoami() {
       id="welcome"
       className="flex items-center justify-center md:min-h-screen"
     >
-      <div className="container mx-auto px-4 lg:translate-y-[-20%]">
+      <div className="container mx-auto px-4">
         <Head>
           <title>whoami - Software Engineer, Student & Tinkerer – smp46</title>
           <meta
