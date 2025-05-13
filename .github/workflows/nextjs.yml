@@ -73,8 +73,13 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      # Install pagefind explicitly
+      - name: Install pagefind
+        run: npm install -g pagefind
+
+      # Use npm run build instead of direct next build to trigger postbuild
+      - name: Build with Next.js and run postbuild
+        run: ${{ steps.detect-package-manager.outputs.manager }} run build
       - name: Generate sitemap
         run: npx next-sitemap
       # - name: Commit and push sitemap
