@@ -81,8 +81,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
 
       - name: Run Pagefind
-        run: npx pagefind --site out --output-path out/_next/static/chunks/pages/pagefind
-  
+        run: |
+          npx pagefind --site out --output-path out/_next/static/chunks/pages/pagefind
+          cd out/_next/static/chunks/pages/pagefind
+          # Fix URLs in the pagefind index
+          find . -name "*.json" -exec sed -i 's|"url":"/_next/static/chunks/pages/|"url":"/|g' {} \;
+
       - name: Generate sitemap
         run: npx next-sitemap
       # - name: Commit and push sitemap
