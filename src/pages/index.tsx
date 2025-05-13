@@ -91,12 +91,11 @@ export default function Welcome() {
         </div>
       </div>
 
-      {/* Fixed bottom keyboard shortcuts bar */}
       <div
-        className="hidden sm:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md
+        className="hidden md:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md
           pl-64 py-6 px-4 w-full"
       >
-        <div className="flex items-center justify-center flex-wrap text-gray-400 max-w-4xl mx-auto">
+        <div className="flex items-center justify-center flex-wrap text-gray-500 max-w-4xl mx-auto">
           <span className="mr-2">Press</span>
 
           <svg className="mx-1 w-8 h-8" viewBox="0 0 100 100">
@@ -107,7 +106,7 @@ export default function Welcome() {
               height="90"
               rx="10"
               ry="10"
-              className="fill-none stroke-gray-400 stroke-2"
+              className="fill-none stroke-gray-500 stroke-2"
             />
             <text
               x="50"
@@ -129,7 +128,7 @@ export default function Welcome() {
               height="90"
               rx="10"
               ry="10"
-              className="fill-none stroke-gray-400 stroke-2"
+              className="fill-none stroke-gray-500 stroke-2"
             />
             <text
               x="100"
@@ -144,8 +143,11 @@ export default function Welcome() {
 
           <span className="mr-2">or</span>
 
-          <div className="mx-1 w-8 h-8 border border-gray-400 rounded-md flex items-center justify-center">
-            <BsCommand className="text-gray-400 text-md" />
+          <div
+            className="mx-1 w-8 h-8 border-[0.05vw] border-gray-500 rounded-md flex items-center
+              justify-center"
+          >
+            <BsCommand className="text-gray-500 text-md" />
           </div>
           <span className="ml-1">+</span>
 
@@ -157,7 +159,7 @@ export default function Welcome() {
               height="90"
               rx="10"
               ry="10"
-              className="fill-none stroke-gray-400 stroke-2"
+              className="fill-none stroke-gray-500 stroke-2"
             />
             <text
               x="100"
