@@ -6,7 +6,8 @@
 code[class*='language-'],
 pre[class*='language-'] {
   color: #393a34;
-  font-family: 'Consolas', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+  font-family:
+    'Consolas', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -167,6 +168,14 @@ code[class*='language-css'] {
 */
 .line-highlight.line-highlight {
   background: rgba(193, 222, 241, 0.2);
-  background: -webkit-linear-gradient(left, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0));
-  background: linear-gradient(to right, rgba(193, 222, 241, 0.2) 70%, rgba(221, 222, 241, 0));
+  background: -webkit-linear-gradient(
+    left,
+    rgba(193, 222, 241, 0.2) 70%,
+    rgba(221, 222, 241, 0)
+  );
+  background: linear-gradient(
+    to right,
+    rgba(193, 222, 241, 0.2) 70%,
+    rgba(221, 222, 241, 0)
+  );
 }

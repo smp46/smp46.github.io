@@ -25,10 +25,15 @@ export default function Personal({ posts }: Props) {
 
   return (
     <>
-      <div id="welcome" className="flex items-center justify-center md:min-h-screen">
+      <div
+        id="welcome"
+        className="flex items-center justify-center md:min-h-screen"
+      >
         <div className="min-h-screen py-10 px-6">
           <Head>
-            <title>Projects - Achievements, Attemps and Other Things - smp46</title>
+            <title>
+              Projects - Achievements, Attemps and Other Things - smp46
+            </title>
             <meta
               name="description"
               content="Explore my personal and undergraduate projects showcasing my journey and skills."
@@ -41,7 +46,8 @@ export default function Personal({ posts }: Props) {
           <header className="max-w-4xl mx-auto text-center mb-10">
             <h1 className="text-4xl font-bold mb-4">Welcome to My Portfolio</h1>
             <p className="text-xl text-gray-600">
-              Explore my personal and undergraduate projects showcasing my journey and skills.
+              Explore my personal and undergraduate projects showcasing my
+              journey and skills.
             </p>
           </header>
 
@@ -49,13 +55,19 @@ export default function Personal({ posts }: Props) {
             {/* Personal Projects Section */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Personal Projects</h2>
-              <div className="grid grid-cols-1 gap-3 ">
+              <div className="grid grid-cols-1 gap-3">
                 {personalProjects.map((post) => {
                   const { title, subtitle, path } = post;
                   return (
                     <Link key={path} href={path}>
-                      <div className="group p-6 rounded-lg shadow-lg bg-white hover:bg-gray-50 transition cursor-pointer border border-gray-200">
-                        <h3 className="text-2xl font-semibold transition-transform duration-100 transform group-hover:scale-110 group-hover:origin-left inline-block">
+                      <div
+                        className="group p-6 rounded-lg shadow-lg bg-white hover:bg-gray-50 transition
+                          cursor-pointer border border-gray-200"
+                      >
+                        <h3
+                          className="text-2xl font-semibold transition-transform duration-100 transform
+                            group-hover:scale-110 group-hover:origin-left inline-block"
+                        >
                           {title}
                         </h3>
                         <p className="text-md text-gray-500 mt-2">{subtitle}</p>
@@ -69,13 +81,19 @@ export default function Personal({ posts }: Props) {
             {/* Undergrad Projects Section */}
             <section>
               <h2 className="text-3xl font-bold mb-6">Undergrad Projects</h2>
-              <div className="grid grid-cols-1 gap-3 ">
+              <div className="grid grid-cols-1 gap-3">
                 {undergradProjects.map((post) => {
                   const { title, subtitle, path } = post;
                   return (
                     <Link key={path} href={path}>
-                      <div className="group p-6 rounded-lg shadow-lg bg-white hover:bg-gray-50 transition cursor-pointer border border-gray-200">
-                        <h3 className="text-2xl font-semibold transition-transform duration-100 transform group-hover:scale-110 group-hover:origin-left inline-block">
+                      <div
+                        className="group p-6 rounded-lg shadow-lg bg-white hover:bg-gray-50 transition
+                          cursor-pointer border border-gray-200"
+                      >
+                        <h3
+                          className="text-2xl font-semibold transition-transform duration-100 transform
+                            group-hover:scale-110 group-hover:origin-left inline-block"
+                        >
                           {title}
                         </h3>
                         <p className="text-md text-gray-500 mt-2">{subtitle}</p>

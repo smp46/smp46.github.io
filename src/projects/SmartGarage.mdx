@@ -1,16 +1,19 @@
 ---
 title: 'SmartGarage'
-subtitle: 'A DIY Wireless Garage Door Control System with Machine Learning Automation'
+subtitle:
+  'A DIY Wireless Garage Door Control System with Machine Learning Automation'
 type: 'personal'
 description:
-  'SmartGarage is a custom-built IoT solution that enables remote garage door control without
-  modifying the original opener. Using a Raspberry Pi, relay circuit, and machine learning image
-  recognition, it provides door status monitoring, remote operation, and automated notifications—all
-  built with off-the-shelf components.'
+  'SmartGarage is a custom-built IoT solution that enables remote garage door
+  control without modifying the original opener. Using a Raspberry Pi, relay
+  circuit, and machine learning image recognition, it provides door status
+  monitoring, remote operation, and automated notifications—all built with
+  off-the-shelf components.'
 keywords:
-  'SmartGarage, Raspberry Pi garage door, machine learning IoT, MobileNetV3 image recognition, DIY
-  smart home, remote garage control, Python image classification, Rust API server, garage door
-  automation, security camera integration, homepage dashboard, wireless garage opener'
+  'SmartGarage, Raspberry Pi garage door, machine learning IoT, MobileNetV3
+  image recognition, DIY smart home, remote garage control, Python image
+  classification, Rust API server, garage door automation, security camera
+  integration, homepage dashboard, wireless garage opener'
 github: 'https://github.com/smp46/SmartGarage'
 ---
 
@@ -18,89 +21,100 @@ github: 'https://github.com/smp46/SmartGarage'
 
 ## Introduction
 
-One day my friend Howie was over and he saw me open my garage door. Naturally he got out the Flipper
-Zero he always carries in his bag and asks I use my garage door fob again, he captures and resends
-it easily. I thought that was odd, shouldn't there be, I don't know, maybe at least rolling codes on
-any modern garage door opener. But I was inspired and thought if it's that easy surely I could
-automate that with some lower cost hardware.
+One day my friend Howie was over and he saw me open my garage door. Naturally he
+got out the Flipper Zero he always carries in his bag and asks I use my garage
+door fob again, he captures and resends it easily. I thought that was odd,
+shouldn't there be, I don't know, maybe at least rolling codes on any modern
+garage door opener. But I was inspired and thought if it's that easy surely I
+could automate that with some lower cost hardware.
 
-So I get thinking and I come up with the project you're reading right now. To create a system to
-remotely open and close my garage door without physically modifying the opener itself (I live in a
-rental so unfortunately this was a requirement). But hey that doesn't sound very ambitious and the
-year is 2024, so I have to to add aRtIFicIAlL inTELiGeNce in here somewhere. In all seriousness,
-often I leave the house and five minutes later start wondering if I did close my garage door. So
-what if instead of wondering I could just check my [homepage](https://gethomepage.dev/) dashboard,
-or even get an email notification if the garage door has been open too long. And how can I check if
-the door is open or not without wiring anything in, easy, I'll just train an image recognition model
-that can tell me just that.
+So I get thinking and I come up with the project you're reading right now. To
+create a system to remotely open and close my garage door without physically
+modifying the opener itself (I live in a rental so unfortunately this was a
+requirement). But hey that doesn't sound very ambitious and the year is 2024, so
+I have to to add aRtIFicIAlL inTELiGeNce in here somewhere. In all seriousness,
+often I leave the house and five minutes later start wondering if I did close my
+garage door. So what if instead of wondering I could just check my
+[homepage](https://gethomepage.dev/) dashboard, or even get an email
+notification if the garage door has been open too long. And how can I check if
+the door is open or not without wiring anything in, easy, I'll just train an
+image recognition model that can tell me just that.
 
-This project ended up combining hardware hacking, machine learning, and a web interface to create a
-practical solution using nothing but off the shelf (or the internet) parts and a bit of coding elbow
-grease.
+This project ended up combining hardware hacking, machine learning, and a web
+interface to create a practical solution using nothing but off the shelf (or the
+internet) parts and a bit of coding elbow grease.
 
 ![Final Result](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/1.jpg?q=85&f=webp)
 
-It's hard to show a teaser of the final result because it has so many parts, but here is what was
-the hardest part of the solution (I swear it's not a bomb).
+It's hard to show a teaser of the final result because it has so many parts, but
+here is what was the hardest part of the solution (I swear it's not a bomb).
 
 ## Initial Attempts and Challenges
 
-I started with the hard part, how do I clone the garage door fob signal and resent it on command.
-The fob uses the 433MHz band for transmission. I happened to have a Raspberry Pi Zero W sitting in
-my drawer, so I go online and find the Texas Instruments CC1101 Sub-GHz transceiver (the same chip
-that is used by the Flipper Zero). This should let me capture the signal and sent it right on back.
-More searching and I see there's plenty of drivers and other projects for this transceiver so it
-can't be that hard to use right. I order one, a breadboard and a wiring kit to put it together.
+I started with the hard part, how do I clone the garage door fob signal and
+resent it on command. The fob uses the 433MHz band for transmission. I happened
+to have a Raspberry Pi Zero W sitting in my drawer, so I go online and find the
+Texas Instruments CC1101 Sub-GHz transceiver (the same chip that is used by the
+Flipper Zero). This should let me capture the signal and sent it right on back.
+More searching and I see there's plenty of drivers and other projects for this
+transceiver so it can't be that hard to use right. I order one, a breadboard and
+a wiring kit to put it together.
 
 As soon as I got it, I started trying to cobble something together, I try a
 [CC1101 driver library](https://github.com/SpaceTeddy/CC1101), I find
-[a python interface for it even](https://github.com/fphammerle/python-cc1101). But I don't have much
-luck.
+[a python interface for it even](https://github.com/fphammerle/python-cc1101).
+But I don't have much luck.
 
-I get to the stage where I can receive some kind of signal, however to be honest I know
-nothing about radio and I'm only a CompSci student not an electrical engineer. Even though it 
-is the same chip used by the Flipper Zero, there seems to be fair bit of special sauce that goes
-into being able to pull a signal out of the air cleanly, then resend it. Documentation for the drivers
-didn't back much sense to me, if there was any at all. So after weeks of
-trying I decide to pivot to another approach (definitely not a skill issue... okay maybe a little).
+I get to the stage where I can receive some kind of signal, however to be honest
+I know nothing about radio and I'm only a CompSci student not an electrical
+engineer. Even though it is the same chip used by the Flipper Zero, there seems
+to be fair bit of special sauce that goes into being able to pull a signal out
+of the air cleanly, then resend it. Documentation for the drivers didn't back
+much sense to me, if there was any at all. So after weeks of trying I decide to
+pivot to another approach (definitely not a skill issue... okay maybe a little).
 
-So I have a crack at the other side of the project, training an image recognition model to tell me
-if the door is open or not. I start with getting the cheapest wireless security camera I can find
-off of chinese marketplace number 508 ([banggood.com](banggood.com)), configuring my firewall to
-never let it phone home (block all its internet access) and begin collecting data.
+So I have a crack at the other side of the project, training an image
+recognition model to tell me if the door is open or not. I start with getting
+the cheapest wireless security camera I can find off of chinese marketplace
+number 508 ([banggood.com](banggood.com)), configuring my firewall to never let
+it phone home (block all its internet access) and begin collecting data.
 
 To do this I write a
 [Bash script for fetching security camera snapshots](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9),
-and make it into a systemd service on my Debian home server. A few weeks later and I have hundreds
-of thousands of photos that can be categorised as open or closed.
+and make it into a systemd service on my Debian home server. A few weeks later
+and I have hundreds of thousands of photos that can be categorised as open or
+closed.
 
-I spent a while then doing some research on how exactly this whole machine learning stuff works. I
-decided on making something with PyTorch. A little later and some long discussions with Professor
-GPT I have
+I spent a while then doing some research on how exactly this whole machine
+learning stuff works. I decided on making something with PyTorch. A little later
+and some long discussions with Professor GPT I have
 [two python scripts](https://github.com/smp46/SmartGarage/tree/ac813584dbb65167c8f29fbdaa52849de34d0e04).
-The first lets me add my own training data onto the MobileNetV2 model (a lightweight neural network
-designed for mobile devices) and configure it to provide a binary output, the second loads my custom
-model, takes the input of a picture and outputs: "Opened or Closed". Neat! However, knowing my
-garage door was actually left open doesn't really help me if I can't remotely close it.
+The first lets me add my own training data onto the MobileNetV2 model (a
+lightweight neural network designed for mobile devices) and configure it to
+provide a binary output, the second loads my custom model, takes the input of a
+picture and outputs: "Opened or Closed". Neat! However, knowing my garage door
+was actually left open doesn't really help me if I can't remotely close it.
 
 A little over a year goes by, life goes on, and my garage remains dumb :(
 
-However, recently while procrastinating some other programming assignments I remembered this
-project. And I thought, if a fob can open and close the door, maybe I can just automate pressing the
-button on the fob. Sometimes the simplest solutions are the ones staring you right in the face all
-along...
+However, recently while procrastinating some other programming assignments I
+remembered this project. And I thought, if a fob can open and close the door,
+maybe I can just automate pressing the button on the fob. Sometimes the simplest
+solutions are the ones staring you right in the face all along...
 
 ## The Hardware Hack
 
-So I ordered a couple of generic garage door fobs off eBay that were compatible with my opener.
-After adding them to the garage door (following the actual process in the manual), I started
-thinking about how I could simulate a button press with my Raspberry Pi Zero W.
+So I ordered a couple of generic garage door fobs off eBay that were compatible
+with my opener. After adding them to the garage door (following the actual
+process in the manual), I started thinking about how I could simulate a button
+press with my Raspberry Pi Zero W.
 
-Now, I'm not an electrical engineer by any stretch, but I figured how complicated could a fob be. I
-carefully cracked open one of the generic fobs and examined the PCB. After some poking around with a
-multimeter, I discovered something beautifully simple: the button on the fob just bridges two
-contacts on the PCB. If I could find a way to bridge those contacts on command from the Pi, I'd be
-cooking.
+Now, I'm not an electrical engineer by any stretch, but I figured how
+complicated could a fob be. I carefully cracked open one of the generic fobs and
+examined the PCB. After some poking around with a multimeter, I discovered
+something beautifully simple: the button on the fob just bridges two contacts on
+the PCB. If I could find a way to bridge those contacts on command from the Pi,
+I'd be cooking.
 
 ![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/3.jpg?q=85&f=webp)
 
@@ -109,43 +123,52 @@ Here is the naked fob and the contacts I needed to bridge.
 After some research, I figured out I needed:
 
 - [**Arduino Compatible 5V Relay**](https://www.jaycar.com.au/arduino-compatible-5v-relay/p/XC4419)
-    - This allows me to use the GPIO on the Pi to send a high signal, which can then bridge the circuit.
-    As the Pi can't "bridge" but it can send high low signals.
+  - This allows me to use the GPIO on the Pi to send a high signal, which can
+    then bridge the circuit. As the Pi can't "bridge" but it can send high low
+    signals.
 - [**220 Ohm 0.5 Watt Resistor**](https://www.jaycar.com.au/220-ohm-0-5-watt-metal-film-resistors-pack-of-8/p/RR0556)
-  - This prevents the unlikely chance of the Relay drawing too much current and cooking my Pi (in the bad way).
-- Some wires to connect everything together (I used the ones that came with my breadboard kit)
+  - This prevents the unlikely chance of the Relay drawing too much current and
+    cooking my Pi (in the bad way).
+- Some wires to connect everything together (I used the ones that came with my
+  breadboard kit)
 - A bit of soldering skill (which I do not have)
 
 Here's the circuit I ended up with:
 ![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/circuit.png?q=85&f=webp)
 
-I soldered two thin wires to the contact points either side of the fob's button, ran them to the
-relay, and connected everything according to the diagram above. The idea is simple: when GPIO pin 17
-goes high, it activates the relay, which bridges the contacts on the fob, which sends the signal to
-open/close the garage door.
+I soldered two thin wires to the contact points either side of the fob's button,
+ran them to the relay, and connected everything according to the diagram above.
+The idea is simple: when GPIO pin 17 goes high, it activates the relay, which
+bridges the contacts on the fob, which sends the signal to open/close the garage
+door.
 
 To test, I put together
-[a basic python script](https://gist.github.com/smp46/d68ac357b1ac97062de757412eb9bc09) that makes
-GPIO17 high for half a second. And shockingly, the door opens. Yippee!
+[a basic python script](https://gist.github.com/smp46/d68ac357b1ac97062de757412eb9bc09)
+that makes GPIO17 high for half a second. And shockingly, the door opens.
+Yippee!
 
 You might be wondering what sleek professional way I put this all together:
 ![final_circuit](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/4.jpg?q=85&f=webp)
-I'm honestly not sure what the correct way to package something like this is, am definitely open to feedback if anyone has any better ideas.
+I'm honestly not sure what the correct way to package something like this is, am
+definitely open to feedback if anyone has any better ideas.
 
 ## Teaching My Computer to See
 
-After getting the hardware working, I needed to tackle the "smart" part of my SmartGarage: teaching
-a computer to recognize whether my garage door was open or closed from camera images. This meant
-dabbling in machine learning—specifically, computer vision.
+After getting the hardware working, I needed to tackle the "smart" part of my
+SmartGarage: teaching a computer to recognize whether my garage door was open or
+closed from camera images. This meant dabbling in machine learning—specifically,
+computer vision.
 
 #### Data Collection: The Boring Bit
 
-Honestly, this was the hardest and most tedious part of making the image recognition model. In order
-to train an accurate model, I needed a lot of data and I needed it categorised.
+Honestly, this was the hardest and most tedious part of making the image
+recognition model. In order to train an accurate model, I needed a lot of data
+and I needed it categorised.
 
-So I used that [bash script](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9) that
-saves a picture every minute, or every second during "peak times" i.e. times when the door is mostly
-likely to be open, to collect a lot of data.
+So I used that
+[bash script](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9)
+that saves a picture every minute, or every second during "peak times" i.e.
+times when the door is mostly likely to be open, to collect a lot of data.
 
 The result:
 
@@ -154,19 +177,21 @@ $ ls ~/garage/training_imgs | wc -l
 158332
 ```
 
-Now that might look nice - more data is more better right? Not quite. When training a model I
-discovered a _good dataset_ is a _balanced dataset_. And balance is difficult when most of the time
-the garage door is not open. To remedy thism I made that bash script collect more often when the
-door might be open and used a
-[python script](https://gist.github.com/smp46/b92a8b312fcd92632b4b6de99c9d8af7) that creates a lot
-of permutations of the same pictures.
+Now that might look nice - more data is more better right? Not quite. When
+training a model I discovered a _good dataset_ is a _balanced dataset_. And
+balance is difficult when most of the time the garage door is not open. To
+remedy thism I made that bash script collect more often when the door might be
+open and used a
+[python script](https://gist.github.com/smp46/b92a8b312fcd92632b4b6de99c9d8af7)
+that creates a lot of permutations of the same pictures.
 
 But how do you categorise all those pictures? Slowly and manually...
 
-The specific software I use is [XnView MP](https://www.xnview.com/en/xnviewmp/) which is just a more
-effecient image library manager with support for batch renaming. That and moving the data set to a
-RAMdisk while I'm working with it helped speed things up. As turns out handling over 150 thouseand
-~20Kb files isn't super easy. Here's a snapshot of the exciting action:
+The specific software I use is [XnView MP](https://www.xnview.com/en/xnviewmp/)
+which is just a more effecient image library manager with support for batch
+renaming. That and moving the data set to a RAMdisk while I'm working with it
+helped speed things up. As turns out handling over 150 thouseand ~20Kb files
+isn't super easy. Here's a snapshot of the exciting action:
 
 ![sorting_gif](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/sorting.gif)
 
@@ -174,27 +199,28 @@ RAMdisk while I'm working with it helped speed things up. As turns out handling 
 
 During my first attempt at this project, I put together
 [a set of Python scripts](https://github.com/smp46/SmartGarage/tree/ac813584dbb65167c8f29fbdaa52849de34d0e04)
-using the MobileNetV2 model with PyTorch. For this revival, I upgraded to MobileNetV3, which is meant
-to be better overall without needing additional compute, and made some adjustments to optimize the
-images for training.
+using the MobileNetV2 model with PyTorch. For this revival, I upgraded to
+MobileNetV3, which is meant to be better overall without needing additional
+compute, and made some adjustments to optimize the images for training.
 
 ###### Why the MobileNet Model?
 
-I picked MobileNet predominantly because it's designed for mobile devices—meaning it's not very
-computationally expensive. This is important as the model needs to run against an image every 10
-seconds, 24/7.
+I picked MobileNet predominantly because it's designed for mobile
+devices—meaning it's not very computationally expensive. This is important as
+the model needs to run against an image every 10 seconds, 24/7.
 
-Also, I only have access to my Radeon 6950XT for training, which is a nice gaming GPU but in the
-world of AI, it's not particularly powerful. I tried training with the ConvNeXtV2 model (a much
-newer and heavier model), and the training was estimated to take 125 hours to complete. MobileNetV3,
-by comparison, takes less than 45 minutes even with ~140,000 images in the dataset.
+Also, I only have access to my Radeon 6950XT for training, which is a nice
+gaming GPU but in the world of AI, it's not particularly powerful. I tried
+training with the ConvNeXtV2 model (a much newer and heavier model), and the
+training was estimated to take 125 hours to complete. MobileNetV3, by
+comparison, takes less than 45 minutes even with ~140,000 images in the dataset.
 
 ###### How do Those Scripts Work?
 
 Click the Githhub icon on this page to view the project itself and all the code.
 
-But the workflow looks a little like this, I clone the repo, mount it alongside the training images
-in the
+But the workflow looks a little like this, I clone the repo, mount it alongside
+the training images in the
 [PyTorch docker container](https://rocm.docs.amd.com/projects/install-on-linux/en/develop/install/3rd-party/pytorch-install.html)
 and do something like this:
 
@@ -207,9 +233,10 @@ Enter the model name to save as: may10_bigdata_10_epochs
 Enter the number of epochs: 10
 ```
 
-The output of that model will be a file called `may10_bigdata_10_epochs.pth` and a `config.ini`,
-this contains the additional training data needed for predictions and the configuration for the
-other script `justPredict.py`. That second script allows me to just pass it a file:
+The output of that model will be a file called `may10_bigdata_10_epochs.pth` and
+a `config.ini`, this contains the additional training data needed for
+predictions and the configuration for the other script `justPredict.py`. That
+second script allows me to just pass it a file:
 
 ```bash
 root@docker:/train# python3 justPredict.py testing_imgs/garage5.jpg
@@ -218,27 +245,30 @@ open
 
 ###### Can I Give it a Go?
 
-Please! I tried making the script fairly user-friendly, mostly so I don't have to remember the
-intricacies when I want to update / train a new model. Currently, it is limited to a binary output
-i.e. a True or False classification. But it does have some nice features like a progress bar and
-stopping training when it detects accuracy loss.
+Please! I tried making the script fairly user-friendly, mostly so I don't have
+to remember the intricacies when I want to update / train a new model.
+Currently, it is limited to a binary output i.e. a True or False classification.
+But it does have some nice features like a progress bar and stopping training
+when it detects accuracy loss.
 
-Was all this ML stuff necessary? Probably not. Was there a simpler way to achieve this? Absolutely.
-But where's the fun in that? Plus, I learned a fair bit about machine learning in the process, which
-was kind of the point.
+Was all this ML stuff necessary? Probably not. Was there a simpler way to
+achieve this? Absolutely. But where's the fun in that? Plus, I learned a fair
+bit about machine learning in the process, which was kind of the point.
 
 ## Putting It All Together
 
-With the hardware and machine learning components working, I needed a way to tie everything together
-into a cohesive system. Let me illustrate the architecture and then I can explain why this is a
-perfectly sane project (and not at all an overcomplicated solution to a problem that probably has a
-$20 commercial alternative):
+With the hardware and machine learning components working, I needed a way to tie
+everything together into a cohesive system. Let me illustrate the architecture
+and then I can explain why this is a perfectly sane project (and not at all an
+overcomplicated solution to a problem that probably has a $20 commercial
+alternative):
 
 ###### Architecture
 
-The system follows a microservices approach, with each component handling a specific responsibility
-and communicating via HTTP APIs. The Rust HTTP server runs on the Pi Zero W, the rest is running on my 
-homeserver both in and out of Docker containers.
+The system follows a microservices approach, with each component handling a
+specific responsibility and communicating via HTTP APIs. The Rust HTTP server
+runs on the Pi Zero W, the rest is running on my homeserver both in and out of
+Docker containers.
 
 ![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.png?q=85&f=webp)
 
@@ -246,75 +276,78 @@ homeserver both in and out of Docker containers.
 
 ###### [**Rust HTTP API Server**](https://github.com/smp46/SmartGarage/tree/main/garage_door_api)
 
-Initially this was just another Python FastAPI, but I switched to Rust, using Axum Server, because it needs to be running 24/7 and I don't want my poor
-little Pi Zero W running too hard. The server listens on port `3000` for a POST request to `/toggle`
-with the correct authorisation token, when receieve it triggers the button on the fob and the door
-opens or closes.
+Initially this was just another Python FastAPI, but I switched to Rust, using
+Axum Server, because it needs to be running 24/7 and I don't want my poor little
+Pi Zero W running too hard. The server listens on port `3000` for a POST request
+to `/toggle` with the correct authorisation token, when receieve it triggers the
+button on the fob and the door opens or closes.
 
 ###### [**Fetch Video Snapshot Bash Script**](https://github.com/smp46/SmartGarage/blob/main/garage-img.sh)
 
-Every second a script retrieves a snapshot of the garage security camera feed and saves this to a
-RAM-disk. A RAM-disk is used to prevent excessive wear and tear from constant writes to the system
-drive. A custom systemd service is used to trigger this every second, as crontab is limited to once
-per minute.
+Every second a script retrieves a snapshot of the garage security camera feed
+and saves this to a RAM-disk. A RAM-disk is used to prevent excessive wear and
+tear from constant writes to the system drive. A custom systemd service is used
+to trigger this every second, as crontab is limited to once per minute.
 
 ###### [**Image Recognition Script**](https://github.com/smp46/SmartGarage/blob/main/image_recognition/garage_monitor.py)
 
-This is a variant of `justPredict.py` script mentioned before, except it reads a file from a
-specified path and sends its results to the Garage Door Status API. Again, I use a custom systemd
-service to keep this script running and restart it on boot.
+This is a variant of `justPredict.py` script mentioned before, except it reads a
+file from a specified path and sends its results to the Garage Door Status API.
+Again, I use a custom systemd service to keep this script running and restart it
+on boot.
 
 ###### [**Garage Door Status API**](https://github.com/smp46/SmartGarage/blob/main/status_api/app/main.py)
 
-Super simple Python HTTP API server, using FastAPI, that receives the garage door status from the Image Recognitio
-Script, updates its internal last_opened state if the status changes from closed to open. And then
-responds with this data in a JSON response when a POST request is sent to
+Super simple Python HTTP API server, using FastAPI, that receives the garage
+door status from the Image Recognitio Script, updates its internal last_opened
+state if the status changes from closed to open. And then responds with this
+data in a JSON response when a POST request is sent to
 `http://garage-api:5000/status`.
 
 ###### [**Homepage Custom API Widget**](https://gist.github.com/smp46/37efd7d30b2980b4553c148d08c0b969)
 
-This widget lives on my homepage and provides the snapshot from the camera, the status of the door
-as reported by the Garage Door Status API and the time it was last opened. The preview is using an
-iframe that just displays the snapshot image, where the iframe html is mounted to the homepage
-docker container.
+This widget lives on my homepage and provides the snapshot from the camera, the
+status of the door as reported by the Garage Door Status API and the time it was
+last opened. The preview is using an iframe that just displays the snapshot
+image, where the iframe html is mounted to the homepage docker container.
 
 ![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png?q=85&f=webp)
 
 ###### [**Email Notification Service**](https://github.com/smp46/SmartGarage/blob/main/garage_notifs.sh)
 
-This is a bash script that is run
-every minute with crontab. It checks the Status API for the current status and the last opened
-status, if it is currently open and the last opened was more than 10 minutes ago it send a friendly
-email with a link to the website to close it.
+This is a bash script that is run every minute with crontab. It checks the
+Status API for the current status and the last opened status, if it is currently
+open and the last opened was more than 10 minutes ago it send a friendly email
+with a link to the website to close it.
 
 ###### [**SmartGarage Control Website**](https://github.com/smp46/SmartGarage/tree/main/website)
 
-This website provides the snapshot of the security camera and has a button that sends a POST request
-through an nginx proxy to the Rust HTTP API Server on the Pi. The website is hosted via nginx
-through a Cloudflare Tunnel, using Google SSO it is protected against unwanted visitors.
+This website provides the snapshot of the security camera and has a button that
+sends a POST request through an nginx proxy to the Rust HTTP API Server on the
+Pi. The website is hosted via nginx through a Cloudflare Tunnel, using Google
+SSO it is protected against unwanted visitors.
 
 ![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.png?q=85&f=webp)
 
 ## The Result
 
 ###### But at What Cost?
-Not too much actually, if we ignore how many hours I put into this, and there's a few things leftover / will be used when I do something similar again.
-| Component | Cost (AUD) |
-| :--- | ---: |
-| Raspberry Pi Zero W | $25.00 |
-| Pi GPIO Pins and Case | $8.00 |
-| Generic Garage Door Fob | $8.00 |
-| 5V Relay | $8.00 |
-| 220 Ohm 0.5 Watt Resistors | $0.85 |
-| Soldering Iron kit | $45.00 |
-| **Total** | **$94.85** |
+
+Not too much actually, if we ignore how many hours I put into this, and there's
+a few things leftover / will be used when I do something similar again. |
+Component | Cost (AUD) | | :--- | ---: | | Raspberry Pi Zero W | $25.00 | | Pi
+GPIO Pins and Case | $8.00 | | Generic Garage Door Fob | $8.00 | | 5V Relay |
+$8.00 | | 220 Ohm 0.5 Watt Resistors | $0.85 | | Soldering Iron kit | $45.00 | |
+**Total** | **$94.85** |
 
 ###### To Conclude
 
-After several months of development, testing, and refinement, I'm happy to report that my
-SmartGarage system has been running reliably for over a month now. The system successfully:
+After several months of development, testing, and refinement, I'm happy to
+report that my SmartGarage system has been running reliably for over a month
+now. The system successfully:
 
-- Allows me to remotely open and close my garage door from anywhere with internet access
+- Allows me to remotely open and close my garage door from anywhere with
+  internet access
 - Accurately detects the door's open/closed state with reasonable accuracy
 - Sends me notifications if I've left the door open for more than 10 minutes
 - Provides a real-time view of my garage through the security camera

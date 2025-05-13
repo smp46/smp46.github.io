@@ -8,5 +8,6 @@
   "arrowParens": "always",
   "endOfLine": "lf",
   "proseWrap": "always",
-  "printWidth": 100
+  "printWidth": 80,
+  "plugins": ["prettier-plugin-classnames"]
 }

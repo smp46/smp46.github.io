@@ -3,21 +3,22 @@ title: 'dockerImageServer'
 subtitle: 'Docker Image Server for Periodic Image Fetching with Nginx'
 type: 'personal'
 description:
-  'dockerImageServer is a lightweight Docker container that periodically downloads an image from a
-  URL and serves it via Nginx. Ideal for use cases like exposing security camera snapshots through a
-  reverse proxy.'
+  'dockerImageServer is a lightweight Docker container that periodically
+  downloads an image from a URL and serves it via Nginx. Ideal for use cases
+  like exposing security camera snapshots through a reverse proxy.'
 keywords:
-  'Docker, Nginx, image server, reverse proxy, security camera, docker container, open source,
-  devops tools, docker compose, docker run, automation'
+  'Docker, Nginx, image server, reverse proxy, security camera, docker
+  container, open source, devops tools, docker compose, docker run, automation'
 github: 'https://github.com/smp46/dockerImageServer'
 ---
 
 # dockerImageServer: Docker Image Server for Periodic Image Fetching with Nginx
 
-This Docker container downloads an image from a specified URL at regular intervals and serves it via
-an Nginx web server. I'm publishing it here in hope that someone else might have a use for it. My
-use case is fetching a snapshot image from a security camera on my local network and exposing it
-safely behind a nginx web server that can then be put behind a reverse-proxy.
+This Docker container downloads an image from a specified URL at regular
+intervals and serves it via an Nginx web server. I'm publishing it here in hope
+that someone else might have a use for it. My use case is fetching a snapshot
+image from a security camera on my local network and exposing it safely behind a
+nginx web server that can then be put behind a reverse-proxy.
 
 ## Prerequisites
 
@@ -26,10 +27,12 @@ safely behind a nginx web server that can then be put behind a reverse-proxy.
 
 ## Configuration
 
-Configuration is handled through environment variables. The following variables can be set:
+Configuration is handled through environment variables. The following variables
+can be set:
 
 - `IMAGE_URL`: The URL of the image to be downloaded and served. (Required)
-- `SLEEP_INTERVAL`: The interval, in seconds, between each image fetch. Defaults to `5` seconds.
+- `SLEEP_INTERVAL`: The interval, in seconds, between each image fetch. Defaults
+  to `5` seconds.
 
 ## Quick Start
 
@@ -56,7 +59,8 @@ dockerImageServer:
   restart: unless-stopped
 ```
 
-This will start the container and begin serving the image at http://localhost:8080.
+This will start the container and begin serving the image at
+http://localhost:8080.
 
 ## Build from Source
 
@@ -77,8 +81,8 @@ This will start the container and begin serving the image at http://localhost:80
 
 3. Run the Docker Container.
 
-   Replace your_image_url_here with the actual URL of the image you want to serve and optionally
-   adjust the SLEEP_INTERVAL.
+   Replace your_image_url_here with the actual URL of the image you want to
+   serve and optionally adjust the SLEEP_INTERVAL.
 
    ```bash
    docker run -d -p 8080:80 \
@@ -87,4 +91,5 @@ This will start the container and begin serving the image at http://localhost:80
      dockerimageserver
    ```
 
-This will start the container and begin serving the image at http://localhost:8080.
+This will start the container and begin serving the image at
+http://localhost:8080.
