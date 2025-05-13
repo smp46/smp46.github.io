@@ -92,7 +92,10 @@ export default function Welcome() {
       </div>
 
       {/* Fixed bottom keyboard shortcuts bar */}
-      <div className="hidden sm:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md pl-64 py-6 px-4 w-full">
+      <div
+        className="hidden sm:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md
+          pl-64 py-6 px-4 w-full"
+      >
         <div className="flex items-center justify-center flex-wrap text-gray-400 max-w-4xl mx-auto">
           <span className="mr-2">Press</span>
 
@@ -118,7 +121,7 @@ export default function Welcome() {
           </svg>
           <span className="ml-1">+</span>
 
-          <svg className="mx-1 w-20 h-8" viewBox="0 0 200 100">
+          <svg className="w-20 h-8" viewBox="0 0 200 100">
             <rect
               x="5"
               y="5"
@@ -175,4 +178,3 @@ export default function Welcome() {
     </div>
   );
 }
-

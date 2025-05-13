@@ -26,7 +26,7 @@ export default function Sidebar() {
   }
 
   useEffect(() => {
-    function handleKeyDown(event) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (
         (event.metaKey && event.key === ' ') || // For macOS (Command+Space)
         (event.ctrlKey && event.key === ' ') // For Windows/Linux (Ctrl+Space)
@@ -72,8 +72,8 @@ export default function Sidebar() {
 
       {showSearch && (
         <div
-          className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center
-            justify-center pt-20 z-50"
+          className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex
+            items-center justify-center pt-20 z-50"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowSearch(false);
