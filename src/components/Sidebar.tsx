@@ -29,7 +29,7 @@ export default function Sidebar() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && showSearch) {
         setShowSearch(false);
-      } else if (!showSearch) {
+      } else if (!showSearch && (/^[a-zA-Z]$/.test(e.key))) {
         setShowSearch(true);
       }
     };

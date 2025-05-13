@@ -1,6 +1,6 @@
 // components/Search.tsx
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface SearchResult {
   id: string;
@@ -14,8 +14,10 @@ interface SearchResult {
 }
 
 interface SearchResultItemProps {
-  result: SearchResult;
+  isSelected: boolean;
   onResultClick?: () => void;
+  loadedData?: any;
+  onMouseEnter: () => void;
 }
 
 interface PagefindWindow extends Window {
@@ -34,36 +36,109 @@ interface SearchProps {
 export default function Search({ onResultClick }: SearchProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [loadedResultData, setLoadedResultData] = useState<Record<string, any>>(
+    {}
+  );
+  const router = useRouter();
+
+  useEffect(() => {
+    setSelectedIndex(results.length > 0 ? 0 : -1);
+  }, [results]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!results.length) return;
+
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setSelectedIndex((prev) =>
+            prev < results.length - 1 ? prev + 1 : prev
+          );
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setSelectedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (selectedIndex >= 0 && selectedIndex < results.length) {
+            const data = loadedResultData[results[selectedIndex].id];
+            if (data && data.url) {
+              if (onResultClick) onResultClick();
+              router.push(data.url);
+            }
+          }
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [results, selectedIndex, loadedResultData, router, onResultClick]);
+
+  // Add this effect to preload all result data
+  useEffect(() => {
+    async function loadAllResultData() {
+      const dataPromises = results.map(async (result) => {
+        try {
+          const data = await result.data();
+          // Clean the URL by removing the unwanted prefix
+          data.url = data.url.replace('_next/static/chunks/pages/', '');
+          return { id: result.id, data };
+        } catch (error) {
+          console.error('Error loading result data:', error);
+          return null;
+        }
+      });
+
+      const loadedData = await Promise.all(dataPromises);
+      const dataMap: Record<string, any> = {};
+
+      loadedData.forEach((item) => {
+        if (item) {
+          dataMap[item.id] = item.data;
+        }
+      });
+
+      setLoadedResultData(dataMap);
+    }
+
+    if (results.length > 0) {
+      loadAllResultData();
+    }
+  }, [results]);
 
   useEffect(() => {
     async function loadPagefind() {
-        if (typeof window.pagefind === "undefined") {
+      if (typeof window.pagefind === 'undefined') {
         try {
-            window.pagefind = await import(
+          window.pagefind = await import(
             // @ts-expect-error pagefind exists only on build
-            /* webpackIgnore: true */ "./pagefind/pagefind.js"
-            );
-        } catch(e) {
-            console.log(e);
-            window.pagefind = {
-            search: () => Promise.resolve({ 
+            /* webpackIgnore: true */ './pagefind/pagefind.js'
+          );
+        } catch (e) {
+          console.log(e);
+          window.pagefind = {
+            search: () =>
+              Promise.resolve({
                 results: [
-                {
-                    id: "dummy-id",
+                  {
+                    id: 'dummy-id',
                     data: async () => ({
-                    url: '/dummy-url',
-                    meta: {
-                        title: 'dummy title'
-                    },
-                    excerpt: 'dummy excerpt'
-                    })
-                }
-                ] 
-            })
-            }
+                      url: '/dummy-url',
+                      meta: {
+                        title: 'dummy title',
+                      },
+                      excerpt: 'dummy excerpt',
+                    }),
+                  },
+                ],
+              }),
+          };
         }
-        }
-
+      }
     }
     loadPagefind();
   }, []);
@@ -107,12 +182,14 @@ export default function Search({ onResultClick }: SearchProps) {
         >
           <h3 className="text-lg font-medium mb-2">Search Results</h3>
           <div className="space-y-4">
-            {results.map((result) => (
-                <SearchResultItem 
-                    key={result.id} 
-                    result={result} 
-                    onResultClick={onResultClick}
-                />
+            {results.map((result, index) => (
+              <SearchResultItem
+                key={result.id}
+                isSelected={index === selectedIndex}
+                onResultClick={onResultClick}
+                loadedData={loadedResultData[result.id]}
+                onMouseEnter={() => setSelectedIndex(index)}
+              />
             ))}
           </div>
         </div>
@@ -123,49 +200,31 @@ export default function Search({ onResultClick }: SearchProps) {
   );
 }
 
+function SearchResultItem({
+  isSelected,
+  onResultClick,
+  loadedData,
+  onMouseEnter,
+}: SearchResultItemProps) {
+  const router = useRouter();
 
-
-
-function SearchResultItem({ result, onResultClick }: SearchResultItemProps) {
-  const [data, setData] = useState<{
-    url: string;
-    meta: { title: string };
-    excerpt: string;
-  } | null>(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const resultData = await result.data();
-        resultData.url = resultData.url.replace('_next/static/chunks/pages/', '');
-        setData(resultData);
-      } catch (error) {
-        console.error('Error fetching result data:', error);
-      }
-    }
-    fetchData();
-  }, [result]);
-
-  if (!data) return null;
+  if (!loadedData) return null;
 
   return (
-    <Link
-      href={data.url}
-      className="block hover:bg-gray-50 p-2 rounded transition"
-      onClick={() => onResultClick && onResultClick()}
+    <div
+      className={`block p-2 rounded transition cursor-pointer
+        ${isSelected ? 'bg-gray-100 ring-1 ring-gray-300' : 'hover:bg-gray-50'}`}
+      onClick={() => {
+        if (onResultClick) onResultClick();
+        router.push(loadedData.url);
+      }}
+      onMouseEnter={onMouseEnter}
     >
-      <h4 className="font-medium">{data.meta.title}</h4>
-      <div className="text-sm text-gray-600 search-results-container">
-        <style jsx>{`
-          .search-results-container :global(mark) {
-            background-color: #d3d3d3;
-            color: #000;
-            padding: 0 2px;
-            border-radius: 2px;
-          }
-        `}</style>
-        <p dangerouslySetInnerHTML={{ __html: data.excerpt }}></p>
-      </div>
-    </Link>
+      <h4 className="font-medium">{loadedData.meta.title}</h4>
+      <p
+        className="text-sm text-gray-600"
+        dangerouslySetInnerHTML={{ __html: loadedData.excerpt }}
+      ></p>
+    </div>
   );
 }
