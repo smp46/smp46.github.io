@@ -180,7 +180,6 @@ export default function Search({ onResultClick }: SearchProps) {
             max-h-96 overflow-y-auto z-10 transition-opacity duration-200 ease-in-out
             ${results.length > 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         >
-          <h3 className="text-lg font-medium mb-2">Search Results</h3>
           <div className="space-y-4">
             {results.map((result, index) => (
               <SearchResultItem
