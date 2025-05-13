@@ -221,6 +221,14 @@ function SearchResultItem({
       onMouseEnter={onMouseEnter}
     >
       <h4 className="font-medium">{loadedData.meta.title}</h4>
+        <style jsx>{`
+          .search-results-container :global(mark) {
+            background-color: #d3d3d3;
+            color: #000;
+            padding: 0 2px;
+            border-radius: 2px;
+          }
+        `}</style>
       <p
         className="text-sm text-gray-600"
         dangerouslySetInnerHTML={{ __html: loadedData.excerpt }}
