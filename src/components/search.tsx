@@ -15,6 +15,7 @@ interface SearchResult {
 
 interface SearchResultItemProps {
   result: SearchResult;
+  onResultClick?: () => void;
 }
 
 interface PagefindWindow extends Window {
@@ -26,7 +27,11 @@ interface PagefindWindow extends Window {
 
 declare const window: PagefindWindow;
 
-export default function Search() {
+interface SearchProps {
+  onResultClick?: () => void;
+}
+
+export default function Search({ onResultClick }: SearchProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
 
@@ -103,7 +108,11 @@ export default function Search() {
           <h3 className="text-lg font-medium mb-2">Search Results</h3>
           <div className="space-y-4">
             {results.map((result) => (
-              <SearchResultItem key={result.id} result={result} />
+                <SearchResultItem 
+                    key={result.id} 
+                    result={result} 
+                    onResultClick={onResultClick}
+                />
             ))}
           </div>
         </div>
@@ -115,7 +124,9 @@ export default function Search() {
 }
 
 
-function SearchResultItem({ result}: SearchResultItemProps) {
+
+
+function SearchResultItem({ result, onResultClick }: SearchResultItemProps) {
   const [data, setData] = useState<{
     url: string;
     meta: { title: string };
@@ -141,6 +152,7 @@ function SearchResultItem({ result}: SearchResultItemProps) {
     <Link
       href={data.url}
       className="block hover:bg-gray-50 p-2 rounded transition"
+      onClick={() => onResultClick && onResultClick()}
     >
       <h4 className="font-medium">{data.meta.title}</h4>
       <p
