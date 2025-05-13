@@ -69,10 +69,10 @@ export default function Post({ children, frontMatter }) {
 
       <div className="flex items-center justify-center min-h-screen mb-5 overflow-hidden">
         <div
-          className="prose prose-img:mx-auto prose-headings:mt-8 prose-headings:font-semibold
-            prose-headings:text-black prose-h1:text-3xl prose-h1:font-extrabold
-            prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-xl prose-h5:text-xl
-            prose-h6:text-lg dark:prose-headings:text-black text-black overflow-hidden"
+          className="prose prose-lg prose-img:mx-auto prose-headings:mt-8 prose-headings:font-semibold
+            prose-headings:text-black prose-h1:text-5xl prose-h1:font-bold
+            prose-h2:text-3xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-2xl
+            prose-h6:text-xl dark:prose-headings:text-black text-black overflow-hidden"
         >
           {children}
         </div>
