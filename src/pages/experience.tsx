@@ -93,6 +93,7 @@ export default function Experience() {
               href="mailto:me@smp46.me"
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="Clicked email Link"
             >
               <SiGmail size="40" />
             </a>
@@ -100,6 +101,7 @@ export default function Experience() {
               href="https://linkedin.com/in/smp46"
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="Clicked LinkedIn Link"
             >
               <FaLinkedin size="40" />
             </a>

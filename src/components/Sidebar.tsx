@@ -107,6 +107,7 @@ export default function Sidebar() {
             className="text-white sm:text-2xl text-4xl transition-transform duration-300
               hover:scale-110"
             aria-label="Discord"
+            data-umami-event="Clicked Discord Link"
           >
             <FaDiscord />
           </a>
@@ -117,6 +118,7 @@ export default function Sidebar() {
             className="text-white sm:text-2xl text-4xl transition-transform duration-300
               hover:scale-110"
             aria-label="GitHub"
+            data-umami-event="Clicked Github Link"
           >
             <FaGithub />
           </a>
@@ -127,6 +129,7 @@ export default function Sidebar() {
             className="text-white sm:text-2xl text-4xl transition-transform duration-300
               hover:scale-110"
             aria-label="LinkedIn"
+            data-umami-event="Clicked LinkedIn Link"
           >
             <FaLinkedin />
           </a>
@@ -136,6 +139,7 @@ export default function Sidebar() {
               hover:scale-110"
             target="_blank"
             rel="noopener noreferrer"
+            data-umami-event="Clicked email Link"
           >
             <SiGmail />
           </a>
