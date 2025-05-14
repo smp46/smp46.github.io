@@ -52,7 +52,7 @@ here is what was the hardest part of the solution (I swear it's not a bomb).
 ## Initial Attempts and Challenges
 
 I started with the hard part, how do I clone the garage door fob signal and
-resent it on command. The fob uses the 433MHz band for transmission. I happened
+resend it on command. The fob uses the 433MHz band for transmission. I happened
 to have a Raspberry Pi Zero W sitting in my drawer, so I go online and find the
 Texas Instruments CC1101 Sub-GHz transceiver (the same chip that is used by the
 Flipper Zero). This should let me capture the signal and sent it right on back.
@@ -69,7 +69,7 @@ I get to the stage where I can receive some kind of signal, however to be honest
 I know nothing about radio and I'm only a CompSci student not an electrical
 engineer. Even though it is the same chip used by the Flipper Zero, there seems
 to be fair bit of special sauce that goes into being able to pull a signal out
-of the air cleanly, then resend it. Documentation for the drivers didn't back
+of the air cleanly, then resend it. Documentation for the drivers didn't make
 much sense to me, if there was any at all. So after weeks of trying I decide to
 pivot to another approach (definitely not a skill issue... okay maybe a little).
 
@@ -112,7 +112,7 @@ press with my Raspberry Pi Zero W.
 Now, I'm not an electrical engineer by any stretch, but I figured how
 complicated could a fob be. I carefully cracked open one of the generic fobs and
 examined the PCB. After some poking around with a multimeter, I discovered
-something beautifully simple: the button on the fob just bridges two contacts on
+ the button on the fob just bridges two contacts on
 the PCB. If I could find a way to bridge those contacts on command from the Pi,
 I'd be cooking.
 
@@ -279,7 +279,7 @@ Docker containers.
 Initially this was just another Python FastAPI, but I switched to Rust, using
 Axum Server, because it needs to be running 24/7 and I don't want my poor little
 Pi Zero W running too hard. The server listens on port `3000` for a POST request
-to `/toggle` with the correct authorisation token, when receieve it triggers the
+to the `/toggle` endpoint with the correct authorisation token, when received it triggers the
 button on the fob and the door opens or closes.
 
 ###### [**Fetch Video Snapshot Bash Script**](https://github.com/smp46/SmartGarage/blob/main/garage-img.sh)
@@ -298,8 +298,8 @@ on boot.
 
 ###### [**Garage Door Status API**](https://github.com/smp46/SmartGarage/blob/main/status_api/app/main.py)
 
-Super simple Python HTTP API server, using FastAPI, that receives the garage
-door status from the Image Recognitio Script, updates its internal last_opened
+Super simple Python HTTP API server, using FastAPI, that receives and stores the garage
+door status from the Image Recognition Script and updates its internal last_opened
 state if the status changes from closed to open. And then responds with this
 data in a JSON response when a POST request is sent to
 `http://garage-api:5000/status`.
@@ -317,7 +317,7 @@ image, where the iframe html is mounted to the homepage docker container.
 
 This is a bash script that is run every minute with crontab. It checks the
 Status API for the current status and the last opened status, if it is currently
-open and the last opened was more than 10 minutes ago it send a friendly email
+open and the last opened was more than 10 minutes ago it sends a friendly email
 with a link to the website to close it.
 
 ###### [**SmartGarage Control Website**](https://github.com/smp46/SmartGarage/tree/main/website)
@@ -357,7 +357,7 @@ now. The system successfully:
   internet access
 - Detects the door's open/closed state with reasonable accuracy
 - Sends me notifications if I've left the door open for more than 10 minutes
-- Provides a real-time view of my garage through the security camera
+- Provides a remotely accessible, nearly real-time view of my garage through via the camera
 
 Here's a demo of it in action:
 ![demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/demo.webp)
