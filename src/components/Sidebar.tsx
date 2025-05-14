@@ -26,16 +26,22 @@ export default function Sidebar() {
   }
 
   useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (
-        (event.metaKey && event.key === ' ') || // For macOS (Command+Space)
-        (event.ctrlKey && event.key === ' ') // For Windows/Linux (Ctrl+Space)
+        ((event.metaKey && event.key === ' ') ||
+          (event.ctrlKey && event.key === ' ') ||
+          event.key === 'Escape') &&
+        showSearch
+      ) {
+        setShowSearch(false);
+      } else if (
+        ((event.metaKey && event.key === ' ') || // For macOS (Command+Space)
+          (event.ctrlKey && event.key === ' ')) && // For Windows/Linux (Ctrl+Space)
+        !showSearch
       ) {
         setShowSearch(true);
-      } else if (event.key === 'Escape' && showSearch) {
-        setShowSearch(false);
       }
-    }
+    };
 
     document.addEventListener('keydown', handleKeyDown);
 

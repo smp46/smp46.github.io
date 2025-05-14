@@ -48,7 +48,9 @@ export default function Search({ onResultClick }: SearchProps) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!results.length) return;
+      if (!results.length) {
+        return;
+      }
 
       switch (e.key) {
         case 'ArrowDown':
@@ -66,7 +68,9 @@ export default function Search({ onResultClick }: SearchProps) {
           if (selectedIndex >= 0 && selectedIndex < results.length) {
             const data = loadedResultData[results[selectedIndex].id];
             if (data && data.url) {
-              if (onResultClick) onResultClick();
+              if (onResultClick) {
+                onResultClick();
+              }
               router.push(data.url);
             }
           }
@@ -78,13 +82,12 @@ export default function Search({ onResultClick }: SearchProps) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [results, selectedIndex, loadedResultData, router, onResultClick]);
 
-  // Add this effect to preload all result data
   useEffect(() => {
-    async function loadAllResultData() {
+    const loadAllResultData = async () => {
       const dataPromises = results.map(async (result) => {
         try {
           const data = await result.data();
-          // Clean the URL by removing the unwanted prefix
+
           data.url = data.url.replace('_next/static/chunks/pages/', '');
           return { id: result.id, data };
         } catch (error) {
@@ -103,7 +106,7 @@ export default function Search({ onResultClick }: SearchProps) {
       });
 
       setLoadedResultData(dataMap);
-    }
+    };
 
     if (results.length > 0) {
       loadAllResultData();
@@ -111,7 +114,7 @@ export default function Search({ onResultClick }: SearchProps) {
   }, [results]);
 
   useEffect(() => {
-    async function loadPagefind() {
+    const loadPagefind = async () => {
       if (typeof window.pagefind === 'undefined') {
         try {
           window.pagefind = await import(
@@ -134,12 +137,23 @@ export default function Search({ onResultClick }: SearchProps) {
                       excerpt: 'dummy excerpt',
                     }),
                   },
+                  {
+                    id: 'dummy-id2',
+                    data: async () => ({
+                      url: '/dummy-url2',
+                      meta: {
+                        title: 'title',
+                      },
+                      excerpt: 'excerpt',
+                    }),
+                  },
                 ],
               }),
           };
         }
       }
-    }
+    };
+
     loadPagefind();
   }, []);
 
@@ -148,6 +162,16 @@ export default function Search({ onResultClick }: SearchProps) {
     setQuery(newQuery);
 
     if (!newQuery.trim() || !window.pagefind) {
+      <input
+        type="text"
+        placeholder="Search..."
+        value={query}
+        onChange={handleSearch}
+        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none
+          focus:ring-2 focus:ring-black/10 transition-all duration-200 shadow-sm"
+        aria-label="Search"
+        autoFocus
+      />;
       setResults([]);
       return;
     }
@@ -169,18 +193,19 @@ export default function Search({ onResultClick }: SearchProps) {
           placeholder="Search..."
           value={query}
           onChange={handleSearch}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-1
-            focus:ring-black"
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none
+            focus:ring-2 focus:ring-black/10 shadow-sm"
           aria-label="Search"
           autoFocus
         />
 
         <div
-          className={`absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-lg border p-4
-            max-h-96 overflow-y-auto z-10 transition-opacity duration-200 ease-in-out
-            ${results.length > 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+          className={`absolute left-0 right-0 top-full mt-1 bg-white rounded-lg shadow-md border
+            border-gray-200 max-h-96 overflow-y-auto z-10 transition-all duration-100
+            ease-in-out
+            ${results.length > 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
         >
-          <div className="space-y-4">
+          <div className="space-y-3">
             {results.map((result, index) => (
               <SearchResultItem
                 key={result.id}
@@ -207,12 +232,14 @@ function SearchResultItem({
 }: SearchResultItemProps) {
   const router = useRouter();
 
-  if (!loadedData) return null;
+  if (!loadedData) {
+    return null;
+  }
 
   return (
     <div
-      className={`block p-2 rounded transition cursor-pointer
-        ${isSelected ? 'bg-gray-100 ring-1 ring-gray-300' : 'hover:bg-gray-50'}`}
+      className={`p-4 rounded transition cursor-pointer
+        ${isSelected ? 'bg-gray-200 ring-gray-300' : 'hover:bg-gray-50'}`}
       onClick={() => {
         if (onResultClick) onResultClick();
         router.push(loadedData.url);

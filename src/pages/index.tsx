@@ -14,9 +14,15 @@ export default function Welcome() {
 
     const animateGif = () => {
       setTimeout(() => {
-        if (leftGifRef.current) leftGifRef.current.style.opacity = '0';
-        if (rightGifRef.current) rightGifRef.current.style.opacity = '0';
-        if (finalImageRef.current) finalImageRef.current.style.opacity = '1';
+        if (leftGifRef.current) {
+          leftGifRef.current.style.opacity = '0';
+        }
+        if (rightGifRef.current) {
+          rightGifRef.current.style.opacity = '0';
+        }
+        if (finalImageRef.current) {
+          finalImageRef.current.style.opacity = '1';
+        }
       }, animationDuration * 1000);
     };
 
@@ -36,7 +42,7 @@ export default function Welcome() {
             </title>
             <meta
               name="description"
-              content="I&#39;m a passionate undergrad studying Computer Science at theUniversity of Queensland. This website highlights some of my achievements and skills as an aspiring software developer."
+              content="I&#39;m a passionate undergrad studying Computer Science at the University of Queensland. This website highlights some of my achievements and skills as an aspiring software developer."
             ></meta>
             <meta
               name="keywords"
