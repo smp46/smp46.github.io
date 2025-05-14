@@ -186,7 +186,7 @@ export default function Search({ onResultClick }: SearchProps) {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="sm:w-full sm:max-w-md mx-auto">
       <div className="relative">
         <input
           type="text"

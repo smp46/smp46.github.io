@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { FaDiscord, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiGmail } from 'react-icons/si';
 import { FiMenu, FiX } from 'react-icons/fi';
+import { IoSearchCircleSharp } from 'react-icons/io5';
 import Search from './search';
 
 export default function Sidebar() {
@@ -78,13 +79,9 @@ export default function Sidebar() {
 
       {showSearch && (
         <div
-          className="hidden sm:block ml-64 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex
-            items-center justify-center pt-20 z-50"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowSearch(false);
-            }
-          }}
+          className="sm:mt-0 sm:ml-64 fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex
+            items-center justify-center pt-20 sm:z-50 z-30"
+          onClick={() => setShowSearch(false)}
         >
           <Search onResultClick={() => setShowSearch(false)} />
         </div>
@@ -178,6 +175,16 @@ export default function Sidebar() {
           className="fixed inset-0 bg-black bg-opacity-50 z-30 sm:hidden"
           onClick={toggleSidebar}
         />
+      )}
+      {pathname === '/' && (
+        <button
+          aria-label="Open search bar"
+          onClick={() => setShowSearch(true)}
+          className="fixed bottom-4 right-4 z-20 p-0 border-0 bg-transparent cursor-pointer sm:hidden
+            block"
+        >
+          <IoSearchCircleSharp className="text-5xl hover:scale-110 transition-transform duration-200" />
+        </button>
       )}
     </>
   );
