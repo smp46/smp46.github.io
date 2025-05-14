@@ -98,7 +98,7 @@ export default function Welcome() {
       </div>
 
       <div
-        className="hidden md:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md
+        className="hidden lg:block fixed bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md
           pl-64 py-6 px-4 w-full"
       >
         <div className="flex items-center justify-center flex-wrap text-gray-500 max-w-4xl mx-auto">
