@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Define your CSS variables first */
+:root {
+  --wizard-yellow: #ffffff;
+  --wizard-blue: #ffffff;
+  --wizard-navy-blue: #ffffff;
+}
+
+/* CHROME, SAFARI, EDGE (WebKit/Blink browsers) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--wizard-yellow);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wizard-blue);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--wizard-navy-blue);
+  border-radius: 10px;
+}
+
+/* FIREFOX - correct syntax */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--wizard-yellow) transparent;
+}
+
