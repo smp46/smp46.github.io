@@ -94,6 +94,7 @@ export default function Experience() {
               target="_blank"
               rel="noopener noreferrer"
               data-umami-event="Clicked email Link"
+              data-link="external"
             >
               <SiGmail size="40" />
             </a>
@@ -102,6 +103,7 @@ export default function Experience() {
               target="_blank"
               rel="noopener noreferrer"
               data-umami-event="Clicked LinkedIn Link"
+              data-link="external"
             >
               <FaLinkedin size="40" />
             </a>

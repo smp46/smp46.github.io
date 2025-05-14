@@ -108,6 +108,7 @@ export default function Sidebar() {
               hover:scale-110"
             aria-label="Discord"
             data-umami-event="Clicked Discord Link"
+            data-link="external"
           >
             <FaDiscord />
           </a>
@@ -119,6 +120,7 @@ export default function Sidebar() {
               hover:scale-110"
             aria-label="GitHub"
             data-umami-event="Clicked Github Link"
+            data-link="external"
           >
             <FaGithub />
           </a>
@@ -130,6 +132,7 @@ export default function Sidebar() {
               hover:scale-110"
             aria-label="LinkedIn"
             data-umami-event="Clicked LinkedIn Link"
+            data-link="external"
           >
             <FaLinkedin />
           </a>
@@ -140,6 +143,7 @@ export default function Sidebar() {
             target="_blank"
             rel="noopener noreferrer"
             data-umami-event="Clicked email Link"
+            data-link="external"
           >
             <SiGmail />
           </a>
