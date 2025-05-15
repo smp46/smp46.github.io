@@ -10,10 +10,10 @@ export default function Whoami() {
     >
       <div className="container mx-auto px-4">
         <Head>
-          <title>whoami - Software Engineer, Student & Tinkerer – smp46</title>
+          <title>whoami - Aspiring Software Developer, Student & Tinkerer – smp46</title>
           <meta
             name="description"
-            content="Learn more about smp46 – a software engineer with a passion for building tools, apps, and playful digital experiences. Here's my journey, philosophy, and what drives me."
+            content="Learn more about smp46 – an aspiringu software developer with a passion for building tools, apps, and fun digital experiences. Here's my journey, philosophy, and what drives me."
           ></meta>
           <meta
             name="keywords"

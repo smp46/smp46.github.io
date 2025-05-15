@@ -38,7 +38,7 @@ export default function Welcome() {
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
           <Head>
             <title>
-              Hi, I&#39;m smp46 | Software Engineer & Builder of Things
+              Hi, I&#39;m smp46 - Aspiring Software Developer & Builder of Things
             </title>
             <meta
               name="description"
@@ -46,7 +46,7 @@ export default function Welcome() {
             ></meta>
             <meta
               name="keywords"
-              content="smp46, software engineer, developer portfolio, web developer, TypeScript, Next.js, personal site"
+              content="smp46, software engineer, developer portfolio, web developer, TypeScript, Next.js, personal site, student"
             ></meta>
           </Head>
           <div className="mb-4">
