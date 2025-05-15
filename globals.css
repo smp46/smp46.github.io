@@ -2,16 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Define your CSS variables first */
 :root {
-  --wizard-yellow: #ffffff;
-  --wizard-blue: #ffffff;
-  --wizard-navy-blue: #ffffff;
+  --scrollbar-color: #000000;
+  --scrollbar-hover-color: #333333;
+  --scrollbar-active-color: #555555;
 }
 
-/* CHROME, SAFARI, EDGE (WebKit/Blink browsers) */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px; 
 }
 
 ::-webkit-scrollbar-track {
@@ -19,23 +17,21 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--wizard-yellow);
-  border-radius: 8px;
+  background: var(--scrollbar-color);
+  border-radius: 0; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--wizard-blue);
-  border-radius: 10px;
+  background: var(--scrollbar-hover-color);
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: var(--wizard-navy-blue);
-  border-radius: 10px;
+  background: var(--scrollbar-active-color);
+  border-radius: 0; 
 }
 
-/* FIREFOX - correct syntax */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--wizard-yellow) transparent;
+  scrollbar-color: var(--scrollbar-color) transparent;
 }
 
