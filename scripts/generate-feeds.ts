@@ -17,6 +17,7 @@ interface PostFrontMatter {
 interface Post {
   slug: string;
   frontMatter: PostFrontMatter;
+  content: string;
 }
 
 function getAllPosts(): Post[] {
@@ -35,12 +36,19 @@ function getAllPosts(): Post[] {
         frontMatter: frontMatter as PostFrontMatter,
         content: content, // Raw markdown content
       };
-
     })
     // Sort posts by date (newest first), using updated > date > created
     .sort((a, b) => {
-      const dateA = a.frontMatter.updated || a.frontMatter.date || a.frontMatter.created || '1970-01-01';
-      const dateB = b.frontMatter.updated || b.frontMatter.date || b.frontMatter.created || '1970-01-01';
+      const dateA =
+        a.frontMatter.updated ||
+        a.frontMatter.date ||
+        a.frontMatter.created ||
+        '1970-01-01';
+      const dateB =
+        b.frontMatter.updated ||
+        b.frontMatter.date ||
+        b.frontMatter.created ||
+        '1970-01-01';
       return new Date(dateB).getTime() - new Date(dateA).getTime();
     });
 
@@ -48,30 +56,30 @@ function getAllPosts(): Post[] {
 }
 
 async function generateFeeds() {
-  const baseURL = "https://smp46.me";
-  const feedDirectory = "feeds";
-  const author = "smp46";
+  const baseURL = 'https://smp46.me';
+  const feedDirectory = 'feeds';
+  const author = 'smp46';
 
   const posts = getAllPosts();
 
   const feed = new Feed({
     title: `smp46`,
-    description: "Projects, attempts and other things",
+    description: 'Projects, attempts and other things',
     id: baseURL,
     link: baseURL,
-    favicon: `${baseURL}/favicon.ico`, 
-    language: "en",
-    generator: "Next.js using Feed for Node.js",
+    favicon: `${baseURL}/favicon.ico`,
+    language: 'en',
+    generator: 'Next.js using Feed for Node.js',
     feedLinks: {
       rss2: `${baseURL}/${feedDirectory}/feed.xml`,
       atom: `${baseURL}/${feedDirectory}/atom.xml`,
       json: `${baseURL}/${feedDirectory}/feed.json`,
     },
-      author: [{
-        name: author,
-        email: "me@smp46.me",
-        link: `${baseURL}/whoami`,
-      }],
+    author: {
+      name: author,
+      email: 'me@smp46.me',
+      link: `${baseURL}/whoami`,
+    },
     copyright: `All rights reserved ${new Date().getFullYear()}, ${author}`,
   });
 
@@ -79,7 +87,8 @@ async function generateFeeds() {
     const { title, description, date, created, updated } = post.frontMatter;
     const url = `${baseURL}/projects/${post.slug}`;
 
-    const mainDate = date || updated || created || new Date().toISOString().split('T')[0];
+    const mainDate =
+      date || updated || created || new Date().toISOString().split('T')[0];
     const publishedDate = created || date || mainDate;
     const updatedDate = updated || date || mainDate;
 
@@ -93,7 +102,7 @@ async function generateFeeds() {
       published: new Date(publishedDate),
       // Only add updated if it's different from published
       ...(updatedDate !== publishedDate && {
-        updated: new Date(updatedDate)
+        updated: new Date(updatedDate),
       }),
     });
   });
@@ -110,12 +119,13 @@ async function generateFeeds() {
   console.log(`   - ${posts.length} posts included`);
   console.log(`   - Files saved to /public/${feedDirectory}/`);
 
-  const postsWithoutDates = posts.filter(p => !p.frontMatter.date && !p.frontMatter.created && !p.frontMatter.updated);
-
+  const postsWithoutDates = posts.filter(
+    (p) =>
+      !p.frontMatter.date && !p.frontMatter.created && !p.frontMatter.updated
+  );
 }
 
 generateFeeds().catch((error) => {
   console.error('❌ Error generating feeds:', error);
   process.exit(1);
 });
-

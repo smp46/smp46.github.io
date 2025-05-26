@@ -5,7 +5,7 @@ import path from 'path';
 import grayMatter from 'gray-matter';
 import Link from 'next/link';
 import { FaRss, FaAtom } from 'react-icons/fa';
-import { VscJson } from "react-icons/vsc";
+import { VscJson } from 'react-icons/vsc';
 
 interface Post {
   path: string;
@@ -114,7 +114,7 @@ export default function Personal({ posts }: Props) {
               <div className="flex flex-wrap justify-center gap-4">
                 <a
                   href="/feeds/feed.xml"
-                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-orange-50 text-orange-600 
+                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-orange-50 text-orange-600
                     hover:bg-orange-100 transition-all duration-200 border border-orange-200"
                   aria-label="RSS Feed"
                 >
@@ -124,7 +124,7 @@ export default function Personal({ posts }: Props) {
 
                 <a
                   href="/feeds/atom.xml"
-                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-purple-50 text-purple-600 
+                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-purple-50 text-purple-600
                     hover:bg-purple-100 transition-all duration-200 border border-purple-200"
                   aria-label="Atom Feed"
                 >
@@ -134,7 +134,7 @@ export default function Personal({ posts }: Props) {
 
                 <a
                   href="/feeds/feed.json"
-                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-blue-50 text-blue-600 
+                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-blue-50 text-blue-600
                     hover:bg-blue-100 transition-all duration-200 border border-blue-200"
                   aria-label="JSON Feed"
                 >
@@ -181,7 +181,7 @@ export async function getStaticProps() {
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
       date: file.matter.data.date,
       created: file.matter.data.created,
-      updated: file.matter.data.updated
+      updated: file.matter.data.updated,
     };
   });
 

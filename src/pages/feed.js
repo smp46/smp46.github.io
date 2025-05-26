@@ -1,13 +1,17 @@
-export default function Feed() {
-  return null;
-}
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-export async function getServerSideProps() {
-  return {
-    redirect: {
-      destination: '/feeds/feed.xml',
-      permanent: true,
-    },
-  };
+export default function Feed() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/feeds/feed.xml');
+  }, [router]);
+
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <p>Redirecting to RSS feed...</p>
+    </div>
+  );
 }
 

@@ -3,7 +3,16 @@ import Head from 'next/head';
 import { FaGithub } from 'react-icons/fa';
 
 export default function Post({ children, frontMatter }) {
-  const { title, description, keywords, subtitle, github, date, created, updated} = frontMatter;
+  const {
+    title,
+    description,
+    keywords,
+    subtitle,
+    github,
+    date,
+    created,
+    updated,
+  } = frontMatter;
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,7 +21,7 @@ export default function Post({ children, frontMatter }) {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -60,8 +69,9 @@ export default function Post({ children, frontMatter }) {
 
         dateDiv.textContent = dateText;
         h1.insertAdjacentElement('afterend', dateDiv);
-      }}
-  }, []);
+      }
+    }
+  }, [hasAnyDate, created, showUpdated, updated]);
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -99,11 +109,11 @@ export default function Post({ children, frontMatter }) {
 
       <div className="flex items-center justify-center min-h-screen mb-5 overflow-hidden">
         <div
-          className="prose prose-headings:break-words prose-headings:hyphens-auto
-            prose-lg prose-img:mx-auto prose-headings:mt-8 prose-headings:font-semibold
-            prose-headings:text-black prose-h1:text-5xl prose-h1:font-bold
-            prose-h2:text-3xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-2xl
-            prose-h6:text-xl dark:prose-headings:text-black text-black overflow-hidden"
+          className="prose prose-headings:break-words prose-headings:hyphens-auto prose-lg
+            prose-img:mx-auto prose-headings:mt-8 prose-headings:font-semibold
+            prose-headings:text-black prose-h1:text-5xl prose-h1:font-bold prose-h2:text-3xl
+            prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-2xl prose-h6:text-xl
+            dark:prose-headings:text-black text-black overflow-hidden"
         >
           {children}
         </div>

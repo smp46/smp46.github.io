@@ -4,7 +4,7 @@
         <title>smp46</title>
         <link>https://smp46.me</link>
         <description>Projects, attempts and other things</description>
-        <lastBuildDate>Mon, 26 May 2025 02:22:51 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 26 May 2025 03:25:29 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Next.js using Feed for Node.js</generator>
         <language>en</language>
@@ -110,10 +110,9 @@ press with my Raspberry Pi Zero W.
 
 Now, I'm not an electrical engineer by any stretch, but I figured how
 complicated could a fob be. I carefully cracked open one of the generic fobs and
-examined the PCB. After some poking around with a multimeter, I discovered
- the button on the fob just bridges two contacts on
-the PCB. If I could find a way to bridge those contacts on command from the Pi,
-I'd be cooking.
+examined the PCB. After some poking around with a multimeter, I discovered the
+button on the fob just bridges two contacts on the PCB. If I could find a way to
+bridge those contacts on command from the Pi, I'd be cooking.
 
 ![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/3.jpg?q=85&f=webp)
 
@@ -278,8 +277,8 @@ Docker containers.
 Initially this was just another Python FastAPI, but I switched to Rust, using
 Axum Server, because it needs to be running 24/7 and I don't want my poor little
 Pi Zero W running too hard. The server listens on port `3000` for a POST request
-to the `/toggle` endpoint with the correct authorisation token, when received it triggers the
-button on the fob and the door opens or closes.
+to the `/toggle` endpoint with the correct authorisation token, when received it
+triggers the button on the fob and the door opens or closes.
 
 ###### [**Fetch Video Snapshot Bash Script**](https://github.com/smp46/SmartGarage/blob/main/garage-img.sh)
 
@@ -297,10 +296,10 @@ on boot.
 
 ###### [**Garage Door Status API**](https://github.com/smp46/SmartGarage/blob/main/status_api/app/main.py)
 
-Super simple Python HTTP API server, using FastAPI, that receives and stores the garage
-door status from the Image Recognition Script and updates its internal last_opened
-state if the status changes from closed to open. And then responds with this
-data in a JSON response when a POST request is sent to
+Super simple Python HTTP API server, using FastAPI, that receives and stores the
+garage door status from the Image Recognition Script and updates its internal
+last_opened state if the status changes from closed to open. And then responds
+with this data in a JSON response when a POST request is sent to
 `http://garage-api:5000/status`.
 
 ###### [**Homepage Custom API Widget**](https://gist.github.com/smp46/37efd7d30b2980b4553c148d08c0b969)
@@ -333,18 +332,17 @@ SSO it is protected against unwanted visitors.
 ###### But at What Cost?
 
 Not too much actually, if we ignore how many hours I put into this, and there's
-a few things leftover / will be used when I do something similar again. 
+a few things leftover / will be used when I do something similar again.
 
-| Component | Cost (AUD) |
-| :--- | ---: |
-| Raspberry Pi Zero W | $25.00 |
-| Pi GPIO Pins and Case | $8.00 |
-| Generic Garage Door Fob | $8.00 |
-| 5V Relay | $8.00 |
-| 220 Ohm 0.5 Watt Resistors | $0.85 |
-| Soldering Iron kit | $45.00 |
-| **Total** | **$94.85** |
-
+| Component                  | Cost (AUD) |
+| :------------------------- | ---------: |
+| Raspberry Pi Zero W        |     $25.00 |
+| Pi GPIO Pins and Case      |      $8.00 |
+| Generic Garage Door Fob    |      $8.00 |
+| 5V Relay                   |      $8.00 |
+| 220 Ohm 0.5 Watt Resistors |      $0.85 |
+| Soldering Iron kit         |     $45.00 |
+| **Total**                  | **$94.85** |
 
 ###### To Conclude
 
@@ -356,7 +354,8 @@ now. The system successfully:
   internet access
 - Detects the door's open/closed state with reasonable accuracy
 - Sends me notifications if I've left the door open for more than 10 minutes
-- Provides a remotely accessible, nearly real-time view of my garage through via the camera
+- Provides a remotely accessible, nearly real-time view of my garage through via
+  the camera
 
 Here's a demo of it in action:
 ![demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/demo.webp)

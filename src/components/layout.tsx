@@ -7,9 +7,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const customScrollbar = {
-
-}
+const customScrollbar = {};
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
@@ -18,25 +16,25 @@ export default function RootLayout({ children }: LayoutProps) {
         <meta httpEquiv="content-language" content="en-us"></meta>
         <meta name="author" content="Samuel Paynter "></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link 
-            rel="alternate" 
-            type="application/rss+xml" 
-            title="smp46 RSS Feed" 
-            href="/feeds/feed.xml" 
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="smp46 RSS Feed"
+          href="/feeds/feed.xml"
         />
 
-        <link 
-            rel="alternate" 
-            type="application/atom+xml" 
-            title="smp46 Atom Feed" 
-            href="/feeds/atom.xml" 
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="smp46 Atom Feed"
+          href="/feeds/atom.xml"
         />
 
-        <link 
-            rel="alternate" 
-            type="application/feed+json" 
-            title="smp46 JSON Feed" 
-            href="/feeds/feed.json" 
+        <link
+          rel="alternate"
+          type="application/feed+json"
+          title="smp46 JSON Feed"
+          href="/feeds/feed.json"
         />
       </Head>
       <Sidebar />

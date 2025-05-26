@@ -38,7 +38,8 @@ export default function Welcome() {
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
           <Head>
             <title>
-              Hi, I&#39;m smp46 - Aspiring Software Developer & Builder of Things
+              Hi, I&#39;m smp46 - Aspiring Software Developer & Builder of
+              Things
             </title>
             <meta
               name="description"

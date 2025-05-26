@@ -14,10 +14,9 @@ function getGitDates(filePath: string) {
     ).trim();
 
     // Get last commit date (updated)
-    const updated = execSync(
-      `git log -1 --format=%aI "${filePath}"`,
-      { encoding: 'utf8' }
-    ).trim();
+    const updated = execSync(`git log -1 --format=%aI "${filePath}"`, {
+      encoding: 'utf8',
+    }).trim();
 
     return {
       created: created ? new Date(created).toISOString().split('T')[0] : null,
@@ -66,10 +65,11 @@ function addDatesToMdx() {
 
       console.log(`✅ Added dates to ${filename}:`);
       console.log(`   date: ${frontMatter.date}`);
-      if (frontMatter.created) console.log(`   created: ${frontMatter.created}`);
-      if (frontMatter.updated) console.log(`   updated: ${frontMatter.updated}`);
+      if (frontMatter.created)
+        console.log(`   created: ${frontMatter.created}`);
+      if (frontMatter.updated)
+        console.log(`   updated: ${frontMatter.updated}`);
     });
 }
 
 addDatesToMdx();
-
