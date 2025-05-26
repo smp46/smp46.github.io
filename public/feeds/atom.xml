@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://smp46.me</id>
+    <title>smp46</title>
+    <updated>2025-05-26T02:22:51.175Z</updated>
+    <generator>Next.js using Feed for Node.js</generator>
+    <author>
+        <name/>
+    </author>
+    <link rel="alternate" href="https://smp46.me"/>
+    <link rel="self" href="https://smp46.me/feeds/atom.xml"/>
+    <subtitle>Projects, attempts and other things</subtitle>
+    <icon>https://smp46.me/favicon.ico</icon>
+    <rights>All rights reserved 2025, smp46</rights>
+    <entry>
+        <title type="html"><![CDATA[SmartGarage]]></title>
+        <id>https://smp46.me/projects/SmartGarage</id>
+        <link href="https://smp46.me/projects/SmartGarage"/>
+        <updated>2025-05-14T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[SmartGarage is a custom-built IoT solution that enables remote garage door control without modifying the original opener. Using a Raspberry Pi, relay circuit, and machine learning image recognition, it provides door status monitoring, remote operation, and automated notifications—all built with off-the-shelf components.]]></summary>
+        <content type="html"><![CDATA[
+# SmartGarage: A DIY Wireless Garage Door Control System with a Side of Machine Learning
+
+## Introduction
+
+One day my friend Howie was over and he saw me open my garage door. Naturally he
+got out the Flipper Zero he always carries in his bag and asks I use my garage
+door fob again, he captures and resends it easily. I thought that was odd,
+shouldn't there be, I don't know, maybe at least rolling codes on any modern
+garage door opener. But I was inspired and thought if it's that easy surely I
+could automate that with some lower cost hardware.
+
+So I get thinking and I come up with the project you're reading right now. To
+create a system to remotely open and close my garage door without physically
+modifying the opener itself (I live in a rental so unfortunately this was a
+requirement). But hey that doesn't sound very ambitious and the year is 2024, so
+I have to to add aRtIFicIAlL inTELiGeNce in here somewhere. In all seriousness,
+often I leave the house and five minutes later start wondering if I did close my
+garage door. So what if instead of wondering I could just check my
+[homepage](https://gethomepage.dev/) dashboard, or even get an email
+notification if the garage door has been open too long. And how can I check if
+the door is open or not without wiring anything in, easy, I'll just train an
+image recognition model that can tell me just that.
+
+This project ended up combining hardware hacking, machine learning, and a web
+interface to create a practical solution using nothing but off the shelf (or the
+internet) parts and a bit of coding elbow grease.
+
+![Final Result](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/1.jpg?q=85&f=webp)
+
+It's hard to show a teaser of the final result because it has so many parts, but
+here is what was the hardest part of the solution (I swear it's not a bomb).
+
+## Initial Attempts and Challenges
+
+I started with the hard part, how do I clone the garage door fob signal and
+resend it on command. The fob uses the 433MHz band for transmission. I happened
+to have a Raspberry Pi Zero W sitting in my drawer, so I go online and find the
+Texas Instruments CC1101 Sub-GHz transceiver (the same chip that is used by the
+Flipper Zero). This should let me capture the signal and sent it right on back.
+More searching and I see there's plenty of drivers and other projects for this
+transceiver so it can't be that hard to use right. I order one, a breadboard and
+a wiring kit to put it together.
+
+As soon as I got it, I started trying to cobble something together, I try a
+[CC1101 driver library](https://github.com/SpaceTeddy/CC1101), I find
+[a python interface for it even](https://github.com/fphammerle/python-cc1101).
+But I don't have much luck.
+
+I get to the stage where I can receive some kind of signal, however to be honest
+I know nothing about radio and I'm only a CompSci student not an electrical
+engineer. Even though it is the same chip used by the Flipper Zero, there seems
+to be fair bit of special sauce that goes into being able to pull a signal out
+of the air cleanly, then resend it. Documentation for the drivers didn't make
+much sense to me, if there was any at all. So after weeks of trying I decide to
+pivot to another approach (definitely not a skill issue... okay maybe a little).
+
+So I have a crack at the other side of the project, training an image
+recognition model to tell me if the door is open or not. I start with getting
+the cheapest wireless security camera I can find off of chinese marketplace
+number 508 ([banggood.com](banggood.com)), configuring my firewall to never let
+it phone home (block all its internet access) and begin collecting data.
+
+To do this I write a
+[Bash script for fetching security camera snapshots](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9),
+and make it into a systemd service on my Debian home server. A few weeks later
+and I have hundreds of thousands of photos that can be categorised as open or
+closed.
+
+I spent a while then doing some research on how exactly this whole machine
+learning stuff works. I decided on making something with PyTorch. A little later
+and some long discussions with Professor GPT I have
+[two python scripts](https://github.com/smp46/SmartGarage/tree/ac813584dbb65167c8f29fbdaa52849de34d0e04).
+The first lets me add my own training data onto the MobileNetV2 model (a
+lightweight neural network designed for mobile devices) and configure it to
+provide a binary output, the second loads my custom model, takes the input of a
+picture and outputs: "Opened or Closed". Neat! However, knowing my garage door
+was actually left open doesn't really help me if I can't remotely close it.
+
+A little over a year goes by, life goes on, and my garage remains dumb :(
+
+However, recently while procrastinating some other programming assignments I
+remembered this project. And I thought, if a fob can open and close the door,
+maybe I can just automate pressing the button on the fob. Sometimes the simplest
+solutions are the ones staring you right in the face all along...
+
+## The Hardware Hack
+
+So I ordered a couple of generic garage door fobs off eBay that were compatible
+with my opener. After adding them to the garage door (following the actual
+process in the manual), I started thinking about how I could simulate a button
+press with my Raspberry Pi Zero W.
+
+Now, I'm not an electrical engineer by any stretch, but I figured how
+complicated could a fob be. I carefully cracked open one of the generic fobs and
+examined the PCB. After some poking around with a multimeter, I discovered
+ the button on the fob just bridges two contacts on
+the PCB. If I could find a way to bridge those contacts on command from the Pi,
+I'd be cooking.
+
+![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/3.jpg?q=85&f=webp)
+
+Here is the naked fob and the contacts I needed to bridge.
+
+After some research, I figured out I needed:
+
+- [**Arduino Compatible 5V Relay**](https://www.jaycar.com.au/arduino-compatible-5v-relay/p/XC4419)
+  - This allows me to use the GPIO on the Pi to send a high signal, which can
+    then bridge the circuit. As the Pi can't "bridge" but it can send high low
+    signals.
+- [**220 Ohm 0.5 Watt Resistor**](https://www.jaycar.com.au/220-ohm-0-5-watt-metal-film-resistors-pack-of-8/p/RR0556)
+  - This prevents the unlikely chance of the Relay drawing too much current and
+    cooking my Pi (in the bad way).
+- Some wires to connect everything together (I used the ones that came with my
+  breadboard kit)
+- A bit of soldering skill (which I do not have)
+
+Here's the circuit I ended up with:
+![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/circuit.png?q=85&f=webp)
+
+I soldered two thin wires to the contact points either side of the fob's button,
+ran them to the relay, and connected everything according to the diagram above.
+The idea is simple: when GPIO pin 17 goes high, it activates the relay, which
+bridges the contacts on the fob, which sends the signal to open/close the garage
+door.
+
+To test, I put together
+[a basic python script](https://gist.github.com/smp46/d68ac357b1ac97062de757412eb9bc09)
+that makes GPIO17 high for half a second. And shockingly, the door opens.
+Yippee!
+
+You might be wondering what sleek professional way I put this all together:
+![final_circuit](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/4.jpg?q=85&f=webp)
+I'm honestly not sure what the correct way to package something like this is, am
+definitely open to feedback if anyone has any better ideas.
+
+## Teaching My Computer to See
+
+After getting the hardware working, I needed to tackle the "smart" part of my
+SmartGarage: teaching a computer to recognize whether my garage door was open or
+closed from camera images. This meant dabbling in machine learning—specifically,
+computer vision.
+
+#### Data Collection: The Boring Bit
+
+Honestly, this was the hardest and most tedious part of making the image
+recognition model. In order to train an accurate model, I needed a lot of data
+and I needed it categorised.
+
+So I used that
+[bash script](https://gist.github.com/smp46/638484a6b0d3d1695666b6c678657ab9)
+that saves a picture every minute, or every second during "peak times" i.e.
+times when the door is mostly likely to be open, to collect a lot of data.
+
+The result:
+
+```bash
+$ ls ~/garage/training_imgs | wc -l
+158332
+```
+
+Now that might look nice - more data is more better right? Not quite. When
+training a model I discovered a _good dataset_ is a _balanced dataset_. And
+balance is difficult when most of the time the garage door is not open. To
+remedy this I made that bash script collect more often when the door might be
+open and used a
+[python script](https://gist.github.com/smp46/b92a8b312fcd92632b4b6de99c9d8af7)
+that creates a lot of permutations of the same pictures.
+
+But how do you categorise all those pictures? Slowly and manually...
+
+The specific software I use is [XnView MP](https://www.xnview.com/en/xnviewmp/)
+which is just a more effecient image library manager with support for batch
+renaming. That and moving the data set to a RAMdisk while I'm working with it
+helped speed things up. As turns out handling over 150 thouseand ~20Kb files
+isn't super easy. Here's a snapshot of the exciting action:
+
+![sorting_gif](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/sorting.gif)
+
+#### The Training Process
+
+During my first attempt at this project, I put together
+[a set of Python scripts](https://github.com/smp46/SmartGarage/tree/ac813584dbb65167c8f29fbdaa52849de34d0e04)
+using the MobileNetV2 model with PyTorch. For this revival, I upgraded to
+MobileNetV3, which is meant to be better overall without needing additional
+compute, and made some adjustments to optimize the images for training.
+
+###### Why the MobileNet Model?
+
+I picked MobileNet predominantly because it's designed for mobile
+devices—meaning it's not very computationally expensive. This is important as
+the model needs to run against an image every 10 seconds, 24/7.
+
+Also, I only have access to my Radeon 6950XT for training, which is a nice
+gaming GPU but in the world of AI, it's not particularly powerful. I tried
+training with the ConvNeXtV2 model (a much newer and heavier model), and the
+training was estimated to take 125 hours to complete. MobileNetV3, by
+comparison, takes less than 45 minutes even with ~140,000 images in the dataset.
+
+###### How do Those Scripts Work?
+
+Click the Githhub icon on this page to view the project itself and all the code.
+
+But the workflow looks a little like this, I clone the repo, mount it alongside
+the training images in the
+[PyTorch docker container](https://rocm.docs.amd.com/projects/install-on-linux/en/develop/install/3rd-party/pytorch-install.html)
+and do something like this:
+
+```bash
+root@docker:/train# python3 binaryTrainer.py train
+Enter the path to the training images: /train/training_imgs_sorted/
+What is the object you are trying to classify? Garage Door
+Enter the classification names separated by a comma: open,closed
+Enter the model name to save as: may10_bigdata_10_epochs
+Enter the number of epochs: 10
+```
+
+The output of that model will be a file called `may10_bigdata_10_epochs.pth` and
+a `config.ini`, this contains the additional training data needed for
+predictions and the configuration for the other script `justPredict.py`. That
+second script allows me to just pass it a file:
+
+```bash
+root@docker:/train# python3 justPredict.py testing_imgs/garage5.jpg
+open
+```
+
+###### Can I Give it a Go?
+
+Please! I tried making the script fairly user-friendly, mostly so I don't have
+to remember the intricacies when I want to update / train a new model.
+Currently, it is limited to a binary output i.e. a True or False classification.
+But it does have some nice features like a progress bar and stopping training
+when it detects accuracy loss.
+
+Was all this ML stuff necessary? Probably not. Was there a simpler way to
+achieve this? Absolutely. But where's the fun in that? Plus, I learned a fair
+bit about machine learning in the process, which was kind of the point.
+
+## Putting It All Together
+
+With the hardware and machine learning components working, I needed a way to tie
+everything together into a cohesive system. Let me illustrate the architecture
+and then I can explain why this is a perfectly sane project (and not at all an
+overcomplicated solution to a problem that probably has a $20 commercial
+alternative):
+
+###### Architecture
+
+The system follows a microservices approach, with each component handling a
+specific responsibility and communicating via HTTP APIs. The Rust HTTP server
+runs on the Pi Zero W, the rest is running on my homeserver both in and out of
+Docker containers.
+
+![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.png?q=85&f=webp)
+
+##### The Components
+
+###### [**Rust HTTP API Server**](https://github.com/smp46/SmartGarage/tree/main/garage_door_api)
+
+Initially this was just another Python FastAPI, but I switched to Rust, using
+Axum Server, because it needs to be running 24/7 and I don't want my poor little
+Pi Zero W running too hard. The server listens on port `3000` for a POST request
+to the `/toggle` endpoint with the correct authorisation token, when received it triggers the
+button on the fob and the door opens or closes.
+
+###### [**Fetch Video Snapshot Bash Script**](https://github.com/smp46/SmartGarage/blob/main/garage-img.sh)
+
+Every second a script retrieves a snapshot of the garage security camera feed
+and saves this to a RAM-disk. A RAM-disk is used to prevent excessive wear and
+tear from constant writes to the system drive. A custom systemd service is used
+to trigger this every second, as crontab is limited to once per minute.
+
+###### [**Image Recognition Script**](https://github.com/smp46/SmartGarage/blob/main/image_recognition/garage_monitor.py)
+
+This is a variant of `justPredict.py` script mentioned before, except it reads a
+file from a specified path and sends its results to the Garage Door Status API.
+Again, I use a custom systemd service to keep this script running and restart it
+on boot.
+
+###### [**Garage Door Status API**](https://github.com/smp46/SmartGarage/blob/main/status_api/app/main.py)
+
+Super simple Python HTTP API server, using FastAPI, that receives and stores the garage
+door status from the Image Recognition Script and updates its internal last_opened
+state if the status changes from closed to open. And then responds with this
+data in a JSON response when a POST request is sent to
+`http://garage-api:5000/status`.
+
+###### [**Homepage Custom API Widget**](https://gist.github.com/smp46/37efd7d30b2980b4553c148d08c0b969)
+
+This widget lives on my homepage and provides the snapshot from the camera, the
+status of the door as reported by the Garage Door Status API and the time it was
+last opened. The preview is using an iframe that just displays the snapshot
+image, where the iframe html is mounted to the homepage docker container.
+
+![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png?q=85&f=webp)
+
+###### [**Email Notification Service**](https://github.com/smp46/SmartGarage/blob/main/garage_notifs.sh)
+
+This is a bash script that is run every minute with crontab. It checks the
+Status API for the current status and the last opened status, if it is currently
+open and the last opened was more than 10 minutes ago it sends a friendly email
+with a link to the website to close it.
+
+###### [**SmartGarage Control Website**](https://github.com/smp46/SmartGarage/tree/main/website)
+
+This website provides the snapshot of the security camera and has a button that
+sends a POST request through an nginx proxy to the Rust HTTP API Server on the
+Pi. The website is hosted via nginx through a Cloudflare Tunnel, using Google
+SSO it is protected against unwanted visitors.
+
+![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.png?q=85&f=webp)
+
+## The Result
+
+###### But at What Cost?
+
+Not too much actually, if we ignore how many hours I put into this, and there's
+a few things leftover / will be used when I do something similar again. 
+
+| Component | Cost (AUD) |
+| :--- | ---: |
+| Raspberry Pi Zero W | $25.00 |
+| Pi GPIO Pins and Case | $8.00 |
+| Generic Garage Door Fob | $8.00 |
+| 5V Relay | $8.00 |
+| 220 Ohm 0.5 Watt Resistors | $0.85 |
+| Soldering Iron kit | $45.00 |
+| **Total** | **$94.85** |
+
+
+###### To Conclude
+
+After several months of development, testing, and refinement, I'm happy to
+report that my SmartGarage system has been running reliably for over a month
+now. The system successfully:
+
+- Allows me to remotely open and close my garage door from anywhere with
+  internet access
+- Detects the door's open/closed state with reasonable accuracy
+- Sends me notifications if I've left the door open for more than 10 minutes
+- Provides a remotely accessible, nearly real-time view of my garage through via the camera
+
+Here's a demo of it in action:
+![demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/demo.webp)
+]]></content>
+        <published>2025-05-11T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[MazeGame]]></title>
+        <id>https://smp46.me/projects/MazeGame</id>
+        <link href="https://smp46.me/projects/MazeGame"/>
+        <updated>2025-05-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[MazeGame is a Java-based puzzle game featuring a goose navigating dynamic mazes with autosolve functionality using BFS. Includes CLI and GUI modes with asset integrity checks.]]></summary>
+        <content type="html"><![CDATA[
+# MazeGame: A JavaFX Puzzle Game with Dynamic Mazes and BFS Solver
+
+This is a game I completed in my Intro to Java class. I went far beyond what
+they asked of us, so here it is.
+
+A goose named Sir Wobbleton is stuck in a dynamically loaded maze (of your
+choosing), you must get him out (or simply press 'Q' and allow the maze solver
+to solve the maze). Mazes can be loaded from any file that matches the given
+format (Theoretically can be infinitely big). The game also can be loaded in
+three different ways: CLI mode, GUI no-asset mode, and GUI asset mode. Due to
+licensing, I cannot include the asset folder in the source code, however do not
+worry I implemented an MD5 checksum check to verify all assets before
+displaying. If the assets don't match the checksum, the game will work just
+fine. Checkout below.
+
+![Demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/mazegame/GUI_Assets.gif)
+
+### Notable Features:
+
+- Breadth First Solver, because any maze (matching the spec) can be loaded, BFS
+  is utilised to autosolve any possible maze.
+- Dynamic texture loading, using MD5 hashing the game can identify if assets are
+  missing and/or incorrect and switch to an asset-free mode.
+- Dynamic texture picking, I pain stakingly matched every possible maze wall
+  position to the right texture so Sir Wobbleton and his maze will always look
+  good.
+- Object Oriented design, both the GUI and CLI utilise the very same game
+  framework for modularity and ease of use.
+- Multithreaded optimisation, the BFS maze solver runs on a dedicated thread to
+  prevent slowdowns when launching the game.
+
+### Game Controls:
+
+- _WASD_ for movement.
+- _Q_ to autosolve maze.
+- _H_ to enable path highlighting.
+
+## Three Exciting Game Modes:
+
+### CLI Mode
+
+![cli medium maze](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/mazegame/CLI.png?q=85&f=webp)
+
+### GUI No-Assets Mode
+
+![gui medium maze no-asset](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/mazegame/GUI_No_Assets.png?q=85&f=webp)
+
+### GUI Assets Mode
+
+![gui medium maze](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/mazegame/GUI_Assets.png?q=85&f=webp)
+
+## Launching the Game
+
+- JavaFX library is required.
+- Developed and tested with JDK 17.
+
+Command line arguments should be passed to the Launcher.class file in this
+format:
+
+`java Launcher [CLI or GUI] [relative dir of maze file]`
+
+So for example to load the GUI with the medium maze:
+
+`java Launcher GUI src/maps/maze002.txt`
+
+## Creating Your Own Mazes
+
+If you want to make your own mazes, here is the specification the maze files
+must match:
+
+- The maze's dimensions must be in the file's first line in the form of two
+  integers, both must be odd numbers to ensure the maze has an external wall and
+  internal paths.
+- The remaining maze attributes have to be provided in the following char
+  configurations:
+  - Walls - `#`
+  - Traversable Paths - `' '` or `.`
+  - Start Point - `S`
+  - End Point - `E`
+
+So the text file of the small maze shown above looks like this:
+
+```
+7 7
+#######
+#S#   #
+# ### #
+# #   #
+# # # #
+#   #E#
+#######
+```
+
+Feel free to contribute, suggest improvements, or report bugs!
+
+If anyone is interested, I'd be happy figure out how to release a compiled jar
+including the assets.
+]]></content>
+        <published>2024-11-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Portfolio Website]]></title>
+        <id>https://smp46.me/projects/PortfolioWebsite</id>
+        <link href="https://smp46.me/projects/PortfolioWebsite"/>
+        <updated>2025-05-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[A fully statically-generated personal portfolio built with Next.js, React, and TypeScript. It showcases projects, articles written in MDX, and a bit about me.]]></summary>
+        <content type="html"><![CDATA[
+# Building My Developer Portfolio with Next.js, MDX, and GitHub Actions
+
+This is the website you're on right now! It covers an intro to my projects (like
+this one) and a little about who I am.
+
+## Features
+
+- Written in Typescript with NextJS/React.
+- Fully dynamic will scale (well) to most devices.
+- Website is entirely statically generated.
+- Articles (projects) are written in MDX format and get compiled automatically
+  as a Github workflow.
+
+## How the Markdown stuff works
+
+Painfully! It was a lot of banging my head against the wall using various guides
+and resources to reach my goal of _easier_ article creation / updating. What
+ended up being the most helpful article was
+[this one by Colby Fayock](https://spacejelly.dev/posts/how-to-source-mdx-content-in-next-js-to-dynamically-create-pages-for-a-blog).
+
+The end result is a relatively easy way to maintain and add articles/project
+write-ups. The process is as simple as:
+
+1. Write the article in Markdown(X) and copy it to the src/projects directory.
+2. Add the required fields to the top of the page, to extract a title and allow
+   for categorising, meta tags etc. For example:
+
+```
+---
+title: "Portfolio Website"
+subtitle: "Building My Developer Portfolio with Next.js, MDX, and GitHub Actions"
+type: "personal"
+description: "A fully statically-generated personal portfolio built with Next.js, React, and TypeScript. It showcases projects, articles written in MDX, and a bit about me."
+keywords: "personal website, portfolio, Next.js, React, TypeScript, static site generation, MDX, GitHub Actions, web development, developer portfolio"
+github: "https://github.com/smp46/smp46.github.io"
+---
+```
+
+3. `git add . && git commit` And ta-dah, the Github workflow handles the
+   compiling and then it goes live at
+   [smp46.me/projects](https://smp46.me/projects).
+
+### Testing/Building
+
+Requirements: `npm 10.9.2` - ymmv with other versions
+
+For developing `npm run dev`, this even works for adding MDX files. Navigating
+away then back to /projects, will refresh and get new files.
+
+For building/generating a static site `npm run build`, find the website files in
+/out.
+]]></content>
+        <published>2025-04-08T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[RightClickVirusTotal]]></title>
+        <id>https://smp46.me/projects/RightClickVirusTotal</id>
+        <link href="https://smp46.me/projects/RightClickVirusTotal"/>
+        <updated>2025-05-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[RightClickVirusTotal is a Python-based tool that adds file virus scanning directly to your context menu via the VirusTotal API. Now available with CLI and GUI for Windows, Linux, and macOS.]]></summary>
+        <content type="html"><![CDATA[
+# RightClickVirusTotal: Cross-Platform File Scanning with VirusTotal API
+
+RightClickVirusTotal is a Python program that provides a simple local interface
+for the VirusTotal API, via the vt-py library.
+
+Designed to be add to the Windows context menu, it allows you to easily check
+any files for viruses before running them.
+
+Now cross-platform! Checkout the latest releases for Windows and Linux specific
+builds.
+
+_Demo of Windows GUI_
+
+![Windows_GUI_demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/rcvt/Windows_GUI.gif)
+
+_Demo of Universal GUI_
+
+![universal_gui_demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/rcvt/Universal_GUI.gif)
+
+_Screenshot of Universal CLI_
+
+There is also now a CLI version, with builds for both Windows and Linux:
+![universal_cli_demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/rcvt/Universal_CLI.png?q=85&f=webp)
+
+## Key Features
+
+- Utilizes the VirusTotal API to upload files and retrieve analysis results.
+- Displays comprehensive statistics on the file's detection status, including
+  harmless, malicious, suspicious, and undetected classifications.
+- Built with a user-friendly graphical interface using the Tkinter library.
+
+**Note:** Before using the program, make sure to obtain a valid VirusTotal API
+key (these are free for basic personal use).
+
+### Pick the Right Version
+
+There are three versions of RightClickVirusTotal, these are:
+
+- Universal_CLI - A Command Line Interface version to be used in the terminal.
+  Use this if most of your work is does in a terminal.
+- Universal*GUI - A Graphical User Interface version that can be used anyway a
+  TKinter GUI can be launched, Windows, Linux or OSX. Use this if you want a GUI
+  and you're \_not* using Windows.
+- Windows*GUI - A Graphical User Inferface version with specific features and
+  optimisations for Windows 10/11. Use this if you want a good GUI and \_Right
+  Click* functionality on Windows.
+
+## Basic Usage Instructions for Windows GUI
+
+Unlike the Universal Versions, Windows GUI can be run with no arguments. Opening
+it without arguments and admin permissions will open the program, which will
+then relaunch and request admin permissions. Then you are presented with two
+windows that look like this:
+![image](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/rcvt/Windows_Instructions.png?q=85&f=webp)
+
+Here you can input your VirusTotal API key, and the program will add a shortcut
+**to the programs current location**, meaning if you move the .exe the shortcut
+will no longer work, so only do this once you have placed it where you want to
+keep it, to the Windows Right Click Context Menu like shown in the demo at the
+top of the page. Then you can launch the program from any folder in file
+explorer by simply right clicking and selecting `Upload to VirusTotal`.
+
+The usage instructions for the Universal Versions below are also valid for the
+Windows GUI.
+
+## Basic Usage Instructions for Universal Versions
+
+Arguments must be provided _to get the program to do anything_, otherwise a
+usage error will be printed (for the CLI) and program will exit.
+
+The below example is for the Linux executable, but arguments are provided the
+same regardless of the platform.
+
+`./RightClickVirusTotal_CLI_Universal "VirusTotalAPIKey" "FilePath"`
+
+Ensure you replace the first argument, VirusTotalAPIKey, with your own API key
+and keep the quotation marks to ensure it is passed as a string. Then the second
+argument, FilePath, should be the whole path to the file, again also in quotes.
+
+For example on Linux:
+
+`./RightClickVirusTotal_CLI_Universal "0010101010101abcdefq" "/home/smp/Documents/RightClickVirusTotal/realvirus.txt"`
+
+## Current Issues
+
+- None known.
+
+## FAQ
+
+**Where can I get a VirusTotal API Key?**
+
+Create a free account over at [VirusTotal](https://www.virustotal.com), then
+click on your profile icon in the top right corner of the homepage, and select
+"API Key".
+
+**Why is \<insert RightClickVirusTotal build name\> being detected as a virus by
+my anti-virus and VirusTotal?**
+
+RightClickVirusTotal is both unsigned and compiled with PyInstaller, so it can
+match anti-virus patterns used to detect malware. Unfortunately if it's easy to
+use for solo-devs it also can be used to make malware. These _are false
+positives_. If you are concerned at all, please review the source code and build
+it yourself using the instructions below!
+
+**Why do some files take so long to analyse?**
+
+If a file doesn't already exist in the VirusTotal database, it needs to be
+scanned and analysed this can, at times, take up to two minutes or more
+depending on the file size. It is also a limitation of the free API access, when
+a file is being analysed I can only check in with VirusTotal API every 15
+seconds (4 lookups/min).
+
+## Build Instructions using PyInstaller
+
+**Made and built using Python 3.11.2**
+
+### Windows GUI
+
+1. Open powershell and run `pip install pyinstaller tk vt-py asyncio pillow`
+
+2. Navigate to a directory to store the project in and run
+   `git clone https://github.com/smp46/RightClickVirusTotal.git ; cd RightClickVirusTotal`
+
+3. Run the following command to build the executable:
+   `pyinstaller --onefile --noconsole --icon=imgs/rcvt.ico --add-data="imgs/;imgs" .\RightClickVirusTotal_GUI_Windows.py`
+
+   This command instructs PyInstaller to create a single executable file
+   (`RightClickVirusTotal_GUI_Windows.exe`) that contains your program, its
+   dependencies and resources.
+
+4. Inside the `dist` directory, you will find the executable file
+   (`RightClickVirusTotal_GUI_Windows.exe`).
+
+5. Move this file to anywhere you want to 'install' it.
+
+### Universal GUI
+
+1. nstall required dependencies with pip
+   `pip install pyinstaller tk vt-py asyncio ttkthemes`
+
+2. Navigate to a directory to store the project in and run
+   `git clone https://github.com/smp46/RightClickVirusTotal.git ; cd RightClickVirusTotal`
+
+3. Run the following command to build the executable:
+   `pyinstaller --onefile --noconsole --icon=imgs/rcvt.ico .\RightClickVirusTotal_GUI_Universal.py`
+
+   This command instructs PyInstaller to create a single executable file
+   (`RightClickVirusTotal_GUI_Universal.`) that contains your program, its
+   dependencies and resources.
+
+4. Inside the `dist` directory, you will find the executable file
+   (`RightClickVirusTotal_GUI_Universal`).
+
+### Universal CLI
+
+1. Install required dependencies with pip
+   `pip install pyinstaller vt-py colorama`
+
+2. Navigate to a directory to store the project in and run
+   `git clone https://github.com/smp46/RightClickVirusTotal.git ; cd RightClickVirusTotal`
+
+3. Run the following command to build the executable:
+   `pyinstaller --onefile RightClickVirusTotal_CLI_Universal.py`
+
+   This command instructs PyInstaller to create a single executable file
+   (`RightClickVirusTotal_CLI_Universal`) that contains your program and its
+   dependencies.
+]]></content>
+        <published>2024-11-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[StoryPath]]></title>
+        <id>https://smp46.me/projects/StoryPath</id>
+        <link href="https://smp46.me/projects/StoryPath"/>
+        <updated>2025-05-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[StoryPath is a cross-platform experience builder for creating location-based virtual museum exhibits, clue-driven treasure hunts, and interactive tours. Built with React, React Native, and Expo.]]></summary>
+        <content type="html"><![CDATA[
+# StoryPath: A Location-Based Platform for Interactive Tours & Treasure Hunts
+
+StoryPath is a location-based experience platform built for virtual museum
+exhibits, interactive tours, and clue-driven treasure hunts. It includes both a
+React Web App for creating experiences and a React Native App for exploring them
+in the real world.
+
+### Tech Stack
+
+Frontend Web: React, TypeScript, Vite, Tailwind CSS, Axios
+
+Mobile App: React Native, TypeScript, Tailwind CSS, Axios, Expo
+
+Backend: Provided REST API or local JSON Server, ChatGPT API
+
+## Website
+
+The StoryPath web app provides a project creation interface with a REST API
+backend that gets shared with the app.
+
+### Features
+
+- Create and manage location-based projects
+
+- Add Locations to each project, with support for custom content including
+  images for each location.
+
+- Print unique QR codes for each location for discovery via the mobile app
+
+- Use a basic Preview Mode to simulate the app experience
+
+- ChatGPT integration to enhance or get feedback on project content
+
+### Demo
+
+![StoryPathWebDemo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/storypath/web_demo.gif)
+
+## Companion App
+
+The StoryPath mobile app (React Native) enables users to play experiences
+created on the web platform. Once a user creates a profile (locally stored),
+they can browse available projects and start exploring. Locations are unlocked
+by physically visiting them or scanning the associated QR code. Each discovery
+updates the user’s score and reveals the next clue.
+
+### Features
+
+- Create a player profile with name and photo
+
+- Browse and select from a list of published projects
+
+- Follow clues to find locations
+
+- Unlock locations by entering a geofenced area or scanning a QR code
+
+- View your current location and unlocked spots on a map
+
+- Track your score and progress through the experience
+
+- See participant stats for each project/location
+
+### Demo
+
+![StoryPathAppDemo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/storypath/app_demo.gif)
+
+## Setup Instructions
+
+The app and website _can_ be run locally with the caveat that the API has just
+been reimplemented with json-server. And the ChatGPT functionaility won't work
+without providing API keys in the .env file.
+
+### Prerequisites
+
+- Node.js (>= 18.x recommended)
+
+- Yarn or npm
+
+- Android Developer Studio (for emulation) or a mobile device with the Expo App
+  installed.
+
+#### Website Setup
+
+```
+# Clone the repo
+git clone https://github.com/smp46/StoryPath.git
+cd React\ Website/
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+This starts the web app at http://localhost:5173.
+
+##### Mobile App Setup
+
+```
+# Clone the repo
+git clone https://github.com/smp46/StoryPath.git
+cd React\ Native/
+
+# Install dependencies
+npm install
+
+# Start the Expo development server
+npx expo start
+```
+
+You can scan the QR code from your terminal or browser to open the app on your
+phone using the Expo Go app.
+]]></content>
+        <published>2025-04-15T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[UQInc]]></title>
+        <id>https://smp46.me/projects/UQInc</id>
+        <link href="https://smp46.me/projects/UQInc"/>
+        <updated>2025-05-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[UQInc is a fast-paced idle clicker game built in Rust during the UQCS 2024 Hackathon. Construct your dream University of Queensland campus, upgrade buildings, and earn perks—all within a retro-style GUI built with macroquad.]]></summary>
+        <content type="html"><![CDATA[
+# UQInc: A Rust-Powered UQ Campus Clicker Game
+
+[![Github All Releases](https://img.shields.io/github/downloads/UQInc/UQInc/total.svg)]()
+
+An idle clicker game where you can live your dream of building the University of
+Queensland. Brought to you in Rust.
+
+Written in 48 Hours for the UQCS 2024 Hackathon, by a team who had never
+developed collaboratively or writtten in Rust.
+
+![Screenshot](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/uqinc/uqinc.png?q=85&f=webp)
+
+# How to Run
+
+### From Source
+
+UQInc requires rust and cargo in order to run. To start, in the terminal run:
+
+```
+git clone https://github.com/UQInc/UQInc.git
+cd UQInc
+cargo run
+```
+
+### From Pre-Built Executables
+
+Pick the executable for your platform
+[here](https://github.com/UQInc/UQInc/releases/)!
+
+From there the game will open and you can begin clicking and buying upgrades to
+play. Upon completion the buildings menu on the right hand side will be empty
+and the map will be complete. Each building purchase will award 1 perk point
+which can be spent in the perks menu to increase the number of students per
+click and the amount of money you get per student.
+
+# GUI
+
+Made using the macroquad library.
+]]></content>
+        <published>2024-11-22T00:00:00.000Z</published>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[dockerImageServer]]></title>
+        <id>https://smp46.me/projects/dockerImageServer</id>
+        <link href="https://smp46.me/projects/dockerImageServer"/>
+        <updated>2025-05-13T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[dockerImageServer is a lightweight Docker container that periodically downloads an image from a URL and serves it via Nginx. Ideal for use cases like exposing security camera snapshots through a reverse proxy.]]></summary>
+        <content type="html"><![CDATA[
+# dockerImageServer: Docker Image Server for Periodic Image Fetching with Nginx
+
+This Docker container downloads an image from a specified URL at regular
+intervals and serves it via an Nginx web server. I'm publishing it here in hope
+that someone else might have a use for it. My use case is fetching a snapshot
+image from a security camera on my local network and exposing it safely behind a
+nginx web server that can then be put behind a reverse-proxy.
+
+## Prerequisites
+
+- Docker installed on your machine.
+- Basic knowledge of Docker command-line usage.
+
+## Configuration
+
+Configuration is handled through environment variables. The following variables
+can be set:
+
+- `IMAGE_URL`: The URL of the image to be downloaded and served. (Required)
+- `SLEEP_INTERVAL`: The interval, in seconds, between each image fetch. Defaults
+  to `5` seconds.
+
+## Quick Start
+
+**Docker Run**
+
+```bash
+  docker run -d -p 8080:80 \
+  -e IMAGE_URL=your_image_url_here \
+  -e SLEEP_INTERVAL=10 \
+  ghcr.io/smp46/dockerimageserver
+```
+
+**Docker Compose**
+
+```yaml
+dockerImageServer:
+  container_name: dockerImageServer
+  ports:
+    - 8080:80
+  image: ghcr.io/smp46/dockerimageserver
+  environment:
+    - IMAGE_URL=your_image_url_here
+    - SLEEP_INTERVAL=10
+  restart: unless-stopped
+```
+
+This will start the container and begin serving the image at
+http://localhost:8080.
+
+## Build from Source
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/smp46/dockerImageServer
+   cd dockerImageServer
+
+   ```
+
+2. Build the Docker Image
+
+   ```bash
+   docker build -t dockerimageserver .
+
+   ```
+
+3. Run the Docker Container.
+
+   Replace your_image_url_here with the actual URL of the image you want to
+   serve and optionally adjust the SLEEP_INTERVAL.
+
+   ```bash
+   docker run -d -p 8080:80 \
+     -e IMAGE_URL=your_image_url_here \
+     -e SLEEP_INTERVAL=10 \
+     dockerimageserver
+   ```
+
+This will start the container and begin serving the image at
+http://localhost:8080.
+]]></content>
+        <published>2024-11-22T00:00:00.000Z</published>
+    </entry>
+</feed>

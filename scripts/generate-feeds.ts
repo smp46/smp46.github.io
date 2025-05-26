@@ -1,0 +1,121 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { Feed } from 'feed';
+
+const POSTS_PATH = path.join(process.cwd(), 'src/projects');
+
+interface PostFrontMatter {
+  title: string;
+  description: string;
+  date: string;
+  created: string;
+  updated: string;
+  [key: string]: any;
+}
+
+interface Post {
+  slug: string;
+  frontMatter: PostFrontMatter;
+}
+
+function getAllPosts(): Post[] {
+  const filenames = fs.readdirSync(POSTS_PATH);
+
+  const posts = filenames
+    .filter((name) => name.endsWith('.mdx'))
+    .map((filename) => {
+      const slug = filename.replace(/\.mdx?$/, '');
+      const filePath = path.join(POSTS_PATH, filename);
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      const { data: frontMatter, content } = matter(fileContent);
+
+      return {
+        slug,
+        frontMatter: frontMatter as PostFrontMatter,
+        content: content, // Raw markdown content
+      };
+
+    })
+    // Sort posts by date (newest first), using updated > date > created
+    .sort((a, b) => {
+      const dateA = a.frontMatter.updated || a.frontMatter.date || a.frontMatter.created || '1970-01-01';
+      const dateB = b.frontMatter.updated || b.frontMatter.date || b.frontMatter.created || '1970-01-01';
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
+    });
+
+  return posts;
+}
+
+async function generateFeeds() {
+  const baseURL = "https://smp46.me";
+  const feedDirectory = "feeds";
+  const author = "smp46";
+
+  const posts = getAllPosts();
+
+  const feed = new Feed({
+    title: `smp46`,
+    description: "Projects, attempts and other things",
+    id: baseURL,
+    link: baseURL,
+    favicon: `${baseURL}/favicon.ico`, 
+    language: "en",
+    generator: "Next.js using Feed for Node.js",
+    feedLinks: {
+      rss2: `${baseURL}/${feedDirectory}/feed.xml`,
+      atom: `${baseURL}/${feedDirectory}/atom.xml`,
+      json: `${baseURL}/${feedDirectory}/feed.json`,
+    },
+      author: [{
+        name: author,
+        email: "me@smp46.me",
+        link: `${baseURL}/whoami`,
+      }],
+    copyright: `All rights reserved ${new Date().getFullYear()}, ${author}`,
+  });
+
+  posts.forEach((post) => {
+    const { title, description, date, created, updated } = post.frontMatter;
+    const url = `${baseURL}/projects/${post.slug}`;
+
+    const mainDate = date || updated || created || new Date().toISOString().split('T')[0];
+    const publishedDate = created || date || mainDate;
+    const updatedDate = updated || date || mainDate;
+
+    feed.addItem({
+      title: title,
+      id: url,
+      link: url,
+      description: description,
+      content: post.content,
+      date: new Date(mainDate),
+      published: new Date(publishedDate),
+      // Only add updated if it's different from published
+      ...(updatedDate !== publishedDate && {
+        updated: new Date(updatedDate)
+      }),
+    });
+  });
+
+  // Create feeds directory if it doesn't exist
+  fs.mkdirSync(`./public/${feedDirectory}`, { recursive: true });
+
+  // Write feed files
+  fs.writeFileSync(`./public/${feedDirectory}/feed.xml`, feed.rss2());
+  fs.writeFileSync(`./public/${feedDirectory}/atom.xml`, feed.atom1());
+  fs.writeFileSync(`./public/${feedDirectory}/feed.json`, feed.json1());
+
+  console.log(`✅ RSS feeds generated successfully!`);
+  console.log(`   - ${posts.length} posts included`);
+  console.log(`   - Files saved to /public/${feedDirectory}/`);
+
+  const postsWithoutDates = posts.filter(p => !p.frontMatter.date && !p.frontMatter.created && !p.frontMatter.updated);
+
+}
+
+generateFeeds().catch((error) => {
+  console.error('❌ Error generating feeds:', error);
+  process.exit(1);
+});
+

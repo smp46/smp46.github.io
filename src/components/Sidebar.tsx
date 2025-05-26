@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaDiscord, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaDiscord, FaGithub, FaLinkedin, FaRssSquare } from 'react-icons/fa';
 import { SiGmail } from 'react-icons/si';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { IoSearchCircleSharp } from 'react-icons/io5';
@@ -143,6 +143,17 @@ export default function Sidebar() {
             data-link="external"
           >
             <SiGmail />
+          </a>
+          <a
+            href="httpsL//smp46.me/feeds/feed.xml"
+            className="text-white sm:text-2xl text-4xl transition-transform duration-300
+              hover:scale-110"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-umami-event="Clicked rss Link"
+            data-link="external"
+          >
+            <FaRssSquare />
           </a>
         </div>
 

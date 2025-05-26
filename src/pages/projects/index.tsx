@@ -4,6 +4,8 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import grayMatter from 'gray-matter';
 import Link from 'next/link';
+import { FaRss, FaAtom } from 'react-icons/fa';
+import { VscJson } from "react-icons/vsc";
 
 interface Post {
   path: string;
@@ -13,6 +15,9 @@ interface Post {
   description: string;
   keywords: string;
   github: string;
+  date: string;
+  created: string;
+  updated: string;
 }
 
 interface Props {
@@ -104,6 +109,45 @@ export default function Personal({ posts }: Props) {
               </div>
             </section>
           </main>
+          <footer className="max-w-5xl mt-16 mb-8">
+            <div className="rounded-lg bg-white p-6">
+              <div className="flex flex-wrap justify-center gap-4">
+                <a
+                  href="/feeds/feed.xml"
+                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-orange-50 text-orange-600 
+                    hover:bg-orange-100 transition-all duration-200 border border-orange-200"
+                  aria-label="RSS Feed"
+                >
+                  <FaRss className="text-lg group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">RSS</span>
+                </a>
+
+                <a
+                  href="/feeds/atom.xml"
+                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-purple-50 text-purple-600 
+                    hover:bg-purple-100 transition-all duration-200 border border-purple-200"
+                  aria-label="Atom Feed"
+                >
+                  <FaAtom className="text-lg group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Atom</span>
+                </a>
+
+                <a
+                  href="/feeds/feed.json"
+                  className="group flex items-center gap-2 px-4 py-2 rounded-md bg-blue-50 text-blue-600 
+                    hover:bg-blue-100 transition-all duration-200 border border-blue-200"
+                  aria-label="JSON Feed"
+                >
+                  <VscJson className="text-lg group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">JSON</span>
+                </a>
+              </div>
+
+              <p className="text-sm text-gray-500 text-center mt-4">
+                Choose your preferred format to stay updated with new projects.
+              </p>
+            </div>
+          </footer>
         </div>
       </div>
     </>
@@ -135,6 +179,9 @@ export async function getStaticProps() {
       keywords: file.matter.data.keywords,
       github: file.matter.data.github,
       type: file.matter.data.type || 'personal', // Default type to personal if not defined
+      date: file.matter.data.date,
+      created: file.matter.data.created,
+      updated: file.matter.data.updated
     };
   });
 

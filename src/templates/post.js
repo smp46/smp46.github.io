@@ -3,9 +3,21 @@ import Head from 'next/head';
 import { FaGithub } from 'react-icons/fa';
 
 export default function Post({ children, frontMatter }) {
-  const { title, description, keywords, subtitle, github } = frontMatter;
+  const { title, description, keywords, subtitle, github, date, created, updated} = frontMatter;
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const formatDate = (dateString) => {
+    if (!dateString) return null;
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const showUpdated = updated && updated !== created;
+  const hasAnyDate = created || date || updated;
 
   useEffect(() => {
     const images = document.querySelectorAll('img');
@@ -31,6 +43,24 @@ export default function Post({ children, frontMatter }) {
         });
       }
     });
+
+    if (hasAnyDate) {
+      const h1 = document.querySelector('.prose h1');
+      if (h1 && !document.getElementById('post-dates')) {
+        const dateDiv = document.createElement('div');
+        dateDiv.id = 'post-dates';
+        dateDiv.className = 'text-sm text-gray-600 mt-2 mb-8 not-prose';
+
+        let dateText = '';
+        if (created) dateText += `Started: ${formatDate(created)}`;
+        if (showUpdated) {
+          if (created) dateText += ' • ';
+          dateText += `Updated: ${formatDate(updated)}`;
+        }
+
+        dateDiv.textContent = dateText;
+        h1.insertAdjacentElement('afterend', dateDiv);
+      }}
   }, []);
 
   return (
