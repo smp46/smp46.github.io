@@ -152,4 +152,3 @@ generateFeeds().catch((error) => {
   console.error('❌ Error generating feeds:', error);
   process.exit(1);
 });
-
