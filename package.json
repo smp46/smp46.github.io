@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "prebuild": "tsx scripts/date-projects && tsx scripts/generate-feeds.ts",
-    "postbuild": "pagefind --site .next --output-path .next/static/chunks/pages/pagefind",
+    "prebuild": "tsx scripts/date-projects.ts && tsx scripts/generate-feeds.ts",
+    "postbuild": "pagefind --site .next --output-path .next/static/chunks/pages/pagefind && npx next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",

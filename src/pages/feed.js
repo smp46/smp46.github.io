@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 
 export default function Feed() {
-  const router = useRouter();
-
   useEffect(() => {
-    router.replace('/feeds/feed.xml');
-  }, [router]);
+    window.location.href = 'https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/feed.xml';
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -14,3 +11,4 @@ export default function Feed() {
     </div>
   );
 }
+
