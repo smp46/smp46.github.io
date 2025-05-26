@@ -144,17 +144,16 @@ export default function Sidebar() {
           >
             <SiGmail />
           </a>
-          <a
-            href="httpsL//smp46.me/feeds/feed.xml"
+          <Link
+            href="/feeds/feed.xml"
             className="text-white sm:text-2xl text-4xl transition-transform duration-300
               hover:scale-110"
             target="_blank"
-            rel="noopener noreferrer"
             data-umami-event="Clicked rss Link"
             data-link="external"
           >
             <FaRssSquare />
-          </a>
+          </Link>
         </div>
 
         <nav className="flex flex-col sm:space-y-2 space-y-4 mt-6">
