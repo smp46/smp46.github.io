@@ -53,7 +53,7 @@ async function getAllPosts(): Promise<Post[]> {
           slug,
           frontMatter: frontMatter as PostFrontMatter,
           content: content, // Keep raw markdown if needed
-          htmlContent: htmlContent,
+          htmlContent: htmlContent, // Add HTML version
         };
       })
   );
@@ -77,6 +77,7 @@ async function getAllPosts(): Promise<Post[]> {
 async function generateFeeds() {
   const baseURL = 'https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public';
   const feedDirectory = 'feeds';
+  const author = 'smp46';
 
   const posts = await getAllPosts();
 
@@ -94,7 +95,7 @@ async function generateFeeds() {
       json: `${baseURL}/${feedDirectory}/feed.json`,
     },
     author: {
-      name: 'smp46',
+      name: author,
       email: 'me@smp46.me',
       link: `${baseURL}/whoami`,
     },
@@ -115,9 +116,10 @@ async function generateFeeds() {
       id: url,
       link: url,
       description: description,
-      content: post.htmlContent,
+      content: post.htmlContent, // Use HTML content instead of raw markdown
       date: new Date(mainDate),
       published: new Date(publishedDate),
+      // Only add updated if it's different from published
       ...(updatedDate !== publishedDate && {
         updated: new Date(updatedDate),
       }),
