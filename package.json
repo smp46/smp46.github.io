@@ -27,7 +27,8 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-prism-plus": "^2.0.1",
     "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@eslint/config-array": "^0.20.0",

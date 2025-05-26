@@ -2,6 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { Feed } from 'feed';
+import { remark } from 'remark';
+import remarkGfm from 'remark-gfm';
+import remarkHtml from 'remark-html';
 
 const POSTS_PATH = path.join(process.cwd(), 'src/projects');
 
@@ -18,41 +21,57 @@ interface Post {
   slug: string;
   frontMatter: PostFrontMatter;
   content: string;
+  htmlContent?: string;
 }
 
-function getAllPosts(): Post[] {
+// Create markdown processor
+const markdownProcessor = remark()
+  .use(remarkGfm) // GitHub Flavored Markdown support
+  .use(remarkHtml, { sanitize: false }); // Convert to HTML
+
+async function convertMarkdownToHtml(markdown: string): Promise<string> {
+  const result = await markdownProcessor.process(markdown);
+  return result.toString();
+}
+
+async function getAllPosts(): Promise<Post[]> {
   const filenames = fs.readdirSync(POSTS_PATH);
 
-  const posts = filenames
-    .filter((name) => name.endsWith('.mdx'))
-    .map((filename) => {
-      const slug = filename.replace(/\.mdx?$/, '');
-      const filePath = path.join(POSTS_PATH, filename);
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data: frontMatter, content } = matter(fileContent);
+  const posts = await Promise.all(
+    filenames
+      .filter((name) => name.endsWith('.mdx'))
+      .map(async (filename) => {
+        const slug = filename.replace(/\.mdx?$/, '');
+        const filePath = path.join(POSTS_PATH, filename);
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        const { data: frontMatter, content } = matter(fileContent);
 
-      return {
-        slug,
-        frontMatter: frontMatter as PostFrontMatter,
-        content: content, // Raw markdown content
-      };
-    })
-    // Sort posts by date (newest first), using updated > date > created
-    .sort((a, b) => {
-      const dateA =
-        a.frontMatter.updated ||
-        a.frontMatter.date ||
-        a.frontMatter.created ||
-        '1970-01-01';
-      const dateB =
-        b.frontMatter.updated ||
-        b.frontMatter.date ||
-        b.frontMatter.created ||
-        '1970-01-01';
-      return new Date(dateB).getTime() - new Date(dateA).getTime();
-    });
+        // Convert markdown content to HTML
+        const htmlContent = await convertMarkdownToHtml(content);
 
-  return posts;
+        return {
+          slug,
+          frontMatter: frontMatter as PostFrontMatter,
+          content: content, // Keep raw markdown if needed
+          htmlContent: htmlContent, // Add HTML version
+        };
+      })
+  );
+
+  // Sort posts by date (newest first), using updated > date > created
+  return posts.sort((a, b) => {
+    const dateA =
+      a.frontMatter.updated ||
+      a.frontMatter.date ||
+      a.frontMatter.created ||
+      '1970-01-01';
+    const dateB =
+      b.frontMatter.updated ||
+      b.frontMatter.date ||
+      b.frontMatter.created ||
+      '1970-01-01';
+    return new Date(dateB).getTime() - new Date(dateA).getTime();
+  });
 }
 
 async function generateFeeds() {
@@ -60,7 +79,7 @@ async function generateFeeds() {
   const feedDirectory = 'feeds';
   const author = 'smp46';
 
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   const feed = new Feed({
     title: `smp46`,
@@ -97,7 +116,7 @@ async function generateFeeds() {
       id: url,
       link: url,
       description: description,
-      content: post.content,
+      content: post.htmlContent, // Use HTML content instead of raw markdown
       date: new Date(mainDate),
       published: new Date(publishedDate),
       // Only add updated if it's different from published
@@ -123,9 +142,14 @@ async function generateFeeds() {
     (p) =>
       !p.frontMatter.date && !p.frontMatter.created && !p.frontMatter.updated
   );
+
+  if (postsWithoutDates.length > 0) {
+    console.log(`⚠️  ${postsWithoutDates.length} posts without dates`);
+  }
 }
 
 generateFeeds().catch((error) => {
   console.error('❌ Error generating feeds:', error);
   process.exit(1);
 });
+
