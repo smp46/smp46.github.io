@@ -14,7 +14,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write  # Changed from 'read' to 'write' to allow pushing
   pages: write
   id-token: write
 
@@ -53,14 +53,6 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-      # - name: Setup Pages
-      #   uses: actions/configure-pages@v5
-      #   # with:
-      #   #   # Automatically inject basePath in your Next.js configuration file and disable
-      #   #   # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-      #   #   #
-      #   #   # You may remove this line if you want to manage the configuration yourself.
-      #   #   static_site_generator: next
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -73,28 +65,25 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      # Install pagefind explicitly
-      - name: Install pagefind
-        run: npm install -g pagefind
 
       - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        
-      - name: Run Pagefind
-        run: npx pagefind --site out --output-path out/_next/static/chunks/pages/pagefind
+        run: ${{ steps.detect-package-manager.outputs.runner }} run build
 
-      - name: Generate sitemap
-        run: npx next-sitemap
-      # - name: Commit and push sitemap
-      #   run: |
-      #     git config --global user.name "GitHub Actions"
-      #     git config --global user.email "actions@github.com"
-      #     git add public/sitemap.xml
-      #     git add public/sitemap-0.xml
-      #     git commit -m "Automated sitemap update"
-      #     git push
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Commit and push changes in /public directory
+      - name: Commit files
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add ./public
+          git diff --staged --quiet || git commit -m "Update public directory files, such as sitemap, search index and rss feeds."
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: nextjs
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: false
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
