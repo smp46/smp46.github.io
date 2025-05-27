@@ -96,7 +96,7 @@ export default function Sidebar() {
         <Link href="/">
           <h2 className="text-5xl font-bold hidden sm:block">smp46</h2>
         </Link>
-        <div className="mt-4 flex space-x-4">
+        <div className="mt-4 flex space-x-3 sm:space-x-4">
           <a
             href="https://discord.com/users/335649164769886208"
             target="_blank"
