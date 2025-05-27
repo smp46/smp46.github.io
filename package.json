@@ -7,7 +7,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "prebuild": "tsx scripts/date-projects.ts && tsx scripts/generate-feeds.ts",
-    "postbuild": "pagefind --site .next --output-path .next/static/chunks/pages/pagefind && npx next-sitemap",
+    "postbuild": "npx pagefind --site out --output-path out/_next/static/chunks/pages/pagefind && npx next-sitemap",
     "format": "npx prettier src/ -w && npx prettier scripts/ -w",
     "start": "next start",
     "lint": "next lint",
