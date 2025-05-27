@@ -55,13 +55,14 @@ export default function Post({ children, frontMatter }) {
     });
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(() => {
-        const h1 = document.querySelector('h1');
-        if (h1 && !document.getElementById('post-dates')) {
+      const h1 = document.querySelector('h1');
+      if (h1 && !document.getElementById('post-dates')) {
         const belowH1 = document.createElement('div');
         belowH1.id = 'below-h1';
-        belowH1.className = 'flex justify-between text-sm text-gray-600 mt-2 mb-8 not-prose';
+        belowH1.className =
+          'flex justify-between text-sm text-gray-600 mt-2 mb-8 not-prose';
 
         const dateDiv = document.createElement('div');
         dateDiv.id = 'post-dates';
@@ -69,8 +70,8 @@ export default function Post({ children, frontMatter }) {
         let dateText = '';
         if (created) dateText += `Started: ${formatDate(created)}`;
         if (showUpdated) {
-            if (created) dateText += ' • ';
-            dateText += `Updated: ${formatDate(updated)}`;
+          if (created) dateText += ' • ';
+          dateText += `Updated: ${formatDate(updated)}`;
         }
 
         dateDiv.textContent = dateText;
@@ -79,8 +80,8 @@ export default function Post({ children, frontMatter }) {
         timeDiv.id = 'post-read-time';
 
         let timeText = '';
-        if (frontMatter.readingTime) {
-            timeText += `${frontMatter.readingTime}`;
+        if (readingTime) {
+          timeText += `${readingTime}`;
         }
 
         timeDiv.textContent = timeText;
@@ -88,12 +89,11 @@ export default function Post({ children, frontMatter }) {
         belowH1.insertAdjacentElement('beforeend', dateDiv);
         belowH1.insertAdjacentElement('beforeend', timeDiv);
         h1.insertAdjacentElement('afterend', belowH1);
-        }
+      }
     }, 50);
 
     return () => clearTimeout(timer);
-    }, [hasAnyDate, created, showUpdated, updated, frontMatter.readingTime]);
-
+  }, [hasAnyDate, created, showUpdated, updated, readingTime]);
 
   return (
     <div className="min-h-screen relative overflow-hidden">

@@ -112,7 +112,6 @@ export default function Personal({ posts }: Props) {
           <footer className="max-w-5xl mt-16 mb-8">
             <div className="rounded-lg bg-white p-6">
               <div className="flex flex-wrap justify-center gap-4">
-
                 <a
                   href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/feed.xml"
                   className="group flex items-center gap-2 px-4 py-2 rounded-md bg-orange-50 text-orange-600

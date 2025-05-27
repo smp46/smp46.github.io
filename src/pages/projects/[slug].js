@@ -39,9 +39,8 @@ export async function getStaticProps({ params }) {
 
   const enhancedFrontMatter = {
     ...frontMatter,
-    ...readingTimeData
+    ...readingTimeData,
   };
-
 
   return {
     props: {
@@ -63,7 +62,7 @@ let readingTimeData = {};
 
 // Create the remark plugin
 function remarkReadingTime() {
-  return function (tree, file) {
+  return function (tree) {
     const textOnPage = toString(tree);
     const readingTime = getReadingTime(textOnPage);
 
@@ -71,8 +70,7 @@ function remarkReadingTime() {
     readingTimeData = {
       readingTime: readingTime.text,
       wordCount: readingTime.words,
-      minutes: Math.ceil(readingTime.minutes)
+      minutes: Math.ceil(readingTime.minutes),
     };
   };
 }
-
