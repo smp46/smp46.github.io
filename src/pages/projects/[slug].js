@@ -7,6 +7,8 @@ import Post from '../../templates/post.js';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypePrismPlus from 'rehype-prism-plus';
+import getReadingTime from 'reading-time';
+import { toString } from 'mdast-util-to-string';
 
 const POSTS_PATH = path.join(process.cwd(), 'src/projects');
 
@@ -28,15 +30,22 @@ export async function getStaticProps({ params }) {
     mdxOptions: {
       remarkPlugins: [
         remarkGfm, // GitHub Flavored Markdown
+        remarkReadingTime,
       ],
       rehypePlugins: [rehypeSlug, rehypePrismPlus],
     },
     scope: frontMatter,
   });
 
+  const enhancedFrontMatter = {
+    ...frontMatter,
+    ...readingTimeData
+  };
+
+
   return {
     props: {
-      frontMatter,
+      frontMatter: enhancedFrontMatter,
       mdxSource,
     },
   };
@@ -49,3 +58,21 @@ export default function PostPage({ frontMatter, mdxSource }) {
     </Post>
   );
 }
+
+let readingTimeData = {};
+
+// Create the remark plugin
+function remarkReadingTime() {
+  return function (tree, file) {
+    const textOnPage = toString(tree);
+    const readingTime = getReadingTime(textOnPage);
+
+    // Store the reading time data
+    readingTimeData = {
+      readingTime: readingTime.text,
+      wordCount: readingTime.words,
+      minutes: Math.ceil(readingTime.minutes)
+    };
+  };
+}
+

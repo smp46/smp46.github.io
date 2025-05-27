@@ -12,6 +12,7 @@ export default function Post({ children, frontMatter }) {
     date,
     created,
     updated,
+    readingTime,
   } = frontMatter;
 
   const [isLoading, setIsLoading] = useState(true);
@@ -52,26 +53,47 @@ export default function Post({ children, frontMatter }) {
         });
       }
     });
+  }, []);
 
-    if (hasAnyDate) {
-      const h1 = document.querySelector('.prose h1');
-      if (h1 && !document.getElementById('post-dates')) {
+    useEffect(() => {
+    const timer = setTimeout(() => {
+        const h1 = document.querySelector('h1');
+        if (h1 && !document.getElementById('post-dates')) {
+        const belowH1 = document.createElement('div');
+        belowH1.id = 'below-h1';
+        belowH1.className = 'flex justify-between text-sm text-gray-600 mt-2 mb-8 not-prose';
+
         const dateDiv = document.createElement('div');
         dateDiv.id = 'post-dates';
-        dateDiv.className = 'text-sm text-gray-600 mt-2 mb-8 not-prose';
 
         let dateText = '';
         if (created) dateText += `Started: ${formatDate(created)}`;
         if (showUpdated) {
-          if (created) dateText += ' • ';
-          dateText += `Updated: ${formatDate(updated)}`;
+            if (created) dateText += ' • ';
+            dateText += `Updated: ${formatDate(updated)}`;
         }
 
         dateDiv.textContent = dateText;
-        h1.insertAdjacentElement('afterend', dateDiv);
-      }
-    }
-  }, [hasAnyDate, created, showUpdated, updated]);
+
+        const timeDiv = document.createElement('div');
+        timeDiv.id = 'post-read-time';
+
+        let timeText = '';
+        if (frontMatter.readingTime) {
+            timeText += `${frontMatter.readingTime}`;
+        }
+
+        timeDiv.textContent = timeText;
+
+        belowH1.insertAdjacentElement('beforeend', dateDiv);
+        belowH1.insertAdjacentElement('beforeend', timeDiv);
+        h1.insertAdjacentElement('afterend', belowH1);
+        }
+    }, 50);
+
+    return () => clearTimeout(timer);
+    }, [hasAnyDate, created, showUpdated, updated, frontMatter.readingTime]);
+
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -113,7 +135,7 @@ export default function Post({ children, frontMatter }) {
             prose-img:mx-auto prose-headings:mt-8 prose-headings:font-semibold
             prose-headings:text-black prose-h1:text-5xl prose-h1:font-bold prose-h2:text-3xl
             prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-2xl prose-h6:text-xl
-            dark:prose-headings:text-black text-black overflow-hidden"
+            dark:prose-headings:text-black text-black overflow-hidden max-w-[100ch]"
         >
           {children}
         </div>
