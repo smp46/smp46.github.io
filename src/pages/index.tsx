@@ -1,5 +1,5 @@
 // pages/index.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import { BsCommand } from 'react-icons/bs';
@@ -8,8 +8,36 @@ export default function Welcome() {
   const rightGifRef = useRef<HTMLImageElement>(null);
   const leftGifRef = useRef<HTMLImageElement>(null);
   const finalImageRef = useRef<HTMLImageElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const images = document.querySelectorAll('img');
+    let loadedCount = 0;
+
+    if (images.length === 0) {
+      setIsLoading(false);
+      return;
+    }
+
+    images.forEach((img) => {
+      if (img.complete) {
+        loadedCount++;
+        if (loadedCount === images.length) setIsLoading(false);
+      } else {
+        img.addEventListener('load', () => {
+          loadedCount++;
+          if (loadedCount === images.length) setIsLoading(false);
+        });
+        img.addEventListener('error', () => {
+          loadedCount++;
+          if (loadedCount === images.length) setIsLoading(false);
+        });
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {return};
     const animationDuration = 2.4;
 
     const animateGif = () => {
@@ -27,14 +55,16 @@ export default function Welcome() {
     };
 
     animateGif();
-  }, []);
+  }, [isLoading]);
 
   return (
     <div
       id="welcome"
       className="flex flex-col items-center justify-center md:min-h-screen relative"
     >
-      <div className="container mx-auto px-4">
+      <div className={` container mx-auto px-4
+      ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
+      >
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
           <Head>
             <title>
