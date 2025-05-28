@@ -27,7 +27,7 @@ export default function Whoami() {
           <div className="flex justify-center order-1">
             <div className="relative sm:w-96 sm:h-96 w-60 h-60 rounded-full overflow-hidden">
               <Image
-                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/me.jpg"
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/me.jpg"
                 fill
                 sizes="384px"
                 alt="Picture of me"

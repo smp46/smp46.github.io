@@ -47,7 +47,7 @@ This project ended up combining hardware hacking, machine learning, and a web
 interface to create a practical solution using nothing but off the shelf (or the
 internet) parts and a bit of coding elbow grease.
 
-![Final Result](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/1.jpg?q=85&f=webp)
+![Final Result](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/1.jpg?q=85&f=webp)
 
 It's hard to show a teaser of the final result because it has so many parts, but
 here is what was the hardest part of the solution (I swear it's not a bomb).
@@ -118,7 +118,7 @@ examined the PCB. After some poking around with a multimeter, I discovered the
 button on the fob just bridges two contacts on the PCB. If I could find a way to
 bridge those contacts on command from the Pi, I'd be cooking.
 
-![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/3.jpg?q=85&f=webp)
+![fob_contacts](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/3.jpg?q=85&f=webp)
 
 Here is the naked fob and the contacts I needed to bridge.
 
@@ -136,7 +136,7 @@ After some research, I figured out I needed:
 - A bit of soldering skill (which I do not have)
 
 Here's the circuit I ended up with:
-![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/circuit.webp?q=85)
+![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/circuit.webp?q=85)
 
 I soldered two thin wires to the contact points either side of the fob's button,
 ran them to the relay, and connected everything according to the diagram above.
@@ -150,7 +150,7 @@ that makes GPIO17 high for half a second. And shockingly, the door opens.
 Yippee!
 
 You might be wondering what sleek professional way I put this all together:
-![final_circuit](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/4.jpg?q=85&f=webp)
+![final_circuit](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/4.jpg?q=85&f=webp)
 I'm honestly not sure what the correct way to package something like this is, am
 definitely open to feedback if anyone has any better ideas.
 
@@ -195,7 +195,7 @@ renaming. That and moving the data set to a RAMdisk while I'm working with it
 helped speed things up. As turns out handling over 150 thouseand ~20Kb files
 isn't super easy. Here's a snapshot of the exciting action:
 
-![sorting_gif](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/sorting.gif)
+![sorting_gif](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/sorting.gif)
 
 #### The Training Process
 
@@ -272,7 +272,7 @@ specific responsibility and communicating via HTTP APIs. The Rust HTTP server
 runs on the Pi Zero W, the rest is running on my homeserver both in and out of
 Docker containers.
 
-![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.webp?q=85)
+![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/software.webp?q=85)
 
 ##### The Components
 
@@ -313,7 +313,7 @@ status of the door as reported by the Garage Door Status API and the time it was
 last opened. The preview is using an iframe that just displays the snapshot
 image, where the iframe html is mounted to the homepage docker container.
 
-![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.webp?q=85)
+![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/homepage_widget.webp?q=85)
 
 ###### [**Email Notification Service**](https://github.com/smp46/SmartGarage/blob/main/garage_notifs.sh)
 
@@ -329,7 +329,7 @@ sends a POST request through an nginx proxy to the Rust HTTP API Server on the
 Pi. The website is hosted via nginx through a Cloudflare Tunnel, using Google
 SSO it is protected against unwanted visitors.
 
-![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.webp?q=85)
+![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/website.webp?q=85)
 
 ## The Result
 
@@ -362,4 +362,4 @@ now. The system successfully:
   the camera
 
 Here's a demo of it in action:
-![demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/demo.webp)
+![demo](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/demo.webp)

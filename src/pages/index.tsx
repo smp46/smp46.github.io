@@ -61,7 +61,7 @@ export default function Welcome() {
             >
               <Image
                 ref={leftGifRef}
-                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/me3.webp"
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/me3.webp"
                 alt="Left GIF animation"
                 unoptimized={false}
                 fill
@@ -69,7 +69,7 @@ export default function Welcome() {
               />
               <Image
                 ref={rightGifRef}
-                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/snake3.webp"
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/snake3.webp"
                 unoptimized={false}
                 alt="Right GIF animation"
                 fill
@@ -77,7 +77,7 @@ export default function Welcome() {
               />
               <Image
                 ref={finalImageRef}
-                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/pp.webp?q=85"
+                src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/pp.webp?q=85"
                 alt="Final Image"
                 fill
                 style={{ position: 'absolute', top: 0, left: 0, opacity: 0 }}
