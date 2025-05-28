@@ -136,7 +136,7 @@ After some research, I figured out I needed:
 - A bit of soldering skill (which I do not have)
 
 Here's the circuit I ended up with:
-![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/circuit.png?q=85&f=webp)
+![circuit_diagram](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/circuit.webp?q=85)
 
 I soldered two thin wires to the contact points either side of the fob's button,
 ran them to the relay, and connected everything according to the diagram above.
@@ -272,7 +272,7 @@ specific responsibility and communicating via HTTP APIs. The Rust HTTP server
 runs on the Pi Zero W, the rest is running on my homeserver both in and out of
 Docker containers.
 
-![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.png?q=85&f=webp)
+![software_architecture](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/software.webp?q=85)
 
 ##### The Components
 
@@ -313,7 +313,7 @@ status of the door as reported by the Garage Door Status API and the time it was
 last opened. The preview is using an iframe that just displays the snapshot
 image, where the iframe html is mounted to the homepage docker container.
 
-![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.png?q=85&f=webp)
+![widget_preview](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/homepage_widget.webp?q=85)
 
 ###### [**Email Notification Service**](https://github.com/smp46/SmartGarage/blob/main/garage_notifs.sh)
 
@@ -329,7 +329,7 @@ sends a POST request through an nginx proxy to the Rust HTTP API Server on the
 Pi. The website is hosted via nginx through a Cloudflare Tunnel, using Google
 SSO it is protected against unwanted visitors.
 
-![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.png?q=85&f=webp)
+![website](https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/assets/smartgarage/website.webp?q=85)
 
 ## The Result
 
