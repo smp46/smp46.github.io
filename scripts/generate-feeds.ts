@@ -86,8 +86,8 @@ async function generateFeeds() {
   const feed = new Feed({
     title: `smp46`,
     description: 'Projects, attempts and other things',
-    id: baseURL,
-    link: baseURL,
+    id: websiteURL,
+    link: websiteURL,
     favicon: `${baseURL}/favicon.ico`,
     language: 'en',
     generator: 'Next.js using Feed for Node.js',
