@@ -79,6 +79,7 @@ async function generateFeeds() {
     'https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public';
   const feedDirectory = 'feeds';
   const author = 'smp46';
+  const websiteURL = 'https://smp46.me';
 
   const posts = await getAllPosts();
 
@@ -98,14 +99,14 @@ async function generateFeeds() {
     author: {
       name: author,
       email: 'me@smp46.me',
-      link: `${baseURL}/whoami`,
+      link: `${websiteURL}/whoami`,
     },
     copyright: `All rights reserved ${new Date().getFullYear()}, ${author}`,
   });
 
   posts.forEach((post) => {
     const { title, description, date, created, updated } = post.frontMatter;
-    const url = `${baseURL}/projects/${post.slug}`;
+    const url = `${websiteURL}/projects/${post.slug}`;
 
     const mainDate =
       date || updated || created || new Date().toISOString().split('T')[0];
