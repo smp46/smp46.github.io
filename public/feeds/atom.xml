@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public</id>
     <title>smp46</title>
-    <updated>2025-05-28T00:44:47.777Z</updated>
+    <updated>2025-06-01T00:27:55.736Z</updated>
     <generator>Next.js using Feed for Node.js</generator>
     <author>
         <name>smp46</name>
         <email>me@smp46.me</email>
-        <uri>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/whoami</uri>
+        <uri>https://smp46.me/whoami</uri>
     </author>
     <link rel="alternate" href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public"/>
     <link rel="self" href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/atom.xml"/>
@@ -16,8 +16,8 @@
     <rights>All rights reserved 2025, smp46</rights>
     <entry>
         <title type="html"><![CDATA[SmartGarage]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/SmartGarage</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/SmartGarage"/>
+        <id>https://smp46.me/projects/SmartGarage</id>
+        <link href="https://smp46.me/projects/SmartGarage"/>
         <updated>2025-05-14T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[SmartGarage is a custom-built IoT solution that enables remote garage door control without modifying the original opener. Using a Raspberry Pi, relay circuit, and machine learning image recognition, it provides door status monitoring, remote operation, and automated notifications—all built with off-the-shelf components.]]></summary>
         <content type="html"><![CDATA[<h1>SmartGarage: A DIY Wireless Garage Door Control System with a Side of Machine Learning</h1>
@@ -323,8 +323,8 @@ the camera</li>
     </entry>
     <entry>
         <title type="html"><![CDATA[MazeGame]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/MazeGame</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/MazeGame"/>
+        <id>https://smp46.me/projects/MazeGame</id>
+        <link href="https://smp46.me/projects/MazeGame"/>
         <updated>2025-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[MazeGame is a Java-based puzzle game featuring a goose navigating dynamic mazes with autosolve functionality using BFS. Includes CLI and GUI modes with asset integrity checks.]]></summary>
         <content type="html"><![CDATA[<h1>MazeGame: A JavaFX Puzzle Game with Dynamic Mazes and BFS Solver</h1>
@@ -412,8 +412,8 @@ including the assets.</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[Portfolio Website]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/PortfolioWebsite</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/PortfolioWebsite"/>
+        <id>https://smp46.me/projects/PortfolioWebsite</id>
+        <link href="https://smp46.me/projects/PortfolioWebsite"/>
         <updated>2025-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[A fully statically-generated personal portfolio built with Next.js, React, and TypeScript. It showcases projects, articles written in MDX, and a bit about me.]]></summary>
         <content type="html"><![CDATA[<h1>Building My Developer Portfolio with Next.js, MDX, and GitHub Actions</h1>
@@ -464,8 +464,8 @@ away then back to /projects, will refresh and get new files.</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[RightClickVirusTotal]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/RightClickVirusTotal</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/RightClickVirusTotal"/>
+        <id>https://smp46.me/projects/RightClickVirusTotal</id>
+        <link href="https://smp46.me/projects/RightClickVirusTotal"/>
         <updated>2025-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[RightClickVirusTotal is a Python-based tool that adds file virus scanning directly to your context menu via the VirusTotal API. Now available with CLI and GUI for Windows, Linux, and macOS.]]></summary>
         <content type="html"><![CDATA[<h1>RightClickVirusTotal: Cross-Platform File Scanning with VirusTotal API</h1>
@@ -621,8 +621,8 @@ dependencies.</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[StoryPath]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/StoryPath</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/StoryPath"/>
+        <id>https://smp46.me/projects/StoryPath</id>
+        <link href="https://smp46.me/projects/StoryPath"/>
         <updated>2025-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[StoryPath is a cross-platform experience builder for creating location-based virtual museum exhibits, clue-driven treasure hunts, and interactive tours. Built with React, React Native, and Expo.]]></summary>
         <content type="html"><![CDATA[<h1>StoryPath: A Location-Based Platform for Interactive Tours &#x26; Treasure Hunts</h1>
@@ -737,8 +737,8 @@ phone using the Expo Go app.</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[UQInc]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/UQInc</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/UQInc"/>
+        <id>https://smp46.me/projects/UQInc</id>
+        <link href="https://smp46.me/projects/UQInc"/>
         <updated>2025-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[UQInc is a fast-paced idle clicker game built in Rust during the UQCS 2024 Hackathon. Construct your dream University of Queensland campus, upgrade buildings, and earn perks—all within a retro-style GUI built with macroquad.]]></summary>
         <content type="html"><![CDATA[<h1>UQInc: A Rust-Powered UQ Campus Clicker Game</h1>
@@ -770,8 +770,8 @@ click and the amount of money you get per student.</p>
     </entry>
     <entry>
         <title type="html"><![CDATA[dockerImageServer]]></title>
-        <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/dockerImageServer</id>
-        <link href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/projects/dockerImageServer"/>
+        <id>https://smp46.me/projects/dockerImageServer</id>
+        <link href="https://smp46.me/projects/dockerImageServer"/>
         <updated>2025-05-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[dockerImageServer is a lightweight Docker container that periodically downloads an image from a URL and serves it via Nginx. Ideal for use cases like exposing security camera snapshots through a reverse proxy.]]></summary>
         <content type="html"><![CDATA[<h1>dockerImageServer: Docker Image Server for Periodic Image Fetching with Nginx</h1>
