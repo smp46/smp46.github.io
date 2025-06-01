@@ -1,7 +1,7 @@
 {
     "version": "https://jsonfeed.org/version/1",
     "title": "smp46",
-    "home_page_url": "https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public",
+    "home_page_url": "https://smp46.me",
     "feed_url": "https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/feed.json",
     "description": "Projects, attempts and other things",
     "author": {

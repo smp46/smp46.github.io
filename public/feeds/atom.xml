@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public</id>
+    <id>https://smp46.me</id>
     <title>smp46</title>
-    <updated>2025-06-01T00:27:55.736Z</updated>
+    <updated>2025-06-01T01:21:07.127Z</updated>
     <generator>Next.js using Feed for Node.js</generator>
     <author>
         <name>smp46</name>
         <email>me@smp46.me</email>
         <uri>https://smp46.me/whoami</uri>
     </author>
-    <link rel="alternate" href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public"/>
+    <link rel="alternate" href="https://smp46.me"/>
     <link rel="self" href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/atom.xml"/>
     <subtitle>Projects, attempts and other things</subtitle>
     <icon>https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/favicon.ico</icon>
