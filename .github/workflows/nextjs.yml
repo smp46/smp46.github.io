@@ -1,5 +1,6 @@
 # GitHub Actions workflow for building and deploying a Next.js site to GitHub Pages
 # This workflow includes separate jobs for deploying to a production site and a staging site.
+
 name: Deploy Next.js site to Pages
 
 on:
@@ -54,6 +55,12 @@ jobs:
           echo "Using BASE_PATH: $BASE_PATH"
           ${{ steps.detect-package-manager.outputs.manager }} run build
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-artifact
+          path: ./out
+
   # Production Deployment Job
   deploy-production:
     if: github.ref == 'refs/heads/main'
@@ -63,12 +70,17 @@ jobs:
       name: github-pages
       url: https://smp46.me
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pages-artifact
+
       - name: Deploy to GitHub Pages (Production)
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: out
+          folder: .
           clean: true
 
   # Staging Deployment Job
@@ -80,11 +92,17 @@ jobs:
       name: github-pages-staging
       url: https://smp46.me/staging/
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pages-artifact
+          
       - name: Deploy to GitHub Pages (Staging)
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
-          folder: out
+          folder: .
           target-folder: staging
-          clean: true
+          clean: true 
+
