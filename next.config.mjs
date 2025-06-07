@@ -1,11 +1,15 @@
-const isProd = process.env.NODE_ENV === 'production';
+const basePath = process.env.BASE_PATH || '';
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true, // Disable default image optimization
+    unoptimized: true,
   },
   output: 'export',
   trailingSlash: true,
+
+  basePath: basePath,
+  assetPrefix: basePath,
 };
 
 export default nextConfig;
