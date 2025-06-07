@@ -72,7 +72,7 @@ export default function Sidebar() {
 
         <Link href="/">
           <h2 className="sm:text-3xl text-5xl font-bold leading-none -translate-y-2 sm:translate-y-0">
-            smp46
+          {pathname.includes('/staging/') ? ("staging") : ("smp46")}
           </h2>
         </Link>
       </div>
@@ -94,7 +94,9 @@ export default function Sidebar() {
           sm:flex-shrink-0 sm:mt-0 overflow-y-auto`}
       >
         <Link href="/">
-          <h2 className="text-5xl font-bold hidden sm:block">smp46</h2>
+          <h2 className="text-5xl font-bold hidden sm:block">
+          {pathname.startsWith('/staging/') ? ("staging") : ("smp46")}
+                    </h2>
         </Link>
         <div className="mt-4 flex space-x-3 sm:space-x-4">
           <a
