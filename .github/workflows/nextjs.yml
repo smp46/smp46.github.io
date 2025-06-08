@@ -46,9 +46,6 @@ jobs:
           node-version: '20'
           cache: ${{ steps.detect-package-manager.outputs.manager }}
 
-      - name: Disable Jekyll
-        run: touch ./out/.nojekyll
-
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -73,6 +70,9 @@ jobs:
         run: |
           echo "Using BASE_PATH: $BASE_PATH"
           ${{ steps.detect-package-manager.outputs.manager }} run build
+
+      - name: Disable Jekyll
+        run: touch ./out/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
