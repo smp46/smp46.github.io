@@ -81,4 +81,7 @@ jobs:
           folder: out
           target-folder:
             ${{ github.ref == 'refs/heads/staging' && 'staging' || '.' }}
-          clean: true
+          clean: ${{ github.ref == 'refs/heads/main' }}
+          clean-exclude: |
+            staging
+            .nojekyll
