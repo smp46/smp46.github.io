@@ -81,4 +81,4 @@ jobs:
           folder: out
           target-folder:
             ${{ github.ref == 'refs/heads/staging' && 'staging' || '.' }}
-          clean: false
+          clean: true
