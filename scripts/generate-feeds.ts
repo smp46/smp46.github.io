@@ -6,7 +6,7 @@ import { remark } from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkHtml from 'remark-html';
 
-const POSTS_PATH = path.join(process.cwd(), 'src/projects');
+const POSTS_PATH = path.join(process.cwd(), 'src/blog');
 
 interface PostFrontMatter {
   title: string;

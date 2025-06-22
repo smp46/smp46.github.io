@@ -37,7 +37,9 @@ export default function Welcome() {
   }, []);
 
   useEffect(() => {
-    if (isLoading) {return};
+    if (isLoading) {
+      return;
+    }
     const animationDuration = 2.4;
 
     const animateGif = () => {
@@ -62,8 +64,9 @@ export default function Welcome() {
       id="welcome"
       className="flex flex-col items-center justify-center md:min-h-screen relative"
     >
-      <div className={` container mx-auto px-4
-      ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
+      <div
+        className={` container mx-auto px-4
+          ${isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}`}
       >
         <div className="flex flex-col items-center text-center sm:px-8 py-10">
           <Head>
