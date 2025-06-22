@@ -16,6 +16,7 @@ interface Post {
   type: string;
   date: string;
   heroImage?: string;
+  heroImageBlurData?: string;
   featured?: boolean;
 }
 
@@ -76,6 +77,8 @@ export default function FeaturedBlogLayout({ posts }: Props) {
                         fill
                         style={{ objectFit: 'cover' }}
                         className="group-hover:scale-105 transition-transform duration-300"
+                        placeholder="blur"
+                        blurDataURL={featuredPost.heroImageBlurData}
                       />
                     </div>
                   )}
@@ -185,6 +188,7 @@ export async function getStaticProps() {
         type: data.type || 'personal',
         date: data.updated || data.date || data.created,
         heroImage: data.heroImage || null,
+        heroImageBlurData: data.heroImageBlurData || null,
         featured: data.featured || false,
       };
     })
