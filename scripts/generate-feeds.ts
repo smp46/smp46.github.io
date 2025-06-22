@@ -106,7 +106,7 @@ async function generateFeeds() {
 
   posts.forEach((post) => {
     const { title, description, date, created, updated } = post.frontMatter;
-    const url = `${websiteURL}/projects/${post.slug}`;
+    const url = `${websiteURL}/blog/${post.slug}`;
 
     const mainDate =
       date || updated || created || new Date().toISOString().split('T')[0];
