@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { execSync } from 'child_process';
 
-const POSTS_PATH = path.join(process.cwd(), 'src/projects');
+const POSTS_PATH = path.join(process.cwd(), 'src/blog');
 
 function getGitDates(filePath: string) {
   try {

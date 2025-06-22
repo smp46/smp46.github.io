@@ -60,7 +60,7 @@ export default function FeaturedBlogLayout({ posts }: Props) {
               Projects and Other Things
             </h1>
             <p className="text-xl text-gray-600">
-              A collection of some things I've built and thought about.
+              A collection of some things I&#39;ve built and thought about.
             </p>
           </header>
 
