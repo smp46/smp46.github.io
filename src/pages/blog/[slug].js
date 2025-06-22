@@ -10,7 +10,7 @@ import rehypePrismPlus from 'rehype-prism-plus';
 import getReadingTime from 'reading-time';
 import { toString } from 'mdast-util-to-string';
 
-const POSTS_PATH = path.join(process.cwd(), 'src/projects');
+const POSTS_PATH = path.join(process.cwd(), 'src/blog');
 
 export async function getStaticPaths() {
   const filenames = fs.readdirSync(POSTS_PATH);
