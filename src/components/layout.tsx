@@ -20,21 +20,21 @@ export default function RootLayout({ children }: LayoutProps) {
           rel="alternate"
           type="application/rss+xml"
           title="smp46 RSS Feed"
-          href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/feed.xml"
+          href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/feed.xml"
         />
 
         <link
           rel="alternate"
           type="application/atom+xml"
           title="smp46 Atom Feed"
-          href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/atom.xml"
+          href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/atom.xml"
         />
 
         <link
           rel="alternate"
           type="application/feed+json"
           title="smp46 JSON Feed"
-          href="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/feeds/feed.json"
+          href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/feed.json"
         />
       </Head>
       <Sidebar />
