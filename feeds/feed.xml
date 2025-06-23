@@ -4,11 +4,70 @@
         <title>smp46</title>
         <link>https://smp46.me</link>
         <description>Projects, attempts and other things</description>
-        <lastBuildDate>Mon, 23 Jun 2025 02:54:47 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 Jun 2025 03:42:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>Next.js using Feed for Node.js</generator>
         <language>en</language>
         <copyright>All rights reserved 2025, smp46</copyright>
+        <item>
+            <title><![CDATA[FileFerry]]></title>
+            <link>https://smp46.me/blog/FileFerry</link>
+            <guid>https://smp46.me/blog/FileFerry</guid>
+            <pubDate>Mon, 23 Jun 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[FileFerry is a browser-based, peer-to-peer file sharing application that allows for secure, direct file transfers between any two browsers. Inspired by the command-line utility magic-wormhole, it uses WebRTC and the libp2p library. The project implement a custom protocol for reliable transfers over unstable connections, including checksum validation and an acknowledgement system, built with TypeScript and TailwindCSS.]]></description>
+            <content:encoded><![CDATA[<h1>FileFerry: Building a Secure, Peer-to-Peer File Sharing App from Scratch</h1>
+<p><img src="https://cdn.statically.io/gh/smp46/FileFerry/main/public/favicon/web-app-manifest-192x192.png" alt="Flow Chart"></p>
+<h2>Motivation</h2>
+<p>I'm a big fan and user of the file-sharing utility <a href="https://github.com/magic-wormhole/magic-wormhole">magic-wormhole</a>. An easy to use utility that allows you to transfer a folder or file between any two devices running a magic-wormhole client, using a phrase to connect. However, the client is in my opinion the limiting factor, it is usually a command line utility, requiring both a command line and a computer to run it on. Although it can be run through Termux on Android, that's not quite the user experience I'm after. So what if I could bring magic-wormhole to the browser?</p>
+<h2>Initial Idea: Literally Bring Magic-Wormhole to the Browser</h2>
+<p>Being the genius I am (<em>sarcasm</em>) I thought I could literally just bring the wormhole-client to the browser. My preferred client is <a href="https://github.com/psanford/wormhole-william">wormhole-william</a>, an implementation of magic-wormhole written in Golang. A cool feature of Golang is anything <em>can</em> be compiled to WASM, Web Assembly. So I thought I could just make a web interface for wormhole-william, compile it in WASM and boom, browser-based file sharing!</p>
+<p>No that's not how it works :(</p>
+<h2>Peer-to-Peer in the Browser and its Limitations</h2>
+<p>While WASM is super cool tech, a browser is still a browser. And that means <a href="https://thenewstack.io/webassembly/case-study-a-webassembly-failure-and-lessons-learned/">limitations</a>. For today, the important limitation is "You cannot access the network in an unpermissioned way." This means the traditional and established method of TCP hole-punching to establish direct network connections between two otherwise unconnected peers, doesn't work. I guess this is understandable, but it did throw a spanner in the works. Magic-wormhole works <em>exclusively</em> via TCP hole-punching, which took me building a basic prototype in the browser to work out.</p>
+<p>So what can you do in the browser?</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">WebSockets</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API">WebRTC</a> is what you can do in the browser. WebSockets are our equivalent of a basic TCP stream in the browser, the API "makes it possible to open a two-way interactive communication session between the user's browser and a server." Which sounds pretty neat, I'm going to need to make some connections beyond HTTP requests. And WebRTC "enables Web applications and sites to ... exchange arbitrary data between browsers without requiring an intermediary." Sounds like exactly what I would need for a browser-based file sharing application, how easy. With WebSockets for creating streams and WebRTC as our transfer protocol, all it needs is some magic to get the direct connection.</p>
+<h2>The (Imperfect) Magic: libp2p</h2>
+<blockquote>
+<p>libp2p is an open source networking library used by the world's most important distributed systems such as Ethereum, IPFS, Filecoin, Optimism and countless others. There are native implementations in Go, Rust, <strong>Javascript</strong>, C++, Nim, Java/Kotlin, Python, .Net, Swift and Zig. It is the simplest solution for global scale peer-to-peer networking and includes support for pub-sub message passing, distributed hash tables, <strong>NAT hole punching and browser-to-browser direct communication.</strong></p>
+</blockquote>
+<p>Libp2p is what I used to build FileFerry, and it is awesome. As a whole, libp2p is a specification for bringing together a lot of cool networking technologies into a single framework. And look right there in the blurb it says it supports Javascript, hole punching and direct browser-to-browser communication.</p>
+<p>Okay, so the scope of the project has increased a little... but it seems I have the tools to make my browser-based alternative to magic-wormhole.</p>
+<h2>Building FileFerry with js-libp2p</h2>
+<p>This has been a long journey, and lets just say I'm glad Neovim doesn't keep track of usage by number of hours.</p>
+<h3>Wrangling js-libp2p</h3>
+<p>While js-libp2p does handle the magic, it isn't exactly simple nor straightforward. I started with this <a href="https://github.com/libp2p/js-libp2p-example-webrtc-private-to-private/">webrtc browser to browser example</a> and went from there. Unfortunately, while libp2p does have some cool built in protocols like gossip-sub for chat apps. It <em>doesn't</em> offer a file transfer protocol, so that was my job to implement. But in theory if I can get a stream, I should be able to just push some data through it, save it on the other end and boom, file-sharing done. Well, it a perfect world maybe, but I found WebSockets and WebRTC aren't exactly tailored to shoving large amounts of data through a stream as fast as possible. Connection stability was a gigantic headache, connections <em>will</em> drop and handling that is a pain.</p>
+<h3>Complete Transfers over Incomplete Connections</h3>
+<p>The general idea seemed easy, if I just track at an application level how far through a file transfer the app is then if a connection drops, it can reconnect and keep on going. And that's how I started. But there are issues:</p>
+<ul>
+<li>How do we know when to reconnect?</li>
+<li>How do we know that the data arrived all in one piece?</li>
+<li>What if the Sender gets ahead of the Receiver?</li>
+</ul>
+<p>To address the first issue,  I implemented a Connection Management class that keeps track of, handles and directs connections. And made it the sender's job to reconnect upon connection loss. It sounds simple now, but working how the specific implementation required a lot of reading of the <a href="https://github.com/libp2p/specs">libp2p spec</a>, reading the <a href="https://github.com/libp2p/js-libp2p">source code</a> and trial and error.</p>
+<p>The second issue was much easier, and dare I say fun. Hashing to produce a checksum. Now most hashing I can think of works by taking a complete file and processing it all at once. But only the Sender has a complete file, at least until the transfer is done, so I decided instead of having the Receiver process the whole file again and hash it after receiving. I could do it during the transfer, this way it would be less of an issue if the connection dropped as well. So I picked an algorithm I had actually used in the Algorithms and Datastructures class I took at uni, FNV1a because it is <a href="https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed/145633#145633">very fast and relatively secure</a>. Okay so now the Sender makes the initial checksum part of the file header and the Receiver can compare it's final result against it. Another issue down.</p>
+<p>The final issue, I also solved thanks to some networking basics I was taught at uni. The stream behaves like a UDP connection, you can write and read data to it but who is to say whether they data did or didn't arrive. So I thought what if I took a page from TCP and implemented an <em>ACK</em>nowledgement system. Basically, every 200 chunks the Sender will stop sending and wait for the Receiver to send an acknowledgement that it has received the last batch. This helped especially when connection drop-outs occurred, often the sender would reconnect and keep blasting data while the receiver is still trying to catch up.</p>
+<h3>A (Poorly Made) Overview</h3>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/fileferry/flowchart.webp" alt="Flow Chart"></p>
+<h3>The UI</h3>
+<p>The nautical themed was picked mostly because I was looking for something interesting, I'm not an UI designer so it felt easier to make something <em>a little different</em>. It uses purely HTML/Typescript/TailwindCSS. And I'm not ashamed to admit Claude Opus was definitely the lead CSS designer, I thought it was pretty incredible the stuff it can come up with purely in CSS. Zero pre-rendered assets (images) are used, its all CSS, SVGs and text.</p>
+<h3>The Backend</h3>
+<p>To bring it all together, I self-host two of the three required back-end servers:</p>
+<ul>
+<li><strong>The Passphrase Server</strong>: A simple API that provides access to a database. A sender can make a POST request with a key value pair of their passphrase (the key) and the their public peer address (the value). A receiver, with a shared passphrase, can then make a GET request with and receive the Sender's peer address. The database entry it then immediately deleted.</li>
+<li><strong>WebRTC Necessities</strong>: For a more detailed explanation of exactly how these two servers come into play I suggest <a href="https://www.cloudflare.com/learning/video/turn-server/">this article</a>. But simply put:
+<ul>
+<li><strong>The CoTURN Server</strong>:  The fallback relay that is used if a direct connection can't be made between two clients. <a href="https://github.com/coturn/coturn">Coturn</a> is just an open source implementation that I utilised for this project.</li>
+<li><strong>The STUN Servers</strong>: These are public external services that help with client discoverability and establishing direct connections with WebRTC. As these use very little bandwith, there are many publicly available. I used <a href="https://github.com/pradt2/always-online-stun">this list</a> and my own <a href="https://github.com/smp46/geoip-api">fork of a GeoIP API</a>  to retrieve the three geographically closest STUN servers to the client.</li>
+</ul>
+</li>
+</ul>
+<h2>The Result: A Demo</h2>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/fileferry/output.gif" alt="Demo"></p>
+<h2>To Conclude</h2>
+<p>This turned into a really fun challenging project, and has definitely inspired me to work further with the libp2p framework in the future. Due to the complexity of the project I spent a long time getting into the weeds, reading and trying to understand the source code of js-libp2p. Running into many problems that neither Google nor ChatGPT could help me with.</p>
+<p>But for now, I am finished with FileFerry and will enjoy my new easy way to share files in the browser.</p>
+]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[SmartGarage]]></title>
             <link>https://smp46.me/blog/SmartGarage</link>
