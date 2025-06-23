@@ -107,12 +107,12 @@ export default function FeaturedBlogLayout({ posts }: Props) {
               <h3 className="text-3xl font-bold mb-6 border-b pb-2">
                 All Articles
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 grid-rows-auto">
                 {otherPosts.map((post) => (
                   <Link key={post.path} href={post.path} passHref>
                     <div
-                      className="group block cursor-pointer bg-white p-6 rounded-lg shadow-md hover:shadow-xl
-                        transition-shadow"
+                      className="group cursor-pointer bg-white p-6 rounded-lg shadow-md hover:shadow-xl
+                        transition-shadow flex flex-col h-full"
                     >
                       <p className="text-sm text-gray-500 mb-2">
                         {formatDate(post.date)}
@@ -188,7 +188,7 @@ export async function getStaticProps() {
         subtitle: data.subtitle,
         description: data.description,
         type: data.type || 'personal',
-        date: data.updated || data.date || data.created,
+        date: data.created,
         heroImage: data.heroImage || null,
         heroImageBlurData: data.heroImageBlurData || null,
         featured: data.featured || false,
