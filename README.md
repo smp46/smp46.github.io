@@ -11,8 +11,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/smp46/smp46.me">
-    <img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pp.webp?q=85" alt="Logo" width="200" height="200" style="background-color:white; border-radius:50%">
+  <a href="https://github.com/smp46/smp46.github.io">
+    <img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/pp.webp?q=85" alt="Logo" width="200" height="200" style="background-color:white; border-radius:50%">
   </a>
 
 <h3 align="center">Personal Portfolio Website</h3>
@@ -23,7 +23,7 @@
     <br />
     <a href="https://smp46.me">View Live Site</a>
     ·
-    <a href="https://github.com/smp46/smp46.me/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/smp46/smp46.github.io/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
 
   </p>
 </div>
@@ -88,7 +88,7 @@ The end result is a relatively easy way to maintain and add articles/project wri
     type: "personal"
     description: "A fully statically-generated personal portfolio built with Next.js, React, and TypeScript. It showcases projects, articles written in MDX, and a bit about me."
     keywords: "personal website, portfolio, Next.js, React, TypeScript, static site generation, MDX, GitHub Actions, web development, developer portfolio"
-    github: "[https://github.com/smp46/smp46.me](https://github.com/smp46/smp46.me)"
+    github: "[https://github.com/smp46/smp46.github.io](https://github.com/smp46/smp46.github.io)"
     ---
     ```
 3.  `git add . && git commit` And ta-dah, the Github workflow handles the compiling and then it goes live at [smp46.me/projects](https://smp46.me/projects).
@@ -109,7 +109,7 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 
 Samuel P - me@smp46.me
 
-Project Link: [https://github.com/smp46/smp46.me](https://github.com/smp46/smp46.me)
+Project Link: [https://github.com/smp46/smp46.github.io](https://github.com/smp46/smp46.github.io)
 
 
 
@@ -123,16 +123,16 @@ Project Link: [https://github.com/smp46/smp46.me](https://github.com/smp46/smp46
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/smp46/smp46.me.svg?style=for-the-badge
-[contributors-url]: https://github.com/smp46/smp46.me/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/smp46/smp46.me.svg?style=for-the-badge
-[forks-url]: https://github.com/smp46/smp46.me/network/members
-[stars-shield]: https://img.shields.io/github/stars/smp46/smp46.me.svg?style=for-the-badge
-[stars-url]: https://github.com/smp46/smp46.me/stargazers
-[issues-shield]: https://img.shields.io/github/issues/smp46/smp46.me.svg?style=for-the-badge
-[issues-url]: https://github.com/smp46/smp46.me/issues
-[license-shield]: https://img.shields.io/github/license/smp46/smp46.me.svg?style=for-the-badge
-[license-url]: https://github.com/smp46/smp46.me/blob/main/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/smp46/smp46.github.io.svg?style=for-the-badge
+[contributors-url]: https://github.com/smp46/smp46.github.io/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/smp46/smp46.github.io.svg?style=for-the-badge
+[forks-url]: https://github.com/smp46/smp46.github.io/network/members
+[stars-shield]: https://img.shields.io/github/stars/smp46/smp46.github.io.svg?style=for-the-badge
+[stars-url]: https://github.com/smp46/smp46.github.io/stargazers
+[issues-shield]: https://img.shields.io/github/issues/smp46/smp46.github.io.svg?style=for-the-badge
+[issues-url]: https://github.com/smp46/smp46.github.io/issues
+[license-shield]: https://img.shields.io/github/license/smp46/smp46.github.io.svg?style=for-the-badge
+[license-url]: https://github.com/smp46/smp46.github.io/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/smp46
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white

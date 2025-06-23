@@ -75,7 +75,7 @@ export default function FeaturedBlogLayout({ posts }: Props) {
                         src={featuredPost.heroImage}
                         alt={`Hero image for ${featuredPost.title}`}
                         fill
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'contain' }}
                         className="group-hover:scale-105 transition-transform duration-300"
                         placeholder="blur"
                         blurDataURL={featuredPost.heroImageBlurData}
