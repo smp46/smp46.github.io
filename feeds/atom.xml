@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://smp46.me</id>
     <title>smp46</title>
-    <updated>2025-06-23T03:42:08.247Z</updated>
+    <updated>2025-06-23T03:55:43.779Z</updated>
     <generator>Next.js using Feed for Node.js</generator>
     <author>
         <name>smp46</name>
@@ -102,7 +102,7 @@ image recognition model that can tell me just that.</p>
 <p>This project ended up combining hardware hacking, machine learning, and a web
 interface to create a practical solution using nothing but off the shelf (or the
 internet) parts and a bit of coding elbow grease.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/1.jpg?q=85&#x26;f=webp" alt="Final Result"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/1.jpg?q=85&#x26;f=webp" alt="Final Result"></p>
 <p>It's hard to show a teaser of the final result because it has so many parts, but
 here is what was the hardest part of the solution (I swear it's not a bomb).</p>
 <h2>Initial Attempts and Challenges</h2>
@@ -159,7 +159,7 @@ complicated could a fob be. I carefully cracked open one of the generic fobs and
 examined the PCB. After some poking around with a multimeter, I discovered the
 button on the fob just bridges two contacts on the PCB. If I could find a way to
 bridge those contacts on command from the Pi, I'd be cooking.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/3.jpg?q=85&#x26;f=webp" alt="fob_contacts"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/3.jpg?q=85&#x26;f=webp" alt="fob_contacts"></p>
 <p>Here is the naked fob and the contacts I needed to bridge.</p>
 <p>After some research, I figured out I needed:</p>
 <ul>
@@ -181,7 +181,7 @@ breadboard kit)</li>
 <li>A bit of soldering skill (which I do not have)</li>
 </ul>
 <p>Here's the circuit I ended up with:
-<img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/circuit.webp?q=85" alt="circuit_diagram"></p>
+<img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/circuit.webp?q=85" alt="circuit_diagram"></p>
 <p>I soldered two thin wires to the contact points either side of the fob's button,
 ran them to the relay, and connected everything according to the diagram above.
 The idea is simple: when GPIO pin 17 goes high, it activates the relay, which
@@ -192,7 +192,7 @@ door.</p>
 that makes GPIO17 high for half a second. And shockingly, the door opens.
 Yippee!</p>
 <p>You might be wondering what sleek professional way I put this all together:
-<img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/4.jpg?q=85&#x26;f=webp" alt="final_circuit">
+<img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/4.jpg?q=85&#x26;f=webp" alt="final_circuit">
 I'm honestly not sure what the correct way to package something like this is, am
 definitely open to feedback if anyone has any better ideas.</p>
 <h2>Teaching My Computer to See</h2>
@@ -225,7 +225,7 @@ which is just a more effecient image library manager with support for batch
 renaming. That and moving the data set to a RAMdisk while I'm working with it
 helped speed things up. As turns out handling over 150 thouseand ~20Kb files
 isn't super easy. Here's a snapshot of the exciting action:</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/sorting.gif" alt="sorting_gif"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/sorting.gif" alt="sorting_gif"></p>
 <h4>The Training Process</h4>
 <p>During my first attempt at this project, I put together
 <a href="https://github.com/smp46/SmartGarage/tree/ac813584dbb65167c8f29fbdaa52849de34d0e04">a set of Python scripts</a>
@@ -281,7 +281,7 @@ alternative):</p>
 specific responsibility and communicating via HTTP APIs. The Rust HTTP server
 runs on the Pi Zero W, the rest is running on my homeserver both in and out of
 Docker containers.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/software.webp?q=85" alt="software_architecture"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/software.webp?q=85" alt="software_architecture"></p>
 <h5>The Components</h5>
 <h6><a href="https://github.com/smp46/SmartGarage/tree/main/garage_door_api"><strong>Rust HTTP API Server</strong></a></h6>
 <p>Initially this was just another Python FastAPI, but I switched to Rust, using
@@ -310,7 +310,7 @@ with this data in a JSON response when a POST request is sent to
 status of the door as reported by the Garage Door Status API and the time it was
 last opened. The preview is using an iframe that just displays the snapshot
 image, where the iframe html is mounted to the homepage docker container.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/homepage_widget.webp?q=85" alt="widget_preview"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/homepage_widget.webp?q=85" alt="widget_preview"></p>
 <h6><a href="https://github.com/smp46/SmartGarage/blob/main/garage_notifs.sh"><strong>Email Notification Service</strong></a></h6>
 <p>This is a bash script that is run every minute with crontab. It checks the
 Status API for the current status and the last opened status, if it is currently
@@ -321,7 +321,7 @@ with a link to the website to close it.</p>
 sends a POST request through an nginx proxy to the Rust HTTP API Server on the
 Pi. The website is hosted via nginx through a Cloudflare Tunnel, using Google
 SSO it is protected against unwanted visitors.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/website.webp?q=85" alt="website"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/website.webp?q=85" alt="website"></p>
 <h2>The Result</h2>
 <h6>But at What Cost?</h6>
 <p>Not too much actually, if we ignore how many hours I put into this, and there's
@@ -377,7 +377,7 @@ internet access</li>
 the camera</li>
 </ul>
 <p>Here's a demo of it in action:
-<img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/smartgarage/demo.webp" alt="demo"></p>
+<img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/smartgarage/demo.webp" alt="demo"></p>
 ]]></content>
         <published>2025-05-11T00:00:00.000Z</published>
     </entry>
@@ -399,7 +399,7 @@ licensing, I cannot include the asset folder in the source code, however do not
 worry I implemented an MD5 checksum check to verify all assets before
 displaying. If the assets don't match the checksum, the game will work just
 fine. Checkout below.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/mazegame/GUI_Assets.gif" alt="Demo"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/mazegame/GUI_Assets.gif" alt="Demo"></p>
 <h3>Notable Features:</h3>
 <ul>
 <li>Breadth First Solver, because any maze (matching the spec) can be loaded, BFS
@@ -422,11 +422,11 @@ prevent slowdowns when launching the game.</li>
 </ul>
 <h2>Three Exciting Game Modes:</h2>
 <h3>CLI Mode</h3>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/mazegame/CLI.png?q=85" alt="cli medium maze"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/mazegame/CLI.png?q=85" alt="cli medium maze"></p>
 <h3>GUI No-Assets Mode</h3>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/mazegame/GUI_No_Assets.png?q=85" alt="gui medium maze no-asset"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/mazegame/GUI_No_Assets.png?q=85" alt="gui medium maze no-asset"></p>
 <h3>GUI Assets Mode</h3>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/mazegame/GUI_Assets.png?q=85" alt="gui medium maze"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/mazegame/GUI_Assets.png?q=85" alt="gui medium maze"></p>
 <h2>Launching the Game</h2>
 <ul>
 <li>JavaFX library is required.</li>
@@ -505,7 +505,7 @@ subtitle: "Building My Developer Portfolio with Next.js, MDX, and GitHub Actions
 type: "personal"
 description: "A fully statically-generated personal portfolio built with Next.js, React, and TypeScript. It showcases projects, articles written in MDX, and a bit about me."
 keywords: "personal website, portfolio, Next.js, React, TypeScript, static site generation, MDX, GitHub Actions, web development, developer portfolio"
-github: "https://github.com/smp46/smp46.github.io"
+github: "https://github.com/smp46/smp46.me"
 ---
 </code></pre>
 <ol start="3">
@@ -536,12 +536,12 @@ any files for viruses before running them.</p>
 <p>Now cross-platform! Checkout the latest releases for Windows and Linux specific
 builds.</p>
 <p><em>Demo of Windows GUI</em></p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/rcvt/Windows_GUI.gif" alt="Windows_GUI_demo"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/rcvt/Windows_GUI.gif" alt="Windows_GUI_demo"></p>
 <p><em>Demo of Universal GUI</em></p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/rcvt/Universal_GUI.gif" alt="universal_gui_demo"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/rcvt/Universal_GUI.gif" alt="universal_gui_demo"></p>
 <p><em>Screenshot of Universal CLI</em></p>
 <p>There is also now a CLI version, with builds for both Windows and Linux:
-<img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/rcvt/Universal_CLI.webp?q=85" alt="universal_cli_demo"></p>
+<img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/rcvt/Universal_CLI.webp?q=85" alt="universal_cli_demo"></p>
 <h2>Key Features</h2>
 <ul>
 <li>Utilizes the VirusTotal API to upload files and retrieve analysis results.</li>
@@ -568,7 +568,7 @@ Click</em> functionality on Windows.</li>
 it without arguments and admin permissions will open the program, which will
 then relaunch and request admin permissions. Then you are presented with two
 windows that look like this:
-<img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/rcvt/Windows_Instructions.webp?q=85" alt="image"></p>
+<img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/rcvt/Windows_Instructions.webp?q=85" alt="image"></p>
 <p>Here you can input your VirusTotal API key, and the program will add a shortcut
 <strong>to the programs current location</strong>, meaning if you move the .exe the shortcut
 will no longer work, so only do this once you have placed it where you want to
@@ -717,7 +717,7 @@ images for each location.</p>
 </li>
 </ul>
 <h3>Demo</h3>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/storypath/web_demo.webp" alt="StoryPathWebDemo"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/storypath/web_demo.webp" alt="StoryPathWebDemo"></p>
 <h2>Companion App</h2>
 <p>The StoryPath mobile app (React Native) enables users to play experiences
 created on the web platform. Once a user creates a profile (locally stored),
@@ -749,7 +749,7 @@ updates the user’s score and reveals the next clue.</p>
 </li>
 </ul>
 <h3>Demo</h3>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/storypath/app_demo.webp" alt="StoryPathAppDemo"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/storypath/app_demo.webp" alt="StoryPathAppDemo"></p>
 <h2>Setup Instructions</h2>
 <p>The app and website <em>can</em> be run locally with the caveat that the API has just
 been reimplemented with json-server. And the ChatGPT functionaility won't work
@@ -807,7 +807,7 @@ phone using the Expo Go app.</p>
 Queensland. Brought to you in Rust.</p>
 <p>Written in 48 Hours for the UQCS 2024 Hackathon, by a team who had never
 developed collaboratively or writtten in Rust.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.github.io/nextjs/public/assets/uqinc/uqinc.webp?q=85" alt="Screenshot"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/uqinc/uqinc.webp?q=85" alt="Screenshot"></p>
 <h1>How to Run</h1>
 <h3>From Source</h3>
 <p>UQInc requires rust and cargo in order to run. To start, in the terminal run:</p>
