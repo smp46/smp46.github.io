@@ -22,9 +22,8 @@ created: '2025-06-23'
 updated: '2025-06-23'
 ---
 
-# FileFerry: Building a Secure, Peer-to-Peer File Sharing App from Scratch
-
 ![Flow Chart](https://cdn.statically.io/gh/smp46/FileFerry/main/public/favicon/web-app-manifest-192x192.png)
+# FileFerry: Building a Secure, Peer-to-Peer File Sharing App from Scratch
 
 ## Motivation
 
@@ -104,8 +103,7 @@ While js-libp2p does handle the magic, it isn't exactly simple nor
 straightforward. I started with this
 [webrtc browser-to-browser example](https://github.com/libp2p/js-libp2p-example-webrtc-private-to-private/)
 and went from there. Unfortunately, while libp2p has some cool built-in
-protocols like gossip-sub for chat apps, it doesn't offer a file transfer
-protocol. It _doesn't_ offer a file transfer protocol, so that was my job to
+protocols like gossip-sub for chat apps. It _doesn't_ offer a file transfer protocol, so that was my job to
 implement. But in theory if I can get a stream, I should be able to just push
 some data through it, save it on the other end and boom, file-sharing done.
 Well, in a perfect world maybe, but I found WebSockets and WebRTC isn't exactly
