@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://smp46.me</id>
     <title>smp46</title>
-    <updated>2025-06-23T06:09:54.890Z</updated>
+    <updated>2025-06-24T00:42:20.887Z</updated>
     <generator>Next.js using Feed for Node.js</generator>
     <author>
         <name>smp46</name>
@@ -20,8 +20,8 @@
         <link href="https://smp46.me/blog/FileFerry"/>
         <updated>2025-06-23T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[FileFerry is a browser-based, peer-to-peer file sharing application that allows for secure, direct file transfers between any two browsers. Inspired by the command-line utility magic-wormhole, it uses WebRTC and the libp2p library. The project implement a custom protocol for reliable transfers over unstable connections, including checksum validation and an acknowledgement system, built with TypeScript and TailwindCSS.]]></summary>
-        <content type="html"><![CDATA[<h1>FileFerry: Building a Secure, Peer-to-Peer File Sharing App from Scratch</h1>
-<p><img src="https://cdn.statically.io/gh/smp46/FileFerry/main/public/favicon/web-app-manifest-192x192.png" alt="Flow Chart"></p>
+        <content type="html"><![CDATA[<p><img src="https://cdn.statically.io/gh/smp46/FileFerry/main/public/favicon/web-app-manifest-192x192.png" alt="Flow Chart"></p>
+<h1>FileFerry: Building a Secure, Peer-to-Peer File Sharing App from Scratch</h1>
 <h2>Motivation</h2>
 <p>I'm a big fan and user of the file-sharing utility
 <a href="https://github.com/magic-wormhole/magic-wormhole">magic-wormhole</a>. An
@@ -86,8 +86,7 @@ track of usage by number of hours.</p>
 straightforward. I started with this
 <a href="https://github.com/libp2p/js-libp2p-example-webrtc-private-to-private/">webrtc browser-to-browser example</a>
 and went from there. Unfortunately, while libp2p has some cool built-in
-protocols like gossip-sub for chat apps, it doesn't offer a file transfer
-protocol. It <em>doesn't</em> offer a file transfer protocol, so that was my job to
+protocols like gossip-sub for chat apps. It <em>doesn't</em> offer a file transfer protocol, so that was my job to
 implement. But in theory if I can get a stream, I should be able to just push
 some data through it, save it on the other end and boom, file-sharing done.
 Well, in a perfect world maybe, but I found WebSockets and WebRTC isn't exactly
