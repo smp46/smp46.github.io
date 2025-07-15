@@ -1,0 +1,116 @@
+---
+title: Pandora's Box
+subtitle: Developing an LLM-Powered Web Honeypot in 96 Hours
+type: personal
+description: >-
+  Pandora's Box is an AI powered web honey-pot that utilises a fine-tuned
+  version of distilgpt2. Through the use of an LLM, relevant, specific and
+  personalised responses can be made to every incoming request. The project was
+  built with Python, Golang and Typescript.
+
+  🏆 5th Place Winner at LaunchHacks IV Hackathon 🏆
+keywords: >-
+  Pandoras Box, CyberSec, Hackathon, Honeypot, LLM, AI, Machine Learning,
+  Golang, Python, Typescript, Next.js
+github: 'https://github.com/Honeypotters/PandorasBox'
+featured: true
+heroImage: >-
+  https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/logo.webp
+date: '2025-07-15'
+created: '2025-07-15'
+updated: '2025-07-15'
+---
+
+![Title](https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/title.webp)
+
+# Pandora's Box: Developing an LLM-Powered Web Honeypot in 96 Hours
+
+## The Problem
+
+The idea of a Honeypot is to detect and collect information on attackers by
+pretending to be an open server. The downside is that Honeypots normally return
+a static, generic or no response, which can tip off attackers and prevent
+defenders from gaining valuable insights.
+
+## The Solution
+
+In the age of large language models, why settle for a basic response? Given that
+a web request is all readable text, it is relatively simple to feed it to and
+get a response from a Large Language Model. So that is what my team and I, the
+aptly named [Honeypotters](https://github.com/Honeypotters/), set out to do.
+
+## Does it Already Exist?
+
+Yes, in a way. Through my research I found an existing solution called
+[Galah](github.com/0x4D31/galah). It largely achieves what we aimed for: using
+an LLM to produce realistic, relevant responses to web requests. However, Galah
+has a drawback. It depends on external LLMs via online APIs, which simplifies
+things but introduces a significant issue: latency. Most web servers should
+respond in under 100 milliseconds, depending on your network connection. Online
+LLMs like ChatGPT and Gemini are large, and their response times can be slow,
+particularly when using inexpensive or free APIs. More importantly, these times
+can vary significantly. Neither of these factors is ideal when trying to imitate
+a real web server.
+
+## What Makes Pandora's Box Different
+
+My team thought, given how good modern LLM tech is and how fast computers are,
+why not create a specialised purpose-built one? Which is exactly what we (by
+which I mean Brandon, our machine learning major) did. As a base model, we chose
+a distilled low-parameter version of GPT2,
+[distilbert/distilgpt2](https://huggingface.co/distilbert/distilgpt2), mostly
+because it is relatively fast to train, and very fast to run (with GPU
+acceleration).
+
+One of the largest challenges of training a model is finding relevant existing
+data and collecting our own. Ideally, you want a large amount of data to train
+with; however, given our time frame, we could not collect and prepare enough
+data to be useful. Instead, a large amount of the data was
+[synthesised](https://github.com/Honeypotters/PandorasBox/blob/main/llm/data/syntheticifier.py);
+this approach gave us lots of data in the exact format needed for training.
+
+The final model we used can be found on
+[Huggingface](https://huggingface.co/bangu7/honeypot-http-response). It was
+trained in about 15 minutes using 20,000 examples and can produce a result in
+under a second with an RTX 5070 Ti.
+
+## Putting it Together
+
+While the LLM was the honeypot's primary component, we still needed software for
+the honeypotting operations. We chose Golang for its speed, excellent built-in
+HTTP server support, and straightforward multithreading. Lachlan and I developed
+this component. It consists of an HTTP server that listens for requests, sends
+them to the LLM running behind a Python Flask API, receives the response, and
+converts and sends it back to the client. We also included extensive statistics
+collection to provide a good user interface.
+
+My biggest contribution was the dashboard and statistics collection. This is a
+minimal Next.js website that displays the request count, uptime, average
+response time, an overview of the 10 most requested items and their responses,
+and charts categorising each request. For categorisation, I used Gemini Flash 2
+because it's free and the task doesn't demand rapid responses.
+
+![dashboard_1](https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/dash1.webp)
+![dashboard_2](https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/dash2.webp)
+
+## The Result
+
+### What Could Be Better
+
+Our model's biggest limitation was the synthesised data. Ideally, we would have
+preferred to use much more real and unique data. This would have led to a far
+more varied and creative model. Handling HTTPS would have also been beneficial,
+though I'm still unsure how to manage certificates for that.
+
+### Something Functional
+
+To our surprise, we successfully built what we set out to achieve: a working
+AI-powered honeypot. Sending a request to the server yields a unique response
+each time, as intended. For example, if you visit the server IP in a browser,
+you'll see one of several variations of different webpages. None of these pages
+are actually stored on the honeypot; they are all generated on the fly by our
+model.
+
+If you're interested in giving Pandora's Box a try, you can view the GitHub
+through the link on this page. There you will also find our DevPost submission
+story and video.
