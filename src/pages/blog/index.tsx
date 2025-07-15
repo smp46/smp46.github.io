@@ -134,7 +134,7 @@ export default function FeaturedBlogLayout({ posts }: Props) {
             <div className="rounded-lg bg-white p-6">
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/feed.xml"
+                  href="https://cdn.statically.io/gh/smp46/smp46.me/main/public/feeds/feed.xml"
                   className="group flex items-center gap-2 px-4 py-2 rounded-md bg-orange-50 text-orange-600
                     hover:bg-orange-100 transition-all duration-200 border border-orange-200"
                   aria-label="RSS Feed"
@@ -143,7 +143,7 @@ export default function FeaturedBlogLayout({ posts }: Props) {
                   <span className="font-medium">RSS</span>
                 </a>
                 <a
-                  href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/atom.xml"
+                  href="https://cdn.statically.io/gh/smp46/smp46.me/main/public/feeds/atom.xml"
                   className="group flex items-center gap-2 px-4 py-2 rounded-md bg-purple-50 text-purple-600
                     hover:bg-purple-100 transition-all duration-200 border border-purple-200"
                   aria-label="Atom Feed"
@@ -152,7 +152,7 @@ export default function FeaturedBlogLayout({ posts }: Props) {
                   <span className="font-medium">Atom</span>
                 </a>
                 <a
-                  href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/feed.json"
+                  href="https://cdn.statically.io/gh/smp46/smp46.me/main/public/feeds/feed.json"
                   className="group flex items-center gap-2 px-4 py-2 rounded-md bg-blue-50 text-blue-600
                     hover:bg-blue-100 transition-all duration-200 border border-blue-200"
                   aria-label="JSON Feed"

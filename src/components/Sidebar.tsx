@@ -147,7 +147,7 @@ export default function Sidebar() {
             <SiGmail />
           </a>
           <Link
-            href="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/feeds/feed.xml"
+            href="https://cdn.statically.io/gh/smp46/smp46.me/main/public/feeds/feed.xml"
             className="text-white sm:text-2xl text-4xl transition-transform duration-300
               hover:scale-110"
             target="_blank"
