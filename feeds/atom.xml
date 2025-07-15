@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://smp46.me</id>
     <title>smp46</title>
-    <updated>2025-07-15T07:24:51.205Z</updated>
+    <updated>2025-07-15T07:28:44.775Z</updated>
     <generator>Next.js using Feed for Node.js</generator>
     <author>
         <name>smp46</name>
@@ -21,7 +21,7 @@
         <updated>2025-07-15T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Pandora's Box is an AI powered web honey-pot that utilises a fine-tuned version of distilgpt2. Through the use of an LLM, relevant, specific and personalised responses can be made to every incoming request. The project was built with Python, Golang and Typescript.
 🏆 5th Place Winner at LaunchHacks IV Hackathon 🏆]]></summary>
-        <content type="html"><![CDATA[<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/title.webp" alt="Title"></p>
+        <content type="html"><![CDATA[<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/main/public/assets/pandorasbox/title.webp" alt="Title"></p>
 <h1>Pandora's Box: Developing an LLM-Powered Web Honeypot in 96 Hours</h1>
 <h2>The Problem</h2>
 <p>The idea of a Honeypot is to detect and collect information on attackers by
@@ -75,8 +75,8 @@ minimal Next.js website that displays the request count, uptime, average
 response time, an overview of the 10 most requested items and their responses,
 and charts categorising each request. For categorisation, I used Gemini Flash 2
 because it's free and the task doesn't demand rapid responses.</p>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/dash1.webp" alt="dashboard_1">
-<img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/pandorasbox/dash2.webp" alt="dashboard_2"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/main/public/assets/pandorasbox/dash1.webp" alt="dashboard_1">
+<img src="https://cdn.statically.io/gh/smp46/smp46.me/main/public/assets/pandorasbox/dash2.webp" alt="dashboard_2"></p>
 <h2>The Result</h2>
 <h3>What Could Be Better</h3>
 <p>Our model's biggest limitation was the synthesised data. Ideally, we would have
@@ -211,7 +211,7 @@ an acknowledgement that it has received the last batch. This helped especially
 when connection drop-outs occurred, often the sender would reconnect and keep
 blasting data while the receiver is still trying to catch up.</p>
 <h3>A (Poorly Made) Overview</h3>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/fileferry/flowchart.webp" alt="Flow Chart"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/main/public/assets/fileferry/flowchart.webp" alt="Flow Chart"></p>
 <h3>The UI</h3>
 <p>The nautical theme was picked mostly because I was looking for something
 interesting. As I'm not a UI designer, it felt easier to make something a little
@@ -247,7 +247,7 @@ three geographically closest STUN servers to the client.</li>
 </li>
 </ul>
 <h2>The Result: A Demo</h2>
-<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/nextjs/public/assets/fileferry/output.gif" alt="Demo"></p>
+<p><img src="https://cdn.statically.io/gh/smp46/smp46.me/main/public/assets/fileferry/output.gif" alt="Demo"></p>
 <p>Visit <a href="https://fileferry.xyz">fileferry.xyz</a> to try it yourself!</p>
 <h2>To Conclude</h2>
 <p>This turned into a really fun and challenging project, and has definitely
